@@ -2,8 +2,8 @@ import {loanStatus,showDate} from '../js/loan-status.js';
 // Pre-render the anonymized public preview so useful content is visible even
 // without running JS, while its full data remain Google Drive protected.
 const escapeHtml=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const ALLOWED=['country','dueDate','family','number','sentDate','sentDateRaw','specimenCount','status','type','year'].join(',');
-const labels={EMP:'Empréstimo',DEV:'Devolução',DOA:'Doação',TRAN:'Transferência',PER:'Permuta'};
+const ALLOWED=['country','dueDate','dueDateRaw','dueSource','family','number','sentDate','sentDateRaw','specimenCount','status','type','year'].join(',');
+const labels={EMP:'Empréstimo',DEV:'Devolução',DOA:'Doação',TRAN:'Transferência',PER:'Permuta',MIX:'Movimentação mista'};
 export function renderPublicPreview(source,data,revision='local'){
   if(data?.kind!=='public-anonymized-preview'||!Array.isArray(data.records)||!data.records.length||data.records.length>100)
     throw Error('Public preview invalid');
@@ -13,7 +13,7 @@ export function renderPublicPreview(source,data,revision='local'){
       r.specimenCount<0||r.specimenCount>1000000||[r.country,r.family,r.status].some(x=>typeof x!=='string'))
       throw Error('Unexpected public record fields');
   }
-  const rows=data.records.map((r,i)=>({...r,id:`preview-${i}`,loan:{sentDate:r.sentDate,dueDate:r.dueDate,sentDateRaw:r.sentDateRaw,datesNeedReview:Boolean(r.sentDateRaw)}}));
+  const rows=data.records.map((r,i)=>({...r,id:`preview-${i}`,loan:{sentDate:r.sentDate,dueDate:r.dueDate,sentDateRaw:r.sentDateRaw,dueDateRaw:r.dueDateRaw,dueSource:r.dueSource,datesNeedReview:Boolean(r.sentDateRaw||r.dueDateRaw)}}));
   const statuses=rows.map(row=>loanStatus(row));
   const metrics=[
     ['PRAZO VENCIDO · A CONFERIR','mOverdue',statuses.filter(s=>s.code==='overdue').length,

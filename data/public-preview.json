@@ -1,9 +1,37 @@
 {
   "kind": "public-anonymized-preview",
   "snapshotDate": "2026-10-20",
-  "source": "Google Drive da Coleção Entomológica do INPA",
-  "note": "Recorte documental parcial. Datas reproduzidas das guias; datas ambíguas devem ser conferidas nos originais. Nenhum envio futuro é presumido. Não representa conciliação de devoluções.",
+  "source": "Guias de empréstimo / 2026 - Google Drive INPA",
+  "note": "Triagem documental preliminar; 2026; dados individuais protegidos no Drive. Prazos literais podem ser ambíguos; prazo de um ano quando a guia não apresenta vencimento. Estados de devolução ainda não conciliados.",
   "records": [
+    {
+      "year": "2026",
+      "number": "005",
+      "type": "DOA",
+      "family": "Chrysomelidae",
+      "specimenCount": 26,
+      "country": "Brasil",
+      "sentDate": "2026-01-27",
+      "sentDateRaw": null,
+      "dueDate": null,
+      "dueDateRaw": null,
+      "status": "Doação, não empréstimo.",
+      "dueSource": "not_applicable"
+    },
+    {
+      "year": "2026",
+      "number": "009",
+      "type": "DOA",
+      "family": "Lampyridae",
+      "specimenCount": 17,
+      "country": "Brasil",
+      "sentDate": "2026-01-28",
+      "sentDateRaw": null,
+      "dueDate": null,
+      "dueDateRaw": null,
+      "status": "Doação, não empréstimo.",
+      "dueSource": "not_applicable"
+    },
     {
       "year": "2026",
       "number": "013",
@@ -11,10 +39,12 @@
       "family": "Lampyridae / Lycidae",
       "specimenCount": 184,
       "country": "Alemanha",
-      "status": "Data de envio escrita como 02/12/2026 (formato ambíguo dia/mês ou mês/dia). Conferir Guia Original; envio futuro não presumido.",
       "sentDate": null,
+      "sentDateRaw": "02/12/2026",
       "dueDate": "2026-12-12",
-      "sentDateRaw": "02/12/2026"
+      "dueDateRaw": null,
+      "status": "Data ambígua no documento: conferir Guia Original. Empréstimo documental; devolução efetiva ainda não conciliada.",
+      "dueSource": "document"
     },
     {
       "year": "2026",
@@ -23,10 +53,40 @@
       "family": "Chrysomelidae",
       "specimenCount": 20,
       "country": "Brasil",
-      "status": "Movimentação documentada; execução e devolução não conciliadas",
       "sentDate": "2026-02-24",
+      "sentDateRaw": null,
       "dueDate": null,
-      "sentDateRaw": null
+      "dueDateRaw": null,
+      "status": "Doação, não empréstimo.",
+      "dueSource": "not_applicable"
+    },
+    {
+      "year": "2026",
+      "number": "024",
+      "type": "EMP",
+      "family": "Lampyridae",
+      "specimenCount": 124,
+      "country": "Estados Unidos",
+      "sentDate": "2026-03-03",
+      "sentDateRaw": null,
+      "dueDate": null,
+      "dueDateRaw": "12/03/2026",
+      "status": "Data ambígua no documento: conferir Guia Original. Empréstimo documental; devolução efetiva ainda não conciliada.",
+      "dueSource": "ambiguous_document"
+    },
+    {
+      "year": "2026",
+      "number": "025",
+      "type": "DOA",
+      "family": "Chrysomelidae",
+      "specimenCount": 28,
+      "country": "Brasil",
+      "sentDate": "2026-03-16",
+      "sentDateRaw": null,
+      "dueDate": null,
+      "dueDateRaw": null,
+      "status": "Doação, não empréstimo.",
+      "dueSource": "not_applicable"
     },
     {
       "year": "2026",
@@ -35,10 +95,96 @@
       "family": "Scirtiidae",
       "specimenCount": 381,
       "country": "Brasil",
-      "status": "Movimentação documentada; execução e devolução não conciliadas",
       "sentDate": "2026-04-14",
+      "sentDateRaw": null,
       "dueDate": "2026-12-14",
-      "sentDateRaw": null
+      "dueDateRaw": null,
+      "status": "Empréstimo documental; devolução efetiva ainda não conciliada.",
+      "dueSource": "document"
+    },
+    {
+      "year": "2026",
+      "number": "037",
+      "type": "MIX",
+      "family": "Passalidae / Carabidae / Scarabaeidae / Curculionidae",
+      "specimenCount": 32,
+      "country": "Brasil",
+      "sentDate": "2026-04-15",
+      "sentDateRaw": null,
+      "dueDate": null,
+      "dueDateRaw": null,
+      "status": "Documento combina devolução de 22 Passalidae e doação de 10 Coleoptera, além de 3 livros; o original informa que outros exemplares não foram localizados.",
+      "dueSource": "not_applicable"
+    },
+    {
+      "year": "2026",
+      "number": "045",
+      "type": "EMP",
+      "family": "Alticidae",
+      "specimenCount": 3,
+      "country": "Brasil",
+      "sentDate": "2026-05-15",
+      "sentDateRaw": null,
+      "dueDate": "2027-05-15",
+      "dueDateRaw": null,
+      "status": "Empréstimo documental; devolução efetiva ainda não conciliada.",
+      "dueSource": "document"
+    },
+    {
+      "year": "2026",
+      "number": "046",
+      "type": "EMP",
+      "family": "Chrysomelidae",
+      "specimenCount": 18,
+      "country": "Brasil",
+      "sentDate": "2026-05-15",
+      "sentDateRaw": null,
+      "dueDate": "2027-05-15",
+      "dueDateRaw": null,
+      "status": "Guia mista: 10 exemplares em empréstimo (INPA) e 8 em trânsito (MIZA); não atribuir 18 exemplares ao saldo de empréstimo.",
+      "dueSource": "document"
+    },
+    {
+      "year": "2026",
+      "number": "047",
+      "type": "EMP",
+      "family": "Coleoptera (família não informada)",
+      "specimenCount": 8,
+      "country": "Brasil",
+      "sentDate": "2026-05-15",
+      "sentDateRaw": null,
+      "dueDate": "2027-05-15",
+      "dueDateRaw": null,
+      "status": "Guia mista: 7 Eumolpinae em empréstimo (INPA) e 1 Bruchinae em doação (MEPEG); não atribuir 8 exemplares ao saldo de empréstimo.",
+      "dueSource": "document"
+    },
+    {
+      "year": "2026",
+      "number": "049",
+      "type": "EMP",
+      "family": "Coleoptera (família não informada)",
+      "specimenCount": 7,
+      "country": "Brasil",
+      "sentDate": "2026-05-27",
+      "sentDateRaw": null,
+      "dueDate": "2027-05-27",
+      "dueDateRaw": null,
+      "status": "Empréstimo documental; devolução efetiva ainda não conciliada.",
+      "dueSource": "one_year"
+    },
+    {
+      "year": "2026",
+      "number": "052",
+      "type": "DEV",
+      "family": "Passalidae",
+      "specimenCount": 2,
+      "country": "Brasil",
+      "sentDate": null,
+      "sentDateRaw": "08/06/2026",
+      "dueDate": null,
+      "dueDateRaw": null,
+      "status": "Data ambígua no documento: conferir Guia Original. Devolução registrada por sufixo -DEV; não conciliada com empréstimo anterior.",
+      "dueSource": "not_applicable"
     },
     {
       "year": "2026",
@@ -47,10 +193,12 @@
       "family": "Buprestidae",
       "specimenCount": 14,
       "country": "Brasil",
-      "status": "Movimentação documentada; execução e devolução não conciliadas",
       "sentDate": "2026-07-27",
+      "sentDateRaw": null,
       "dueDate": "2028-07-27",
-      "sentDateRaw": null
+      "dueDateRaw": null,
+      "status": "Empréstimo documental; devolução efetiva ainda não conciliada.",
+      "dueSource": "document"
     }
   ]
 }

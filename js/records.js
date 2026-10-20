@@ -1,5 +1,5 @@
-export const TYPE_LABELS={EMP:'Empréstimo',DEV:'Devolução',DEVO:'Devolução',DOA:'Doação',TRAN:'Transferência',PER:'Permuta'};
-export const TYPE_ORDER=['EMP','DEV','DOA','TRAN','PER','OUTRO'];
+export const TYPE_LABELS={EMP:'Empréstimo',DEV:'Devolução',DEVO:'Devolução',DOA:'Doação',TRAN:'Transferência',PER:'Permuta',MIX:'Movimentação mista'};
+export const TYPE_ORDER=['EMP','DEV','DOA','TRAN','PER','MIX','OUTRO'];
 const stripExt=s=>String(s||'').replace(/\.(pdf|docx?|odt)$/i,'');
 export const normalize=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('pt-BR').replace(/[^a-z0-9]+/g,' ').trim();
 export function parseFilename(name,folderYear=''){
@@ -10,6 +10,16 @@ export function parseFilename(name,folderYear=''){
   let type=(m?.[4]||'').toUpperCase();
   if(!type){const match=base.match(/(?:^|[-_\s])(EMP|DEV|DEVO|DOA|DOAÇÃO|DOACAO|TRAN|PER)(?:$|[-_\s])/i);type=match?.[1]?.toUpperCase()||'OUTRO';}
   if(!researcher&&base.includes('_'))researcher=base.split('_').slice(1).join('_').replace(/[-_](EMP|DEV|DEVO|DOA|DOAÇÃO|DOACAO|TRAN|PER)$/i,'').trim();
+  // Multi-code filenames (e.g. DOA-DEV) describe mixed movements: do not
+  // silently classify them as the last code (DEV). The guide content must be
+  // reviewed to split the quantities into the relevant movement components.
+  const terminalCodes=base.match(/(?:[-_\s]+(?:EMP|DEV|DEVO|DOA|DOAÇÃO|DOACAO|TRAN|PER))+$/i)?.[0]||'';
+  const distinctTypes=[...new Set((terminalCodes.match(/EMP|DEV|DEVO|DOA|DOAÇÃO|DOACAO|TRAN|PER/gi)||[])
+    .map(v=>v.toUpperCase()).map(v=>v==='DEVO'?'DEV':/^(DOAÇÃO|DOACAO)$/.test(v)?'DOA':v))];
+  if(distinctTypes.length>1){
+    type='MIX';
+    researcher=researcher.replace(/(?:[-_\s]+(?:EMP|DEV|DEVO|DOA|DOAÇÃO|DOACAO|TRAN|PER))+$/i,'').trim();
+  }
   return {year,number,researcher,type:type==='DEVO'?'DEV':/^(DOAÇÃO|DOACAO)$/.test(type)?'DOA':type,rawType:type, title:name};
 }
 export const isPreferred = f=>f.mimeType==='application/pdf'||/\.pdf$/i.test(f.name||'');

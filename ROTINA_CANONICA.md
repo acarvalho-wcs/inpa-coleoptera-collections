@@ -56,3 +56,10 @@ A prévia pública contém exclusivamente quatro guias resumidas de 2026, com da
 - Em registros autenticados, **Nome** e **Solicitante** são campos distintos; extração do conteúdo documental é preferida ao nome do arquivo. Sem leitura do original, sinalizar não extraído ou a origem provisória da identificação.
 - Apenas a prévia anônima fica no GitHub Pages público. Nomes completos, solicitantes, telefones, e-mails e transcrições devem ser consultados na sessão com OAuth Google autorizado e mantidos no Drive.
 - O filtro de atraso é um indicador **documental provisório**. Até automatizar a conciliação de devoluções, status de atraso permanece sujeito à validação curatorial.
+
+
+## Primeira triagem ampliada de 2026 (20/10/2026)
+
+A pasta anual continha 101 arquivos (83 DOCX, 17 PDF e 1 planilha auxiliar). O recorte de Coleoptera foi ampliado de quatro para **14 guias documentais**, identificadas em textos e caixas de texto das guias originais. O índice público contém somente ano, guia, família ou táxon, contagens, país de destino, datas e observações documentais; nenhum nome, solicitante, e-mail ou ID do Drive. O índice privado detalhado foi produzido para arquivamento na pasta autorizada do Drive. Os documentos originais permanecem na fonte.
+
+A soma das contagens dos 14 documentos é 864 espécimes, incluindo doações e devoluções; **não é o número de animais atualmente emprestados**. A guia 2026/037 reúne DEV+DOA (22 devolvidos e 10 doados); a 2026/046 reúne 10 em empréstimo e 8 em trânsito; a 2026/047 reúne 7 em empréstimo e 1 em doação. A guia 2026/024 apresenta prazo literal ambíguo `12/03/2026` e requer revisão do original. Para a guia 2026/049, sem vencimento expresso, o prazo estimado é de um ano após o envio (27/05/2027). Uma guia DOCX (2026/058) foi listada, mas não pôde ser baixada durante esta rodada; documentos sem taxonomia explícita permanecem pendentes de conferência.

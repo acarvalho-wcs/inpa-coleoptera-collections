@@ -49,16 +49,20 @@ test('publishes only app allowlist and public OAuth client ID', async () => {
   } finally { await rm(out, { recursive: true, force: true }); }
 });
 
-test('public preview contains only anonymized and sourced four-guide summary',async()=>{
+test('public preview contains only anonymized and sourced 2026 Coleoptera snapshot',async()=>{
   const sample=JSON.parse(await readFile(join(root,'data','public-preview.json'),'utf8'));
   assert.equal(sample.kind,'public-anonymized-preview');
-  assert.equal(sample.records.length,4);
-  assert.equal(sample.records.filter(r=>r.type==='EMP').length,3);
-  assert.equal(sample.records.filter(r=>r.type==='DOA').length,1);
-  assert.equal(sample.records.reduce((n,r)=>n+r.specimenCount,0),599);
-  assert.equal(sample.records.some(r=>r.number==='013'&&r.status.includes('Conferir Guia Original')&&r.sentDate===null),true);
+  assert.equal(sample.records.length,14);
+  assert.equal(sample.records.filter(r=>r.type==='EMP').length,8);
+  assert.equal(sample.records.filter(r=>r.type==='DOA').length,4)
+  assert.equal(sample.records.filter(r=>r.type==='DEV').length,1)
+  assert.equal(sample.records.filter(r=>r.type==='MIX').length,1);
+  assert.equal(sample.records.reduce((n,r)=>n+r.specimenCount,0),864);
+  assert.equal(sample.records.some(r=>r.number==='013'&&r.status.includes('conferir Guia Original')&&r.sentDate===null),true);
+  assert.equal(sample.records.some(r=>r.number==='049'&&r.dueDate==='2027-05-27'&&r.dueSource==='one_year'),true);
+  assert.equal(sample.records.some(r=>r.number==='024'&&r.dueDateRaw==='12/03/2026'&&r.dueDate===null),true);
   for(const r of sample.records){
-    assert.deepEqual(Object.keys(r).sort(), ['country','dueDate','family','number','sentDate','sentDateRaw','specimenCount','status','type','year']);
+    assert.deepEqual(Object.keys(r).sort(), ['country','dueDate','dueDateRaw','dueSource','family','number','sentDate','sentDateRaw','specimenCount','status','type','year']);
     assert.equal(r.year,'2026');
   }
   const raw=JSON.stringify(sample);
@@ -89,4 +93,16 @@ test('public page has separate columns for recipient and requester without real 
     assert.doesNotMatch(html,/Migliori|Hamada|Ferreira|Sampaio/i);
     assert.doesNotMatch(html,/Envio futuro/);
   } finally {await rm(out,{recursive:true,force:true});}
+});
+
+
+test('2026 preview keeps mixed and returned guide types separate',async()=>{
+  const dataset=JSON.parse(await readFile(join(root,'data','public-preview.json'),'utf8'));
+  const guide=id=>dataset.records.find(r=>r.number===id);
+  assert.equal(guide('037').type,'MIX');
+  assert.equal(guide('052').type,'DEV');
+  assert.match(guide('046').status,/10 exemplares.*8 em trânsito/);
+  assert.match(guide('047').status,/7 Eumolpinae.*1 Bruchinae/);
+  const {loanStatus}=await import('../js/loan-status.js');
+  assert.equal(loanStatus({type:'EMP',loan:guide('049')},'2026-10-20').dueSource,'one_year');
 });

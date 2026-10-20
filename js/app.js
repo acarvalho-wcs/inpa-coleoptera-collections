@@ -48,7 +48,7 @@ async function connect(){
   }finally{setBusy(false);}
 }
 function attachCanonical(row){
-  const c=state.canonical.get(canonicalKey(row));if(!c)return;
+  const c=state.canonical.get(canonicalKey(row))||[...state.canonical.values()].find(v=>v.sourceId===row.id||(v.documents||[]).some(d=>(row.sources||[]).some(s=>s.id===d.id)));if(!c)return;
   row.canonical=c;row.taxonomicOrder=c.taxonomy?.order||null;row.family=c.taxonomy?.family||null;
   row.country=c.destination?.country||null;row.city=c.destination?.city||null;
   row.institution=c.destination?.institution||null;row.specimens=c.specimenCount||null;
@@ -338,13 +338,13 @@ async function loadPublicPreview(){
       sentDate:r.sentDate||null,dueDate:r.dueDate||null,previewStatus:r.status,preview:true,
       canonical:{movement:{type:r.type},taxonomy:{classification:'coleoptera',order:'Coleoptera',evidence:[]},
         loan:{sentDate:r.sentDate||null,dueDate:r.dueDate||null,
-          sentDateRaw:r.sentDateRaw||null,datesNeedReview:Boolean(r.sentDateRaw),returnStatus:'not_reconciled'}}}));
+          sentDateRaw:r.sentDateRaw||null,dueDateRaw:r.dueDateRaw||null,dueSource:r.dueSource||null,datesNeedReview:Boolean(r.sentDateRaw||r.dueDateRaw),returnStatus:'not_reconciled'}}}));
     if(client.token)return;
     state.previewCache=rows;state.rows=rows.slice();state.previewMode=true;
     $('yearSelect').innerHTML='<option value="2026">2026 · prévia</option>';
     $('yearSelect').value='2026';setBusy(false);render();
     $('connectBtn').disabled=false;$('connectBtn').textContent='Conectar Google Drive';setConnected(false);
-    message('PRÉVIA PARCIAL · datas reproduzidas das guias. A data 02/12/2026 da guia 013 possui formato ambíguo: CONFERIR GUIA ORIGINAL. Envio futuro não é presumido.');
+    message(`TRIAGEM 2026 · ${rows.length} guias de Coleoptera com evidência documental. Datas ambíguas exigem conferência na Guia Original; sem conciliação de devoluções. Para consultar Nome e Solicitante, conecte o Drive.`);
   }catch(e){message(`Prévia indisponível: ${e.message}`,'error');}
 }
 $('connectBtn').addEventListener('click',()=>{

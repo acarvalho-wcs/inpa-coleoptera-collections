@@ -45,7 +45,7 @@ export function loanStatus(row,today=localToday()){
   const ambiguous=Boolean(sentParsed?.ambiguous||dueParsed?.ambiguous||loan.datesNeedReview||row?.datesNeedReview);
   const suspiciousFuture=Boolean(sent&&sent>today);
   // An ambiguous date printed on a guide is never silently assigned a format.
-  const dueSource=extended?'extension':original?'document':rawDue?'ambiguous_document':sent?'one_year':'missing';
+  const dueSource=extended?'extension':original?(loan.dueSource==='one_year'?'one_year':'document'):rawDue?'ambiguous_document':sent?'one_year':'missing';
   const due=extended||original||(rawDue?null:addOneYear(sent));
   const needsOriginal=ambiguous||suspiciousFuture||dueSource==='ambiguous_document'||Boolean(sentParsed?.invalid||dueParsed?.invalid);
   const meta={dueDate:due,dueSource,days:due?daysBetween(today,due):null,needsOriginal,

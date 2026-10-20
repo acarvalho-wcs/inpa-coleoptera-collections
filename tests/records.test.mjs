@@ -31,3 +31,10 @@ test('busca sem diacriticos e filtra tipos',()=>{
 test('arquivos sem codigo padrao nao recebem classificacao de emprestimo',()=>{
   const r=consolidate([pdf('x','Guias 2009.pdf')],'2009')[0];assert.equal(r.type,'OUTRO');assert.equal(r.year,'2009');
 });
+
+
+test('DOA-DEV in 2026 is a mixed movement rather than a completed ordinary loan',()=>{
+ const row=parseFilename('Invoice INPA 037 de 2026_Fernando Vaz de Melo-DOA-DEV.docx','2026');
+ assert.equal(row.number,'037');assert.equal(row.type,'MIX');
+ assert.equal(row.researcher,'Fernando Vaz de Melo');
+});
