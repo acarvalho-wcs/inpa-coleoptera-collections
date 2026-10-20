@@ -11,25 +11,36 @@ export function canonicalKey(row) {
 }
 
 export function detectTaxonomy(text) {
-  const clean = String(text || '').replace(/\r/g, '\n');
-  const matches = [];
-  const evidenced = /\b(?:Arthropoda\s+(?:Hexapoda|Insecta)(?:\s+\w+)?\s+)?(Coleoptera|Diptera|Hymenoptera|Lepidoptera|Hemiptera|Orthoptera|Odonata|Neuroptera|Trichoptera|Ephemeroptera|Blattodea|Phasmatodea|Mantodea|Trematoda)\b/gi;
-  for(const m of clean.matchAll(evidenced)) {
-    const order = ORDER_NAMES.find(o => o.toLowerCase() === m[1].toLowerCase());
-    if(!order) continue;
-    // Only explicit taxonomic content, not generic rules, is treated as evidence.
-    const start = Math.max(0, m.index - 45), end = Math.min(clean.length, m.index + m[0].length + 42);
-    const context = clean.slice(start, end);
-    const nearby = context.match(/\b(?:Arthropoda|Hexapoda|Insecta|Ordem|Order|Fam[ií]lia|Family|Discrimina[cç][aã]o|Discrimination)\b/i);
-    const coleopteraFamily = /Coleoptera\s*:\s*[A-Z][a-z-]+idae\b/i.test(context);
-    if(nearby || coleopteraFamily) matches.push({order, context:brief(context)});
+  const clean=String(text||'').replace(/\r/g,'\n');
+  const taxStart=clean.search(/Taxonomia\s+Taxonomy/i);
+  const taxEnd=taxStart>=0 ? clean.slice(taxStart).search(/Autorizado\s+Por|Authorized\s+By|Material recebido em boas condi/i) : -1;
+  const taxonomy=taxStart>=0 ? clean.slice(taxStart,taxEnd>=0?taxStart+taxEnd:taxStart+4000) : '';
+  const matches=[];
+  const add=(order,context)=>{
+    const known=ORDER_NAMES.find(x=>x.toLowerCase()===order.toLowerCase());
+    if(known)matches.push({order:known,context:brief(context)});
+  };
+  const orderPattern=/\b(Coleoptera|Diptera|Hymenoptera|Lepidoptera|Hemiptera|Orthoptera|Odonata|Neuroptera|Trichoptera|Ephemeroptera|Blattodea|Isoptera|Phasmatodea|Mantodea|Trematoda|Dermaptera|Psocodea)\b/gi;
+  if(taxonomy) {
+    for(const m of taxonomy.matchAll(orderPattern)){
+      const start=Math.max(0,m.index-60),end=Math.min(taxonomy.length,m.index+m[0].length+60);
+      add(m[1],taxonomy.slice(start,end));
+    }
+  } else {
+    for(const m of clean.matchAll(orderPattern)){
+      const start=Math.max(0,m.index-75),end=Math.min(clean.length,m.index+m[0].length+75);
+      const context=clean.slice(start,end);
+      const explicit=/\b(?:Arthropoda|Hexapoda|Insecta|Ordem|Order|Fam[ií]lia|Family|Discrimina[cç][aã]o|Discrimination)\b/i.test(context);
+      const taxonFamily=/Coleoptera\s*:\s*[A-Z][a-z-]+idae\b/i.test(context);
+      if(explicit||taxonFamily)add(m[1],context);
+    }
   }
-  const orders = unique(matches.map(m => m.order));
-  let classification = 'pending';
-  if(orders.length===1) classification=orders[0]==='Coleoptera'?'coleoptera':'other';
-  else if(orders.length>1) classification='mixed';
+  const orders=unique(matches.map(x=>x.order));
+  let classification='pending';
+  if(orders.length===1)classification=orders[0]==='Coleoptera'?'coleoptera':'other';
+  else if(orders.length>1)classification='mixed';
   const familyMatch=clean.match(/Fam[ií]lia\s*:\s*([A-Za-z][A-Za-z-]{3,}idae)\b/i) || clean.match(/Coleoptera\s*:\s*([A-Za-z][A-Za-z-]{3,}idae)\b/i);
-  return {classification, order: orders.length===1?orders[0]:null, orders, family:familyMatch?.[1]||null,
+  return {classification,order:orders.length===1?orders[0]:null,orders,family:familyMatch?.[1]||null,
     evidence:matches.slice(0,4).map(x=>({field:'order',quote:x.context,order:x.order}))};
 }
 
