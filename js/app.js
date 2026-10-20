@@ -4,6 +4,7 @@ import {centerForCountry} from './countries.js';
 import {canonicalKey,extractFacts,applyReview,createSnapshot,readSnapshot} from './canonical.js';
 import {extractDocumentText} from './document-extract.js';
 import {loanStatus,priority,showDate,localToday,validIso} from './loan-status.js';
+import {formatTaxonSummary,formatTaxonDiscrimination} from './taxon-format.js';
 
 const $=id=>document.getElementById(id);
 const config=window.INPA_CONFIG||{};
@@ -85,6 +86,8 @@ function taxonText(r){
  const t=r.taxa;if(!t)return r.family||r.canonical?.taxonomy?.family||'Coleoptera';
  return [t.order&&'Ordem: '+t.order,t.families?.length&&'Família: '+t.families.join(', '),t.subfamilies?.length&&'Subfamília: '+t.subfamilies.join(', '),t.genera?.length&&'Gênero: '+t.genera.join(', '),t.species?.length&&'Espécie: '+t.species.join(', ')].filter(Boolean).join(' · ');
 }
+function taxonHtml(r){return r.taxa?formatTaxonSummary(r.taxa):escapeHtml(taxonText(r));}
+function pairFormatted(label,html){return `<div class="detail-pair"><span>${escapeHtml(label)}</span><strong>${html||'Não identificado'}</strong></div>`;}
 function guideLinks(r){return (r.sources||[]).map(s=>'<a class="guide-open-btn" href="'+escapeHtml(s.url)+'" target="_blank" rel="noopener noreferrer" title="Abrir original no Google Drive">Ver Guia '+escapeHtml(s.format||'')+' ↗</a>').join(' ');}
 function render(){
   const selectedTaxon=$('taxonSelect').value,statusFilter=$('statusSelect').value;
@@ -104,7 +107,7 @@ function render(){
     return `<tr><td>${escapeHtml(r.number?`${r.year}/${r.number}`:'—')}</td><td>${escapeHtml(r.year||'—')}</td>`+
       `<td><div class="doc-name">${escapeHtml(names.name||'Não extraído')}</div><div class="submeta">${escapeHtml(r.preview?r.family:(names.nameFromGuide?'Nome confirmado no texto':'Identificação sugerida pelo nome do arquivo'))}</div></td>`+
       `<td><div class="doc-name">${escapeHtml(names.requestedBy||'Não extraído')}</div><div class="submeta">${escapeHtml(r.preview?'Transcrito da guia · conferência pendente':'Campo Solicitante da guia')}</div></td>`+
-      `<td><span class="type-tag">${escapeHtml(typeLabel(r))}</span></td><td><div class="taxon-summary">${escapeHtml(taxonText(r))}</div></td>`+
+      `<td><span class="type-tag">${escapeHtml(typeLabel(r))}</span></td><td><div class="taxon-summary">${taxonHtml(r)}</div></td>`+
       `<td><strong class="due-value">${escapeHtml(dueLabel(r))}</strong><div class="submeta">${escapeHtml(dueExtra(r))}</div></td>`+
       `<td>${statusTag(r)}</td><td><div class="guide-actions">${guideLinks(r)}<button type="button" class="guide-details-btn" data-open="${escapeHtml(r.id)}">Detalhes</button></div></td></tr>`;
   }).join(''):'<tr><td colspan="9" class="empty">Nenhuma guia corresponde aos filtros selecionados.</td></tr>';
@@ -126,7 +129,7 @@ function showDetails(r){
     pair('Prorrogação',showDate(loan.extensionDueDate)),pair('Devolução efetivamente confirmada',showDate(loan.returnedDate))];
   if(r.preview){
     $('detailBody').innerHTML=common.join('')+pair('Nome (destinatário)',r.recipient)+
-      pair('Solicitante',r.requestedBy)+pair('País',r.country)+pair('Taxonomia documentada',taxonText(r))+pair('Discriminação do material',r.taxa?.discrimination)+pair('Observação',r.previewStatus)+
+      pair('Solicitante',r.requestedBy)+pair('País',r.country)+pairFormatted('Taxonomia documentada',taxonHtml(r))+pairFormatted('Discriminação do material',formatTaxonDiscrimination(r.taxa))+pair('Observação',r.previewStatus)+
       pair('Origem dos nomes','Transcrição das guias originais de 2026; dados sujeitos à conferência curatorial')+
       pair('Alcance dos dados','Nomes e resumo documental públicos; contatos e guia integral exigem Google Drive autorizado');
     $('guideCompleteness').hidden=true;document.querySelector('#details .edit-panel').hidden=true;
@@ -259,7 +262,7 @@ async function renderMap(){
           `<span>${escapeHtml(r.specimens||r.canonical?.specimenCount||'—')} espécimes · ${escapeHtml(typeLabel(r))}</span>`+
           `<span><b>Nome:</b> ${escapeHtml(names.name||'Não extraído')}</span>`+
           `<span><b>Solicitante:</b> ${escapeHtml(names.requestedBy||'Não extraído')}</span>`+
-          `<span><b>Táxons:</b> ${escapeHtml(taxonText(r))}</span><span>Devolução prevista: <b>${escapeHtml(dueLabel(r))}</b> ${escapeHtml(dueExtra(r))}</span>`+
+          `<span><b>Táxons:</b> ${taxonHtml(r)}</span><span>Devolução prevista: <b>${escapeHtml(dueLabel(r))}</b> ${escapeHtml(dueExtra(r))}</span>`+
           `<span class="status-text ${s.code}">${escapeHtml(s.label)}</span></div>`+
           `<div class="map-record-actions"><button type="button" class="guide-details-btn" data-map-open="${escapeHtml(r.id)}">Detalhes</button>${guideLinks(r)}</div></div>`;
       }).join('')+'</div><small>Marcador aproximado do país; não da instituição.</small></div>';

@@ -62,3 +62,6 @@ main{max-width:none;width:100%;margin:0;padding:0 clamp(16px,2.5vw,52px)}
 .table-wrap th:nth-child(6),.table-wrap td:nth-child(6){min-width:260px}
 .table-wrap th:last-child,.table-wrap td:last-child{min-width:170px}
 .destination-record{align-items:flex-start}.destination-record>div:first-child{flex:1}.map-record-actions{flex-direction:column;align-items:flex-end}.destination-card{width:min(450px,calc(100vw - 70px))}
+
+/* Scientific nomenclature: italics only for genus and epithets. */
+.taxon-scientific{font-style:italic}

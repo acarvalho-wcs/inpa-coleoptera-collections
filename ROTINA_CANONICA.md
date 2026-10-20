@@ -68,3 +68,14 @@ A soma das contagens dos 14 documentos é 864 espécimes, incluindo doações e 
 ## Fechamento da triagem 2026 — 20/10/2026
 
 O inventário atual contém 101 arquivos (100 guias e 1 planilha auxiliar). Entre os documentos de guia: 83 DOCX e 17 PDF. Foram identificados 16 pares de cópias PDF/Word, deixando **84 movimentações documentais únicas**. Há **14 movimentações com Coleoptera** já cadastradas, e **70 sem evidência de Coleoptera**. Os cinco casos sem ordem explicitada passaram por revisão do conteúdo de classe e discriminação; nenhum comprovou Coleoptera. A guia 2026/058 foi recuperada e classificada como Hymenoptera. Continuar acompanhando novos documentos que venham a ser acrescentados à pasta, com deduplicação e validação antes de incorporar ao dashboard. Não converter movimentações ou estados de devolução em fatos não documentados.
+
+
+## Formatação taxonômica obrigatória — todas as guias e futuras inclusões
+
+- Preservar a grafia original e classificar os níveis de Ordem, Família, Subfamília, Gênero e Espécie sem inferir níveis ausentes.
+- Exibir gêneros e epítetos específicos em itálico na lista de registros, cards do mapa, fichas das guias e HTML inicial do site. Exemplos: *Agrilus oceanicus*, *Haplocauda lata*, *Passalus lunaris* e *P. quadricollis*. Abreviações do gênero que integram binômios também recebem itálico.
+- Deixar em fonte normal nomes de ordem, família e subfamília, autoria taxonômica e qualificadores como sp., spp., cf., aff., nr., indet., n., nov., sp. nov., subsp., ssp., var. e f. O epíteto após cf./aff. ou qualificador infraespecífico permanece em itálico; o qualificador é normal.
+- Exemplos: *Psilocladus* sp.; *Psilocladus* spp.; *Sennius binotatus* n. sp.; *Passalus* cf. *lunaris*. NUNCA incluir sp., spp., n. sp. ou sp. n. dentro do elemento de itálico.
+- Construir a formatação a partir de campos taxonômicos estruturados e já documentados. Em textos de discriminação livre, destacar apenas gêneros e binômios que constem dos campos de taxonomia; não adivinhar nomes científicos a partir de prosa, nomes de pesquisadores ou nomes de famílias.
+- O itálico é somente apresentação: não modificar os dados originais nem os termos pesquisáveis. Escapar todos os valores de documento antes de inseri-los em HTML.
+- Os testes devem abranger binômios, gênero abreviado, sp./spp., cf./aff., autoria, nomes de ordens e famílias, nomes em discriminações e HTML inicial pré-renderizado.

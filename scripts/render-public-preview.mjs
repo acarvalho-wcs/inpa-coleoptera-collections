@@ -1,4 +1,5 @@
 import {loanStatus,showDate} from '../js/loan-status.js';
+import {formatTaxonSummary} from '../js/taxon-format.js';
 // Pre-render the anonymized public preview so useful content is visible even
 // without running JS, while its full data remain Google Drive protected.
 const escapeHtml=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -36,7 +37,7 @@ export function renderPublicPreview(source,data,revision='local'){
       `<td><div class="doc-name">${escapeHtml(r.recipient)}</div><div class="submeta">${escapeHtml(r.family)} · ${r.specimenCount} espécimes</div></td>`+
       `<td><div class="doc-name">${escapeHtml(r.requestedBy)}</div><div class="submeta">Transcrito da guia</div></td>`+
       `<td><span class="type-tag">${escapeHtml(labels[r.type])}</span></td>`+
-      `<td><span class="taxon-summary">${escapeHtml([r.taxa.order,...r.taxa.families,...r.taxa.subfamilies,...r.taxa.genera,...r.taxa.species].join(' · '))}</span></td>`+
+      `<td><span class="taxon-summary">${formatTaxonSummary(r.taxa)}</span></td>`+
       `<td><strong class="due-value">${escapeHtml(st.displayedDue||showDate(st.dueDate))}</strong>${st.needsOriginal?'<small> Conferir Guia Original</small>':''}</td>`+
       `<td><span class="deadline-tag ${st.code}">${escapeHtml(st.label)}</span></td>`+
       `<td><div class="guide-actions">${r.sources.map(s=>'<a class="guide-open-btn" href="'+escapeHtml(s.url)+'" target="_blank" rel="noopener noreferrer">Ver Guia '+escapeHtml(s.format)+' ↗</a>').join(' ')}<button class="guide-details-btn" data-open="preview-${i}">Detalhes</button></div></td></tr>`;

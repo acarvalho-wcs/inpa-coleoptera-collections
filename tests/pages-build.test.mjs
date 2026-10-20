@@ -41,7 +41,7 @@ test('publishes only app allowlist and public OAuth client ID', async () => {
     assert.equal(result.status, 0, result.stderr);
     const top = (await readdir(out)).sort();
     assert.deepEqual(top, ['.nojekyll', 'assets', 'config.js', 'data', 'index.html', 'js', 'styles.css']);
-    assert.deepEqual((await readdir(join(out, 'js'))).sort(), ['app.js', 'canonical.js', 'countries.js', 'document-extract.js', 'drive.js', 'guide-fields.js', 'loan-status.js', 'private-index.js', 'records.js']);
+    assert.deepEqual((await readdir(join(out, 'js'))).sort(), ['app.js', 'canonical.js', 'countries.js', 'document-extract.js', 'drive.js', 'guide-fields.js', 'loan-status.js', 'private-index.js', 'records.js', 'taxon-format.js']);
     assert.deepEqual((await readdir(join(out, 'data'))).sort(),['public-preview.json', 'triage-2026-audit.json']);
     assert.deepEqual((await readdir(join(out,'assets'))).sort(),['inpa.png','invertebrados.png','wcs-brasil.png']);
     const html=await readFile(join(out,'index.html'),'utf8');
@@ -147,4 +147,16 @@ test('2026 audit confirms complete collection review without inventing new Coleo
   assert.doesNotMatch(a,/access_token|client_secret|private_key|drive[.]google[.]com/i);
   const result=run(await makeOut(),'');
   assert.equal(result.status,0,result.stderr);
+});
+
+test('static HTML italicizes documented taxa while leaving ranks and qualifiers upright',async()=>{
+ const out=await makeOut();
+ try{
+  assert.equal(run(out,'').status,0);
+  const html=await readFile(join(out,'index.html'),'utf8');
+  assert.match(html,/<i class="taxon-scientific">Agrilus oceanicus<\/i>/);
+  assert.match(html,/<i class="taxon-scientific">Haplocauda lata<\/i>/);
+  assert.match(html,/Ordem: Coleoptera/);
+  assert.doesNotMatch(html,/<i class="taxon-scientific">(?:Coleoptera|Buprestidae|Scirtiidae|sp\.|spp\.)<\/i>/);
+ }finally{await rm(out,{recursive:true,force:true});}
 });
