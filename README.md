@@ -95,14 +95,23 @@ npm test
 
 Teste as interfaces e, com uma conta institucional, o login, as permissões, as pastas de 2026/2025 e as guias duplicadas antes de publicar uma versão operacional.
 
-## GitHub Pages (sem Netlify)
 
-A implantação será feita exclusivamente pelo GitHub Actions + GitHub Pages. **Não foi ativada automaticamente** porque a aplicação exige o Client ID OAuth da aplicação Google Web para carregar as guias com autorização individual e porque a visibilidade do site GitHub Pages é diferente da visibilidade do repositório.
+## Publicação somente no GitHub: verificação de segurança
 
-1. Configure no [Google Cloud Console](https://console.cloud.google.com/apis/credentials) um OAuth Client ID do tipo **Web application**, com origem JavaScript autorizada `https://acarvalho-wcs.github.io`.
-2. Cadastre o **Client ID** (identificador público, não client secret) em **GitHub → Settings → Secrets and variables → Actions → Variables** com a chave `GOOGLE_OAUTH_CLIENT_ID`. Não adicione tokens nem client secrets ao repositório.
-3. Em **Settings → Pages → Build and deployment → Source**, escolha **GitHub Actions**. Confira disponibilidade do Pages para repositórios privados no plano atual.
-4. Execute manualmente **Actions → Publicar site no GitHub Pages → Run workflow**. O workflow bloqueia a publicação sem Client ID válido.
-5. Teste com conta autorizada a ler o Drive. A aplicação não divulga documentos por conta própria; o navegador usa somente o token de cada usuário para consultar a API do Drive.
+O fluxo `.github/workflows/pages.yml` é **manual**, não publica a cada commit e exige um identificador público de cliente OAuth 2.0 previamente configurado em **Settings → Secrets and variables → Actions → Variables → `GOOGLE_OAUTH_CLIENT_ID`**. A publicação usa `npm run build:pages`, que cria um diretório `dist/` contendo apenas oito arquivos permitidos (HTML, CSS, scripts JS, `.nojekyll` e configuração pública OAuth). Nenhuma guia, exportação de metadados, token ou credencial secreta faz parte do artefato.
 
-**Importante:** o GitHub Pages pode ficar publicamente acessível mesmo com o repositório privado. Na versão atual, usuários externos ainda podem ver a interface, mas não consultar os dados sem autorização do próprio Google Drive. Se a interface inteira precisar de acesso restrito, não ativar o GitHub Pages sem revisar a política institucional e o controle de acesso.
+A configuração de OAuth exige cadastrar `https://acarvalho-wcs.github.io` como **Authorized JavaScript origin** da credencial no Google Cloud. O domínio de destino do GitHub Pages costuma ser `https://acarvalho-wcs.github.io/inpa-coleoptera-collections/`, mas esse link **não deve ser considerado ativo antes do deploy real ser confirmado no GitHub**.
+
+**Restrições importantes:**
+
+- Para GitHub Pages em repositórios privados de contas pessoais, o GitHub exige **GitHub Pro ou superior** (GitHub Free suporta Pages de repositórios públicos).
+- Páginas de repositórios privados pessoais não são necessariamente privadas: o conteúdo publicado no Pages fica publicamente acessível; o controle dos **documentos** depende do login e das permissões do Google Drive. Publicar o site em si exige autorização institucional apropriada.
+- Até configurar OAuth e a origem permitida, não é possível executar uma consulta autenticada real. Os testes automatizados asseguram somente a lógica de construção e classificação.
+- Mantenha o repositório privado. Não mude a visibilidade sem avaliação da política institucional.
+
+Para conferir o build localmente **sem publicar**:
+
+```bash
+npm test
+GOOGLE_OAUTH_CLIENT_ID='CLIENT_ID_DO_GOOGLE.apps.googleusercontent.com' npm run build:pages
+```

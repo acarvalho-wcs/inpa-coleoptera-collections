@@ -12,4 +12,4 @@ jobs:
           node-version: '22'
       - run: npm test
       - run: |
-          for f in js/*.js server.mjs; do node --check "$f"; done
+          for f in js/*.js server.mjs scripts/*.mjs; do node --check "$f"; done

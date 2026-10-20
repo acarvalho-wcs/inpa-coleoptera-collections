@@ -23,33 +23,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Validar codigo
+      - name: Validar codigo e testes de seguranca
         run: npm test
-      - name: Verificar configuracao Google OAuth
+      - name: Gerar artefato estatico restrito a arquivos do aplicativo
         env:
           GOOGLE_OAUTH_CLIENT_ID: ${{ vars.GOOGLE_OAUTH_CLIENT_ID }}
-        run: |
-          if ! [[ "$GOOGLE_OAUTH_CLIENT_ID" =~ ^[a-zA-Z0-9_-]+\.apps\.googleusercontent\.com$ ]]; then
-            echo "::error::Configure a variavel GOOGLE_OAUTH_CLIENT_ID em Settings > Secrets and variables > Actions > Variables."
-            exit 1
-          fi
-          cat > config.js <<EOF
-          window.INPA_CONFIG = {
-            googleClientId: '$GOOGLE_OAUTH_CLIENT_ID',
-            driveRootFolderId: '1RdZAIbK9_Hn6o2E_x-vv0HQMpUEeMSxP',
-            startingYear: '2026',
-            institutionName: 'Coleção Entomológica do INPA',
-            mapTiles: true
-          };
-          EOF
-      - name: Preparar site estatico sem dados institucionais
-        run: |
-          mkdir -p _site
-          cp index.html styles.css config.js .nojekyll _site/
-          cp -R js _site/js
+        run: npm run build:pages
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
+          path: dist
       - id: deployment
         uses: actions/deploy-pages@v4
