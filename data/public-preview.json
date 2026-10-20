@@ -2,7 +2,7 @@
   "kind": "public-anonymized-preview",
   "snapshotDate": "2026-10-20",
   "source": "Guias de empréstimo / 2026 - Google Drive INPA",
-  "note": "Guias documentadas de Coleoptera em 2026; taxonomia transcrita de Ordem, Família, Outro e Discriminação dos originais; níveis não descritos permanecem vazios. Links abrem PDF/Word com acesso controlado pelo Google Drive. Datas ambíguas exigem conferência; devoluções não conciliadas.",
+  "note": "Guias documentadas de Coleoptera em 2026; taxonomia transcrita de Ordem, Família, Outro e Discriminação dos originais; níveis não descritos permanecem vazios. Links abrem PDF/Word com acesso controlado pelo Google Drive. Datas ambíguas exigem conferência; devoluções não conciliadas. Georreferenciamento baseado no campo Instituição da guia; os marcadores são aproximados no nível do estabelecimento ou da cidade, nunca prova de entrega física. Verificar fontes e divergências.",
   "records": [
     {
       "year": "2026",
@@ -41,7 +41,17 @@
           "url": "https://drive.google.com/file/d/1BDKI_m_uNhiLTDA3VZ7Ka3O-2EhlaKpa/view"
         }
       ],
-      "originalUrl": "https://drive.google.com/file/d/1BDKI_m_uNhiLTDA3VZ7Ka3O-2EhlaKpa/view"
+      "originalUrl": "https://drive.google.com/file/d/1BDKI_m_uNhiLTDA3VZ7Ka3O-2EhlaKpa/view",
+      "destination": {
+        "institution": "Universidade Estadual do Maranhão (UEMA)",
+        "city": "Caxias, Maranhão",
+        "country": "Brasil",
+        "lat": -4.8656,
+        "lng": -43.3552,
+        "precision": "institution_approx",
+        "source": "https://mapcarta.com/pt/W414251117",
+        "note": null
+      }
     },
     {
       "year": "2026",
@@ -80,7 +90,17 @@
           "url": "https://drive.google.com/file/d/15yUg0hkuquZS7EKl6xJA7Bs-ohF8nbq0/view"
         }
       ],
-      "originalUrl": "https://drive.google.com/file/d/15yUg0hkuquZS7EKl6xJA7Bs-ohF8nbq0/view"
+      "originalUrl": "https://drive.google.com/file/d/15yUg0hkuquZS7EKl6xJA7Bs-ohF8nbq0/view",
+      "destination": {
+        "institution": "Universidade Federal do Paraná (UFPR)",
+        "city": "Curitiba, Paraná",
+        "country": "Brasil",
+        "lat": -25.4463,
+        "lng": -49.23321,
+        "precision": "institution_approx",
+        "source": "https://mapcarta.com/pt/31124434",
+        "note": null
+      }
     },
     {
       "year": "2026",
@@ -122,7 +142,17 @@
           "url": "https://drive.google.com/file/d/1yjvlzqLIn5AWEjlBSY5SJryJ7CLzq2Dx/view"
         }
       ],
-      "originalUrl": "https://drive.google.com/file/d/1t3BvcsvWMleQT71TPzlqHWPIzqNLG7kn/view"
+      "originalUrl": "https://drive.google.com/file/d/1t3BvcsvWMleQT71TPzlqHWPIzqNLG7kn/view",
+      "destination": {
+        "institution": "Senckenberg German Entomological Institute (SDEI)",
+        "city": "Müncheberg, Alemanha",
+        "country": "Alemanha",
+        "lat": 52.5037,
+        "lng": 14.1405,
+        "precision": "city_approx",
+        "source": "https://www.senckenberg.de/en/research/institutes-overview/sdei/entomological-library/",
+        "note": "A guia registra 'Münchberg'; a sede institucional consta como Müncheberg. Coordenadas aproximadas da cidade, não do edifício."
+      }
     },
     {
       "year": "2026",
@@ -165,7 +195,17 @@
           "url": "https://drive.google.com/file/d/1znqurEPdoQOv_INg_-hZyq-jKgfFReo4/view"
         }
       ],
-      "originalUrl": "https://drive.google.com/file/d/1oFwPfZRqRd2S6TZhdo-EalEQ6sHf9VUr/view"
+      "originalUrl": "https://drive.google.com/file/d/1oFwPfZRqRd2S6TZhdo-EalEQ6sHf9VUr/view",
+      "destination": {
+        "institution": "Museu Paraense Emílio Goeldi (MPEG)",
+        "city": "Belém, Pará",
+        "country": "Brasil",
+        "lat": -1.452014,
+        "lng": -48.476673,
+        "precision": "institution_approx",
+        "source": "https://cadastro.museus.gov.br/museus/museu-paraense-emilio-goeldi/",
+        "note": null
+      }
     },
     {
       "year": "2026",
@@ -204,7 +244,17 @@
           "url": "https://drive.google.com/file/d/1oiTxzAWTINzGp8dMKmLDuV6VfQM7aC90/view"
         }
       ],
-      "originalUrl": "https://drive.google.com/file/d/1ulKQBhIbxYaDh5zNRjnr0dqoeONV02ua/view"
+      "originalUrl": "https://drive.google.com/file/d/1ulKQBhIbxYaDh5zNRjnr0dqoeONV02ua/view",
+      "destination": {
+        "institution": "University of Georgia (UGA)",
+        "city": "Athens, Georgia, EUA",
+        "country": "Estados Unidos",
+        "lat": 33.953,
+        "lng": -83.375,
+        "precision": "institution_approx",
+        "source": "https://www.biosciences.uga.edu/about-us",
+        "note": "Campus universitário aproximado; guia não informa edifício ou laboratório."
+      }
     },
     {
       "year": "2026",
@@ -243,7 +293,17 @@
           "url": "https://drive.google.com/file/d/1T_Xw77A8nDtXigQozQKODSuykV5kIT4-/view"
         }
       ],
-      "originalUrl": "https://drive.google.com/file/d/1T_Xw77A8nDtXigQozQKODSuykV5kIT4-/view"
+      "originalUrl": "https://drive.google.com/file/d/1T_Xw77A8nDtXigQozQKODSuykV5kIT4-/view",
+      "destination": {
+        "institution": "Museu de Zoologia da Universidade de São Paulo (MZUSP)",
+        "city": "São Paulo, São Paulo",
+        "country": "Brasil",
+        "lat": -23.587919,
+        "lng": -46.610452,
+        "precision": "institution_approx",
+        "source": "https://cadastro.museus.gov.br/museus/museu-de-zoologia-da-universidade-de-sao-paulo-mzusp/",
+        "note": null
+      }
     },
     {
       "year": "2026",
@@ -280,7 +340,17 @@
           "url": "https://drive.google.com/file/d/1kYeTpdYMu2RrxJNi2R2w_P5GBjuoDj3U/view"
         }
       ],
-      "originalUrl": "https://drive.google.com/file/d/1hsa6aUw-bJpYmhB_xNUUdWL1sdmh_xv0/view"
+      "originalUrl": "https://drive.google.com/file/d/1hsa6aUw-bJpYmhB_xNUUdWL1sdmh_xv0/view",
+      "destination": {
+        "institution": "Instituto Nacional de Pesquisas da Amazônia (INPA)",
+        "city": "Manaus, Amazonas",
+        "country": "Brasil",
+        "lat": -3.09577,
+        "lng": -59.98975,
+        "precision": "institution_approx",
+        "source": "https://www.wikidata.org/wiki/Q1636101",
+        "note": null
+      }
     },
     {
       "year": "2026",
@@ -316,7 +386,17 @@
           "url": "https://drive.google.com/file/d/1ABmixgjyF4X8RNTkNl4hsCtg7HbOw-Y1/view"
         }
       ],
-      "originalUrl": "https://drive.google.com/file/d/1ABmixgjyF4X8RNTkNl4hsCtg7HbOw-Y1/view"
+      "originalUrl": "https://drive.google.com/file/d/1ABmixgjyF4X8RNTkNl4hsCtg7HbOw-Y1/view",
+      "destination": {
+        "institution": "Universidade Federal de Mato Grosso (UFMT)",
+        "city": "Cuiabá, Mato Grosso",
+        "country": "Brasil",
+        "lat": -15.5989,
+        "lng": -56.0949,
+        "precision": "city_approx",
+        "source": null,
+        "note": "Centro aproximado de Cuiabá; campus e unidade não discriminados."
+      }
     },
     {
       "year": "2026",
@@ -349,7 +429,17 @@
           "url": "https://drive.google.com/file/d/1CBOEy5fWawOpE2mfAS8Kb01YWGRJGNVs/view"
         }
       ],
-      "originalUrl": "https://drive.google.com/file/d/1CBOEy5fWawOpE2mfAS8Kb01YWGRJGNVs/view"
+      "originalUrl": "https://drive.google.com/file/d/1CBOEy5fWawOpE2mfAS8Kb01YWGRJGNVs/view",
+      "destination": {
+        "institution": "Universidade Federal de Goiás (UFG)",
+        "city": "Goiânia, Goiás",
+        "country": "Brasil",
+        "lat": -16.6052679,
+        "lng": -49.2657852,
+        "precision": "institution_approx",
+        "source": "https://praksis.fef.ufg.br/p/19026-contato",
+        "note": "Ponto no campus Samambaia; a unidade acadêmica não está discriminada na guia."
+      }
     },
     {
       "year": "2026",
@@ -384,7 +474,17 @@
           "url": "https://drive.google.com/file/d/1gWYSYPZAj8aE0_NFM4ee3SSK5L09px3H/view"
         }
       ],
-      "originalUrl": "https://drive.google.com/file/d/1gWYSYPZAj8aE0_NFM4ee3SSK5L09px3H/view"
+      "originalUrl": "https://drive.google.com/file/d/1gWYSYPZAj8aE0_NFM4ee3SSK5L09px3H/view",
+      "destination": {
+        "institution": "Universidade Federal do Paraná (UFPR)",
+        "city": "Curitiba, Paraná",
+        "country": "Brasil",
+        "lat": -25.4463,
+        "lng": -49.23321,
+        "precision": "institution_approx",
+        "source": "https://mapcarta.com/pt/31124434",
+        "note": null
+      }
     },
     {
       "year": "2026",
@@ -418,7 +518,17 @@
           "url": "https://drive.google.com/file/d/1SDZAMv9MxFlF48ycTB_mp2iaW0BeNgOq/view"
         }
       ],
-      "originalUrl": "https://drive.google.com/file/d/1SDZAMv9MxFlF48ycTB_mp2iaW0BeNgOq/view"
+      "originalUrl": "https://drive.google.com/file/d/1SDZAMv9MxFlF48ycTB_mp2iaW0BeNgOq/view",
+      "destination": {
+        "institution": "Universidade Federal do Pará (UFPA)",
+        "city": "Belém, Pará",
+        "country": "Brasil",
+        "lat": -1.4745,
+        "lng": -48.4564,
+        "precision": "institution_approx",
+        "source": "https://laai.ufpa.br/location/",
+        "note": "Ponto no Campus Guamá; não representa a sala ou laboratório específico."
+      }
     },
     {
       "year": "2026",
@@ -455,7 +565,17 @@
           "url": "https://drive.google.com/file/d/1QlCiqFTxSwOMQOR3sCdHrqQvCs48m5Uo/view"
         }
       ],
-      "originalUrl": "https://drive.google.com/file/d/1QlCiqFTxSwOMQOR3sCdHrqQvCs48m5Uo/view"
+      "originalUrl": "https://drive.google.com/file/d/1QlCiqFTxSwOMQOR3sCdHrqQvCs48m5Uo/view",
+      "destination": {
+        "institution": "Universidade do Estado do Amazonas (UEA), CESIT",
+        "city": "Itacoatiara, Amazonas",
+        "country": "Brasil",
+        "lat": -3.1478,
+        "lng": -58.4461,
+        "precision": "city_approx",
+        "source": "https://uea.edu.br/index.php/centro-de-estudos-superiores-de-itacoatiara/",
+        "note": "Localidade aproximada de Itacoatiara; o CESIT tem endereço confirmado, mas não coordenada predial validada."
+      }
     },
     {
       "year": "2026",
@@ -493,7 +613,17 @@
           "url": "https://drive.google.com/file/d/1xqYXsmK5i0LxvH03LRmeIO7TD7pXvLTl/view"
         }
       ],
-      "originalUrl": "https://drive.google.com/file/d/1xqYXsmK5i0LxvH03LRmeIO7TD7pXvLTl/view"
+      "originalUrl": "https://drive.google.com/file/d/1xqYXsmK5i0LxvH03LRmeIO7TD7pXvLTl/view",
+      "destination": {
+        "institution": "Universidade Federal de Mato Grosso (UFMT)",
+        "city": "Cuiabá, Mato Grosso",
+        "country": "Brasil",
+        "lat": -15.5989,
+        "lng": -56.0949,
+        "precision": "city_approx",
+        "source": null,
+        "note": "Centro aproximado de Cuiabá; campus e unidade não discriminados."
+      }
     },
     {
       "year": "2026",
@@ -538,7 +668,17 @@
           "url": "https://drive.google.com/file/d/1YKwv6OKfze84_exX6F4ucYi63xBbvdbl/view"
         }
       ],
-      "originalUrl": "https://drive.google.com/file/d/1392KL2yv36Ku-I8ALrbhP4clvN0D7fmQ/view"
+      "originalUrl": "https://drive.google.com/file/d/1392KL2yv36Ku-I8ALrbhP4clvN0D7fmQ/view",
+      "destination": {
+        "institution": "Museu de Zoologia da Universidade de São Paulo (MZUSP)",
+        "city": "São Paulo, São Paulo",
+        "country": "Brasil",
+        "lat": -23.587919,
+        "lng": -46.610452,
+        "precision": "institution_approx",
+        "source": "https://cadastro.museus.gov.br/museus/museu-de-zoologia-da-universidade-de-sao-paulo-mzusp/",
+        "note": null
+      }
     }
   ]
 }
