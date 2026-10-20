@@ -1,0 +1,50 @@
+{
+  "schema": "inpa.coleoptera.taxonomy-audit.v1",
+  "year": 2025,
+  "checkedOn": "2026-10-20",
+  "source": "Google Drive, Guias de empréstimo / 2025",
+  "status": "staging_validation_incomplete",
+  "inventory": {
+    "totalFiles": 94,
+    "docx": 81,
+    "pdf": 13,
+    "duplicateGroupsWithSameDocumentTaxonomy": 13,
+    "distinctMovementsAfterConservativeGrouping": 81,
+    "distinctGuideNumber027": 2
+  },
+  "classification": {
+    "publicationCandidates": 12,
+    "explicitColeopteraMixed": 1,
+    "candidatesFromKnownColeopteraFamiliesOrGenera": 11,
+    "fullyCuratorApproved": 0,
+    "unreviewedFields": [
+      "recipient",
+      "requestedBy",
+      "dateSent",
+      "dateDue",
+      "destinationCountry",
+      "destinationInstitution",
+      "returnReconciliation"
+    ],
+    "pendingOtherFiles": 69
+  },
+  "quality": [
+    "The Drive text extraction for DOCX omits text boxes and cannot certify blank structured fields.",
+    "Candidate 027 SBPC-UFRPE has 28 Coleoptera of 116 total; it must not become a 116-Coleoptera record.",
+    "Guide number 027 belongs to two distinct events; 062 has separate loan and return.",
+    "One pair of copies 026 was found despite different filename suffixes.",
+    "No personal or contact details are included in staging data.",
+    "Never promote pending to reviewed without original document validation.",
+    "Staging files must not be included in GitHub Pages allowlist."
+  ],
+  "publicationChecklist": {
+    "sourceDocumentsReviewedInFull": false,
+    "taxonomicClassificationApproved": false,
+    "movementReconciliationApproved": false,
+    "destinationVerified": false,
+    "dueDatesVerified": false,
+    "publicPrivacyReviewApproved": true,
+    "pagesReleaseApproved": false
+  },
+  "candidateDataset": "data/staging/2025-publication-candidates.json"
+}
