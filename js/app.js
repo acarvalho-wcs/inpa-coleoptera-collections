@@ -235,7 +235,11 @@ async function loadMapLibrary(){
 }
 async function renderMap(){
   const box=$('destinationMap'),groups=new Map();
+  const query=$('mapSearch').value.trim().toLocaleLowerCase('pt-BR');
+  const mapStatus=$('mapStatusFilter').value;
   for(const row of state.filtered){
+    if(mapStatus!=='all' && loanStatus(row).code!==mapStatus && !(mapStatus==='soon' && loanStatus(row).code==='today'))continue;
+    if(query && ![row.year,row.number,row.country,row.destination?.institution,row.destination?.city,row.family,row.name,row.requestedBy,guideNames(row).name,guideNames(row).requestedBy,JSON.stringify(row.canonical?.taxa||[])].join(' ').toLocaleLowerCase('pt-BR').includes(query))continue;
     const d=row.destination,verified=d&&Number.isFinite(d.lat)&&Number.isFinite(d.lng);
     const coords=verified?[d.lat,d.lng]:centerForCountry(row.country);
     if(!coords)continue;
@@ -244,12 +248,12 @@ async function renderMap(){
     groups.get(key).rows.push(row);
   }
   const plotted=[...groups.values()].reduce((n,g)=>n+g.rows.length,0);
-  $('mapCount').textContent=plotted+' guias em '+groups.size+' localidades · '+(state.filtered.length-plotted)+' sem localização. Pontos aproximados de instituições e cidades.';
+  $('mapCount').textContent=plotted+' guias em '+groups.size+' localidades · '+(state.filtered.length-plotted)+' fora do mapa ou dos filtros. Pontos aproximados de instituições e cidades.';
   if(!groups.size){if(state.map){state.map.remove();state.map=null;}box.innerHTML='<div class="empty-map">Não há destinos georreferenciáveis na seleção.</div>';return;}
   if(!await loadMapLibrary()){box.innerHTML='<div class="empty-map">A biblioteca do mapa está indisponível.</div>';return;}
   if(!state.map){
     box.innerHTML='';
-    state.map=L.map(box,{scrollWheelZoom:false}).setView([0,-25],2);
+    state.map=L.map(box,{scrollWheelZoom:true,zoomSnap:0.5,zoomDelta:0.5,wheelPxPerZoomLevel:90}).setView([0,-25],2);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:12,attribution:'© OpenStreetMap contributors'}).addTo(state.map);
     state.mapMarkers=L.layerGroup().addTo(state.map);
     box.addEventListener('click',event=>{const b=event.target.closest('[data-map-open]');if(b)openDetails(b.dataset.mapOpen);});
@@ -280,7 +284,7 @@ async function renderMap(){
       }).join('')+'</div>'+
       (d?.note?'<p class="destination-geonote">'+escapeHtml(d.note)+'</p>':'')+
       '<small>Georreferência aproximada; não comprova recebimento ou devolução.</small></section>';
-    L.circleMarker(group.coords,{radius:8+Math.min(count,4),color,fillColor:color,fillOpacity:.7,weight:2})
+    L.circleMarker(group.coords,{radius:(8+Math.min(count,4))*0.8,color:overdue?'#a76543':'#3a9271',fillColor:overdue?'#db9a72':'#83cba4',fillOpacity:.95,weight:1.7,opacity:.95,className:'coleoptera-map-point'})
       .bindPopup(popup,{maxWidth:420,minWidth:310,autoPan:true,keepInView:true}).addTo(state.mapMarkers);
     bounds.push(group.coords);
   }
@@ -412,9 +416,13 @@ fullscreenBtn.addEventListener('click',async()=>{
 document.addEventListener('fullscreenchange',()=>{
  const active=document.fullscreenElement===mapStage;
  fullscreenBtn.textContent=active?'Sair da tela cheia':'Tela cheia';
+  $('mapFullscreenExitBtn').hidden=!active;
  fullscreenBtn.setAttribute('aria-pressed',String(active));
  setTimeout(()=>state.map?.invalidateSize(),180);
 });
+$('mapFullscreenExitBtn').addEventListener('click',()=>{if(document.fullscreenElement===mapStage)document.exitFullscreen();});
+for(const id of ['mapSearch','mapStatusFilter'])$(id).addEventListener(id==='mapSearch'?'input':'change',()=>{if(state.currentTab==='map')renderMap();});
+$('clearMapFilters').addEventListener('click',()=>{$('mapSearch').value='';$('mapStatusFilter').value='all';if(state.currentTab==='map')renderMap();});
 $('closeOauth').addEventListener('click',()=>$('oauthSetup').close());
 $('oauthForm').addEventListener('submit',event=>{
   event.preventDefault();const id=$('oauthClientId').value.trim();
