@@ -254,7 +254,7 @@ async function renderMap(){
   if(!state.map){
     box.innerHTML='';
     state.map=L.map(box,{scrollWheelZoom:true,zoomSnap:0.5,zoomDelta:0.5,wheelPxPerZoomLevel:90}).setView([0,-25],2);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19,attribution:'© OpenStreetMap contributors · © CARTO'}).addTo(state.map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap contributors'}).addTo(state.map);
     state.mapMarkers=L.layerGroup().addTo(state.map);
     box.addEventListener('click',event=>{const b=event.target.closest('[data-map-open]');if(b)openDetails(b.dataset.mapOpen);});
   }
