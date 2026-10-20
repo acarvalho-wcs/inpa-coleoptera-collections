@@ -33,7 +33,7 @@
 .destination-record span b{font-weight:750;color:#244d4a}
 .destination-list{max-height:320px}
 
-/* Local-only private index names: keep complete researcher and requester names legible. */
-.table-wrap .doc-name{white-space:normal;overflow-wrap:anywhere;word-break:normal;max-width:330px}
-.destination-record span{white-space:normal;overflow-wrap:anywhere}
-.private-index-help{max-width:640px;color:#476b60;font-size:12px;line-height:1.5;margin:6px 0 8px}
+/* Professional names published by request must not be ellipsized. */
+.table-wrap .doc-name{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere;line-height:1.4;min-width:140px}
+.destination-record>div{min-width:0;overflow-wrap:anywhere}
+.destination-record span{overflow-wrap:anywhere}

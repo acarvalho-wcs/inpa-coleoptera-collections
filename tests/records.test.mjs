@@ -38,3 +38,10 @@ test('DOA-DEV in 2026 is a mixed movement rather than a completed ordinary loan'
  assert.equal(row.number,'037');assert.equal(row.type,'MIX');
  assert.equal(row.researcher,'Fernando Vaz de Melo');
 });
+
+test('public preview can be searched by Nome and Solicitante',()=>{
+  const x=[{id:'preview-0',number:'035',recipient:'Dras. Neusa Hamada e Gabrielle Jorge',requestedBy:'Gabrielle Matos',type:'EMP',year:'2026'}];
+  assert.equal(filterRecords(x,{query:'Neusa Hamada'}).length,1);
+  assert.equal(filterRecords(x,{query:'Gabrielle Matos'}).length,1);
+  assert.equal(filterRecords(x,{query:'Pessoa inexistente'}).length,0);
+});
