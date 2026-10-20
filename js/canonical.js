@@ -1,4 +1,6 @@
 import { normalize } from './records.js';
+import { readGuideFields } from './guide-fields.js';
+import { validIso } from './loan-status.js';
 
 export const CANONICAL_SCHEMA = 'inpa.coleoptera.loan.v1';
 const ORDER_NAMES = ['Coleoptera','Diptera','Hymenoptera','Lepidoptera','Hemiptera','Orthoptera','Odonata','Neuroptera','Trichoptera','Ephemeroptera','Blattodea','Isoptera','Phasmatodea','Mantodea','Siphonaptera','Psocodea','Dermaptera','Plecoptera','Thysanoptera','Megaloptera','Strepsiptera','Zygentoma','Trematoda'];
@@ -12,6 +14,9 @@ export function canonicalKey(row) {
 
 export function detectTaxonomy(text) {
   const clean=String(text||'').replace(/\r/g,'\n');
+  // Some INPA PDF exports render the order under the preceding column label
+  // (e.g. "Other Coleoptera"), so the entire taxonomy block is the evidence,
+  // not only a 45-character window around "Order".
   const taxStart=clean.search(/Taxonomia\s+Taxonomy/i);
   const taxEnd=taxStart>=0 ? clean.slice(taxStart).search(/Autorizado\s+Por|Authorized\s+By|Material recebido em boas condi/i) : -1;
   const taxonomy=taxStart>=0 ? clean.slice(taxStart,taxEnd>=0?taxStart+taxEnd:taxStart+4000) : '';
@@ -27,12 +32,26 @@ export function detectTaxonomy(text) {
       add(m[1],taxonomy.slice(start,end));
     }
   } else {
+    // DOCX records may have no flattened taxonomy table. Require explicit
+    // taxonomic context, never a casual mention in an email or commentary.
     for(const m of clean.matchAll(orderPattern)){
       const start=Math.max(0,m.index-75),end=Math.min(clean.length,m.index+m[0].length+75);
       const context=clean.slice(start,end);
       const explicit=/\b(?:Arthropoda|Hexapoda|Insecta|Ordem|Order|Fam[ií]lia|Family|Discrimina[cç][aã]o|Discrimination)\b/i.test(context);
       const taxonFamily=/Coleoptera\s*:\s*[A-Z][a-z-]+idae\b/i.test(context);
       if(explicit||taxonFamily)add(m[1],context);
+    }
+  }
+  // INPA Word documents sometimes place the order only in positioned
+  // text boxes, outside the document's normal taxonomy paragraph.
+  if(!matches.length&&clean.includes('[Conteúdo de caixas de texto do Word]')){
+    const addon=clean.split('[Conteúdo de caixas de texto do Word]')[1]||'';
+    if(/\b(?:Arthropoda|Hexapoda|Insecta)\b/i.test(addon)){
+      for(const m of addon.matchAll(orderPattern)){
+        const start=Math.max(0,m.index-90),end=Math.min(addon.length,m.index+m[0].length+40);
+        const area=addon.slice(start,end);
+        if(/\b(?:Arthropoda|Hexapoda|Insecta)\b/i.test(area))add(m[1],area);
+      }
     }
   }
   const orders=unique(matches.map(x=>x.order));
@@ -53,6 +72,7 @@ const isoDate = raw => {
 export function extractFacts(text, row) {
   const body=String(text||'').replace(/\r/g,'\n');
   const tax=detectTaxonomy(body);
+  const extracted=readGuideFields(body);
   // One aggregate scan cannot safely be represented as a single movement.
   if(/^Guias?\s+20\d{2}\.pdf$/i.test(row.name||'')){tax.classification='pending';tax.order=null;}
   const guide=body.match(/Guia(?:\/Invoice)?\s*(?:n[º°o.]*)?\s*:\s*(20\d{2})\s*\/\s*(\d{1,4})/i);
@@ -70,16 +90,16 @@ export function extractFacts(text, row) {
     schema:CANONICAL_SCHEMA, key:canonicalKey(row), sourceId:row.id,
     documents:(row.sources||[]).map(s=>({id:s.id,name:s.name,mimeType:s.mimeType,modifiedTime:s.modifiedTime||null,
       url:s.webViewLink||`https://drive.google.com/file/d/${encodeURIComponent(s.id)}/view`})),
-    guide:{year:row.year,number:row.number,filenameRowType:type,filenameRecipient:row.researcher||null},
+    guide:{year:row.year,number:row.number,filenameRowType:type,filenameRecipient:row.researcher||null,fields:extracted.fields,fieldNote:extracted.extractionNote},
     taxonomy:tax, movement:{type,source:'filename',confirmed:false},
-    loan:{sentDate:candidates[0]||null,dueDate:candidates[1]||null,returnedDate:null,returnStatus:'not_reconciled'},
+    loan:{sentDate:extracted.fields.sentDate||candidates[0]||null,dueDate:extracted.fields.dueDate||candidates[1]||null,extensionDueDate:null,returnedDate:null,returnStatus:'not_reconciled',returnEvidence:null},
     destination:{country:null,city:null,institution:null,latitude:null,longitude:null,georefPrecision:'not_georeferenced'},
-    specimenCount:null, validation:{status:'pending',issues,notes:'',reviewedAt:null},
+    specimenCount:extracted.fields.specimens||null, validation:{status:'pending',issues,notes:'',reviewedAt:null},
     provenance:{method:'client-side-text-extraction',extractedAt:new Date().toISOString(),source:'Google Drive',sourceOfTruth:true}
   };
 }
 
-export function applyReview(record,{classification,order,family,country,city,institution,notes,longitude,latitude}={}) {
+export function applyReview(record,{classification,order,family,country,city,institution,notes,longitude,latitude,dueDate,extensionDueDate,returnedDate,returnStatus,returnEvidence}={}) {
   const next=structuredClone(record);
   if(classification && !['coleoptera','other','pending','mixed'].includes(classification))throw Error('Classificação inválida');
   if(classification){next.taxonomy.classification=classification;next.taxonomy.order=classification==='coleoptera'?'Coleoptera':order||null;}
@@ -90,6 +110,25 @@ export function applyReview(record,{classification,order,family,country,city,ins
     if(!Number.isFinite(lat)||!Number.isFinite(lon)||Math.abs(lat)>90||Math.abs(lon)>180)throw Error('Coordenadas inválidas');
     next.destination.latitude=lat;next.destination.longitude=lon;next.destination.georefPrecision='manually_confirmed';
   }
+  if(dueDate!==undefined){
+    if(dueDate&&!validIso(dueDate))throw Error('Data prevista de devolução inválida');
+    next.loan.dueDate=dueDate||null;
+  }
+  if(extensionDueDate!==undefined){
+    if(extensionDueDate&&!validIso(extensionDueDate))throw Error('Nova data de prazo inválida');
+    next.loan.extensionDueDate=extensionDueDate||null;
+  }
+  if(returnedDate!==undefined){
+    if(returnedDate&&!validIso(returnedDate))throw Error('Data de devolução inválida');
+    next.loan.returnedDate=returnedDate||null;
+  }
+  if(returnEvidence!==undefined)next.loan.returnEvidence=String(returnEvidence||'').trim()||null;
+  if(returnStatus!==undefined){
+    if(!['not_reconciled','returned','partial'].includes(returnStatus))throw Error('Situação de devolução inválida');
+    next.loan.returnStatus=returnStatus;
+  }
+  if(next.loan.returnStatus==='returned'&&(!next.loan.returnEvidence||!next.loan.returnedDate))
+    throw Error('Devolução confirmada exige data e referência documental');
   if(notes!==undefined)next.validation.notes=String(notes||'').trim();
   next.validation.status='reviewed';next.validation.reviewedAt=new Date().toISOString();
   return next;

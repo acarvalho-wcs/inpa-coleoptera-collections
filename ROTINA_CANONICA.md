@@ -25,3 +25,24 @@
 ## Limites atuais do piloto
 
 A extração no navegador depende de login OAuth Google e das permissões para ler os documentos. PDF.js e Mammoth são bibliotecas JavaScript externas carregadas sob demanda. Não há processamento automático em segundo plano ou reconciliação das devoluções. A classificação por texto necessita auditoria; o campo `validation.status` distingue extração de conferência humana.
+
+## Acompanhamento de prazos (atualização de 20/10/2026)
+
+O painel prioriza a **data esperada de devolução**. Para uma guia classificada como empréstimo (`EMP`), exibe a data prevista, eventual data revisada por prorrogação, dias até o vencimento e o estado de conciliação da devolução.
+
+- **Prazo vencido · devolução não confirmada:** a data registrada terminou e a devolução ainda não foi conciliada. NÃO equivale a afirmar que o espécime está retido ou que há inadimplência comprovada.
+- **Vence hoje / em até 30 dias:** possibilidade de alerta operacional, nunca interpretação de que o empréstimo segue efetivamente aberto.
+- **Envio futuro:** a data de saída prevista ainda não chegou; não contabilizar como empréstimo em curso.
+- **Devolução confirmada:** somente após anotação curatorial de data e documento ou referência de recebimento; preserva a prova no índice armazenado no Drive.
+- **Prorrogação:** substitui o prazo operacional quando a data revisada for validada, mantendo a data original da guia.
+- **Outras movimentações (DOA, TRAN, PER, DEV):** nunca entram nas contagens de vencimento de empréstimos.
+
+Não inferir devolução, atraso ou prorrogação da ausência de um documento. Nenhum filtro altera o registro de origem. A ordenação prioriza prazos vencidos e próximos vencimentos. Sem indexação dos documentos, indicar prazo desconhecido e disponibilizar triagem por lotes.
+
+## Ficha detalhada e mapa
+
+Após login OAuth, o usuário pode abrir uma guia e acessar a extração estruturada com recipientes e instituições, datas, país e cidade, pesquisador, curador, solicitante, envio, quantidade e volumes, preservação, taxonomia, discriminação e observações, conforme o documento permita. Campos não obtidos permanecem **não identificados**, sem preenchimento inferencial. O site disponibiliza **texto integral extraído na sessão** e links para todos os originais PDF/Word disponíveis; o original conserva prioridade em caso de divergência. Para DOCX com dados em caixas de texto, também são lidos elementos OOXML `w:txbxContent`. O texto integral é mantido somente na memória do navegador, não no GitHub público.
+
+O mapa agrupa as guias por país indicado, com card contendo situação do prazo, guia, família, quantidade de espécimes e botão de consulta. Países sem georreferência documentada não recebem pontos. Centros geográficos dos países **não representam** a localização de instituições.
+
+A prévia pública contém exclusivamente quatro guias resumidas de 2026, com datas e quantidades documentais; não contém nomes de pesquisadores, contatos, arquivos originais ou links privados. A consulta integral depende de uma credencial OAuth Web no Google Cloud e da conta Google autorizada na pasta.

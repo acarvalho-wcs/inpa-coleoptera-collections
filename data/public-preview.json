@@ -2,7 +2,7 @@
   "kind": "public-anonymized-preview",
   "snapshotDate": "2026-10-20",
   "source": "Google Drive da Coleção Entomológica do INPA",
-  "note": "Recorte parcial de quatro guias de 2026 conferidas em documentos originais. Não é a base completa nem comprova envio ou devolução. Sem nomes, e-mails, IDs de arquivos ou links privados.",
+  "note": "Recorte parcial das quatro guias de 2026 com datas de envio e devolução transcritas das guias. Datas são documentais, não prova de envio ou de devolução. Sem dados pessoais ou links dos documentos.",
   "records": [
     {
       "year": "2026",
@@ -11,7 +11,9 @@
       "family": "Lampyridae / Lycidae",
       "specimenCount": 184,
       "country": "Alemanha",
-      "status": "Guia com data de envio futura: confirmar efetivação"
+      "status": "Guia com data de envio futura: confirmar efetivação",
+      "sentDate": "2026-12-02",
+      "dueDate": "2026-12-12"
     },
     {
       "year": "2026",
@@ -20,7 +22,9 @@
       "family": "Chrysomelidae",
       "specimenCount": 20,
       "country": "Brasil",
-      "status": "Movimentação documentada; execução e devolução não conciliadas"
+      "status": "Movimentação documentada; execução e devolução não conciliadas",
+      "sentDate": "2026-02-24",
+      "dueDate": null
     },
     {
       "year": "2026",
@@ -29,7 +33,9 @@
       "family": "Scirtiidae",
       "specimenCount": 381,
       "country": "Brasil",
-      "status": "Movimentação documentada; execução e devolução não conciliadas"
+      "status": "Movimentação documentada; execução e devolução não conciliadas",
+      "sentDate": "2026-04-14",
+      "dueDate": "2026-12-14"
     },
     {
       "year": "2026",
@@ -38,7 +44,9 @@
       "family": "Buprestidae",
       "specimenCount": 14,
       "country": "Brasil",
-      "status": "Movimentação documentada; execução e devolução não conciliadas"
+      "status": "Movimentação documentada; execução e devolução não conciliadas",
+      "sentDate": "2026-07-27",
+      "dueDate": "2028-07-27"
     }
   ]
 }
