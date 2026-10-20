@@ -174,3 +174,29 @@ test('hero uses supplied Dynastes hercules drawing instead of rings or star',asy
     assert.ok(file.length>10000);
   }finally{await rm(out,{recursive:true,force:true});}
 });
+
+test('scientific italics load a real italic face and preserve fallback for Safari',async()=>{
+  const out=await makeOut();
+  try{
+    const result=run(out,'');
+    assert.equal(result.status,0,result.stderr);
+    const html=await readFile(join(out,'index.html'),'utf8');
+    const css=await readFile(join(out,'styles.css'),'utf8');
+    assert.match(html,/DM\+Sans:ital,wght@0,400;[\s\S]*?1,400/);
+    assert.match(html,/<i class="taxon-scientific">Agrilus oceanicus<\/i>/);
+    assert.match(css,/\.taxon-scientific\s*\{[^}]*font-style:italic!important/);
+    assert.match(css,/\.taxon-scientific\s*\{[^}]*font-synthesis:style/);
+  }finally{await rm(out,{recursive:true,force:true});}
+});
+test('quality tab has proper spacing and responsive cards',async()=>{
+  const out=await makeOut();
+  try{
+    assert.equal(run(out,'').status,0);
+    const html=await readFile(join(out,'index.html'),'utf8');
+    const css=await readFile(join(out,'styles.css'),'utf8');
+    assert.match(html,/<section class="audit-summary"/);
+    assert.match(css,/#tab-quality \.audit-summary\s*\{[^}]*padding:/);
+    assert.match(css,/#tab-quality \.quality-grid\s*\{[^}]*grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/);
+    assert.match(css,/@media\(max-width:760px\)\s*\{/);
+  }finally{await rm(out,{recursive:true,force:true});}
+});
