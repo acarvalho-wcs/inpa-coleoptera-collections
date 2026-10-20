@@ -4,13 +4,14 @@ import {centerForCountry} from './countries.js';
 import {canonicalKey,extractFacts,applyReview,createSnapshot,readSnapshot} from './canonical.js';
 import {extractDocumentText} from './document-extract.js';
 import {loanStatus,priority,showDate,localToday,validIso} from './loan-status.js';
+import {mergePrivateGuideIndex} from './private-index.js';
 
 const $=id=>document.getElementById(id);
 const config=window.INPA_CONFIG||{};
 const client=new DriveClient(config.googleClientId||'');
 const state={tree:null,years:new Map(),loaded:new Map(),rows:[],filtered:[],currentYear:config.startingYear||'2026',
   currentTab:'table',selected:null,map:null,mapMarkers:null,loading:false,canonical:new Map(),transcripts:new Map(),
-  scanning:false,lastSnapshot:null,previewMode:false,previewCache:[],scannedOnce:new Set()};
+  scanning:false,lastSnapshot:null,previewMode:false,previewCache:[],scannedOnce:new Set(),privateIndexLoaded:false};
 const escapeHtml=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const message=(text,type='')=>{$('notice').textContent=text;$('notice').className=`notice ${type}`;};
 const typeLabel=r=>TYPE_LABELS[r.type]||'Não classificada';
@@ -74,9 +75,9 @@ function filters(){return {query:$('searchInput').value,type:$('typeSelect').val
 function taxonTag(r){const code=r.canonical?.taxonomy?.classification||'pending';return `<span class="taxon-tag ${code}">${escapeHtml(({coleoptera:'Coleoptera',other:'Outra ordem',mixed:'Mista',pending:'Pendente'})[code]||code)}</span>`;}
 function statusTag(row){const s=loanStatus(row);return `<span class="deadline-tag ${s.code}">${escapeHtml(s.label)}</span>`;}
 const guideNames=r=>({
-  name:r.preview?'Acesso restrito':r.canonical?.guide?.fields?.recipient||r.researcher||null,
-  requestedBy:r.preview?'Acesso restrito':r.canonical?.guide?.fields?.requestedBy||null,
-  nameFromGuide:Boolean(r.canonical?.guide?.fields?.recipient)
+  name:r.canonical?.guide?.fields?.recipient||r.recipient||(r.preview?'Carregue o índice privado':r.researcher||null),
+  requestedBy:r.canonical?.guide?.fields?.requestedBy||r.requestedBy||(r.preview?'Carregue o índice privado':null),
+  nameFromGuide:Boolean(r.canonical?.guide?.fields?.recipient||r.recipient)
 });
 function dueLabel(row){const s=loanStatus(row);return s.dueSource==='not_applicable'||s.dueSource==='return_guide'?'Não aplicável':s.displayedDue;}
 function dueExtra(row){const s=loanStatus(row);return s.dueSource==='one_year'?'Estimativa: +1 ano':s.dueSource==='ambiguous_document'?'Conferir formato na guia':s.needsOriginal?'Conferir data na guia original':'';}
@@ -98,7 +99,7 @@ function render(){
     const names=guideNames(r);
     return `<tr><td>${escapeHtml(r.number?`${r.year}/${r.number}`:'—')}</td><td>${escapeHtml(r.year||'—')}</td>`+
       `<td><div class="doc-name">${escapeHtml(names.name||'Não extraído')}</div><div class="submeta">${escapeHtml(r.preview?r.family:(names.nameFromGuide?'Nome confirmado no texto':'Identificação sugerida pelo nome do arquivo'))}</div></td>`+
-      `<td><div class="doc-name">${escapeHtml(names.requestedBy||'Não extraído')}</div><div class="submeta">${escapeHtml(r.preview?'Disponível após login':'Campo Solicitante da guia')}</div></td>`+
+      `<td><div class="doc-name">${escapeHtml(names.requestedBy||'Não extraído')}</div><div class="submeta">${escapeHtml(r.preview?(state.privateIndexLoaded?'Extraído do índice privado nesta sessão':'Carregue o índice privado'):'Campo Solicitante da guia')}</div></td>`+
       `<td><span class="type-tag">${escapeHtml(typeLabel(r))}</span></td><td>${taxonTag(r)}</td>`+
       `<td><strong class="due-value">${escapeHtml(dueLabel(r))}</strong><div class="submeta">${escapeHtml(dueExtra(r))}</div></td>`+
       `<td>${statusTag(r)}</td><td><button class="link-btn" data-open="${escapeHtml(r.id)}">Ver guia ↗</button></td></tr>`;
@@ -120,8 +121,11 @@ function showDetails(r){
     pair('Verificação de formato das datas',status.needsOriginal?'CONFERIR GUIA ORIGINAL: formatos dia/mês/ano e mês/dia/ano':'Sem ambiguidade identificada'),
     pair('Prorrogação',showDate(loan.extensionDueDate)),pair('Devolução efetivamente confirmada',showDate(loan.returnedDate))];
   if(r.preview){
-    $('detailBody').innerHTML=common.join('')+pair('País',r.country)+pair('Observação',r.previewStatus)+
-      pair('Alcance dos dados','Somente resumo não identificável; a consulta integral exige Google Drive autorizado');
+    const names=guideNames(r);
+    $('detailBody').innerHTML=common.join('')+
+      pair('Nome (destinatário)',names.name)+pair('Solicitante',names.requestedBy)+
+      pair('País',r.country)+pair('Observação',r.previewStatus)+
+      pair('Alcance dos dados',state.privateIndexLoaded?'Nomes carregados de um índice local, somente nesta sessão; para outros campos use o Google Drive autorizado':'Prévia resumida. Carregue o índice privado ou conecte o Google Drive');
     $('guideCompleteness').hidden=true;document.querySelector('#details .edit-panel').hidden=true;
     document.querySelector('#details .dialog-foot').hidden=true;return;
   }
@@ -271,7 +275,7 @@ function renderCanonicalStatus(){
   const counts={coleoptera:0,other:0,mixed:0,pending:0};
   for(const r of state.rows)counts[r.canonical?.taxonomy?.classification||'pending']++;
   $('canonicalStatus').textContent=state.previewMode?
-    `PRÉVIA PARCIAL · ${state.rows.length} guias de Coleoptera. Prazos extraídos dos PDFs; devoluções não conciliadas. Conecte o Drive para consultar o conteúdo integral.`:
+    `PRÉVIA PARCIAL · ${state.rows.length} guias de Coleoptera. ${state.privateIndexLoaded?'Nome e Solicitante carregados localmente; arquivo não enviado a servidor.':'Carregue o índice privado para visualizar Nome e Solicitante.'} Devoluções ainda não conciliadas.`:
     `${state.rows.length} guias · ${counts.coleoptera} Coleoptera com evidência · ${counts.pending} pendentes de triagem · ${counts.other} outras ordens · ${counts.mixed} mistas. Datas exigem conferência.`;
 }
 async function loadCanonicalIndex(){
@@ -340,13 +344,31 @@ async function loadPublicPreview(){
         loan:{sentDate:r.sentDate||null,dueDate:r.dueDate||null,
           sentDateRaw:r.sentDateRaw||null,dueDateRaw:r.dueDateRaw||null,dueSource:r.dueSource||null,datesNeedReview:Boolean(r.sentDateRaw||r.dueDateRaw),returnStatus:'not_reconciled'}}}));
     if(client.token)return;
-    state.previewCache=rows;state.rows=rows.slice();state.previewMode=true;
+    state.previewCache=rows;state.rows=rows.slice();state.previewMode=true;state.privateIndexLoaded=false;
     $('yearSelect').innerHTML='<option value="2026">2026 · prévia</option>';
     $('yearSelect').value='2026';setBusy(false);render();
     $('connectBtn').disabled=false;$('connectBtn').textContent='Conectar Google Drive';setConnected(false);
-    message(`TRIAGEM 2026 · ${rows.length} guias de Coleoptera com evidência documental. Datas ambíguas exigem conferência na Guia Original; sem conciliação de devoluções. Para consultar Nome e Solicitante, conecte o Drive.`);
+    message(`TRIAGEM 2026 · ${rows.length} guias de Coleoptera. Para mostrar Nome e Solicitante nos registros e no mapa, carregue o índice canônico privado localmente ou conecte o Google Drive.`);
   }catch(e){message(`Prévia indisponível: ${e.message}`,'error');}
 }
+$('loadLocalIndexBtn').addEventListener('click',()=>$('localIndexFile').click());
+$('localIndexFile').addEventListener('change',async event=>{
+  const file=event.target.files?.[0];
+  event.target.value='';
+  if(!file)return;
+  if(file.size>3*1024*1024){message('O índice JSON excede 3 MB.','error');return;}
+  try{
+    const data=JSON.parse(await file.text());
+    if(!state.previewMode||!state.previewCache.length)throw Error('Aguarde o carregamento da prévia');
+    const result=mergePrivateGuideIndex(state.previewCache,data);
+    if(!result.applied)throw Error('Nenhuma guia correspondente encontrada');
+    state.previewCache=result.rows;
+    state.rows=result.rows.slice();
+    state.privateIndexLoaded=true;
+    render();
+    message(`Nome e Solicitante de ${result.applied} guias carregados somente neste navegador. ${result.ambiguous} números duplicados exigem conferência. Nenhum arquivo foi enviado.`,'success');
+  }catch(e){message(`Não foi possível importar o índice: ${e.message}`,'error');}
+});
 $('connectBtn').addEventListener('click',()=>{
   if(!/^[a-zA-Z0-9_-]+\.apps\.googleusercontent\.com$/.test(client.clientId||'')){$('oauthSetup').showModal();return;}
   connect();

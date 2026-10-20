@@ -51,7 +51,7 @@ export function filterRecords(records,{query='',year='all',type='all',format='al
     (type==='all'||r.type===type)&&
     (format==='all'||(format==='pdf'?isPreferred(r):!isPreferred(r)))&&
     (!onlyColeoptera||normalize(r.taxonomicOrder)==='coleoptera')&&
-    (!needle||normalize([r.name,r.researcher,r.institution,r.country,r.city,r.family,r.taxonomicOrder,r.number].filter(Boolean).join(' ')).includes(needle))
+    (!needle||normalize([r.name,r.researcher,r.recipient,r.requestedBy,r.canonical?.guide?.fields?.recipient,r.canonical?.guide?.fields?.requestedBy,r.institution,r.country,r.city,r.family,r.taxonomicOrder,r.number].filter(Boolean).join(' ')).includes(needle))
   );
 }
 export function stats(rows){return {records:rows.length,loans:rows.filter(r=>r.type==='EMP').length,returns:rows.filter(r=>r.type==='DEV').length,pdfs:rows.filter(isPreferred).length,needsReview:rows.filter(r=>!r.reviewed).length};}

@@ -32,3 +32,8 @@
 .due-value+ .submeta{line-height:1.45;font-size:10px;color:#766244}
 .destination-record span b{font-weight:750;color:#244d4a}
 .destination-list{max-height:320px}
+
+/* Local-only private index names: keep complete researcher and requester names legible. */
+.table-wrap .doc-name{white-space:normal;overflow-wrap:anywhere;word-break:normal;max-width:330px}
+.destination-record span{white-space:normal;overflow-wrap:anywhere}
+.private-index-help{max-width:640px;color:#476b60;font-size:12px;line-height:1.5;margin:6px 0 8px}
