@@ -1,6 +1,8 @@
 name: Publicar site no GitHub Pages
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:

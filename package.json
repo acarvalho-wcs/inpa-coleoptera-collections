@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Painel privado de consulta a guias da Colecao Entomologica do INPA, integrando o Google Drive",
+  "description": "Painel publico de codigo aberto para consulta autenticada a guias da Colecao Entomologica do INPA",
   "scripts": {
     "start": "node server.mjs",
     "test": "node --test tests/*.test.mjs",

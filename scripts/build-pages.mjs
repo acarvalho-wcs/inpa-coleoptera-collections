@@ -7,8 +7,10 @@ const source = resolve(import.meta.dirname, '..');
 const destination = resolve(process.argv[2] || join(source, 'dist'));
 const clientId = (process.env.GOOGLE_OAUTH_CLIENT_ID || '').trim();
 
-if (!/^[a-zA-Z0-9_-]+\.apps\.googleusercontent\.com$/.test(clientId)) {
-  console.error('Missing or invalid GOOGLE_OAUTH_CLIENT_ID (GitHub Actions variable).');
+// A public site shell may be deployed without Google OAuth configured yet.
+// Never substitute a fake client ID: unauthorized access remains disabled.
+if (clientId && !/^[a-zA-Z0-9_-]+\.apps\.googleusercontent\.com$/.test(clientId)) {
+  console.error('Invalid GOOGLE_OAUTH_CLIENT_ID (GitHub Actions variable).');
   process.exit(1);
 }
 if (destination === source || destination.startsWith(source + '/js/')) {
@@ -33,4 +35,4 @@ const cfg = {
 };
 await writeFile(join(destination, 'config.js'), `window.INPA_CONFIG = ${JSON.stringify(cfg, null, 2)};\n`, { mode: 0o644 });
 const output = ['index.html', 'styles.css', '.nojekyll', 'config.js', ...scripts.map(x => `js/${x}`)];
-console.log(`Pages build: ${output.length} allowlisted files only. No PDF, DOCX, CSV or tokens copied.`);
+console.log(`Pages build: ${output.length} allowlisted files only. Google OAuth: ${clientId ? 'configured' : 'pending'}. No PDF, DOCX, CSV or tokens copied.`);

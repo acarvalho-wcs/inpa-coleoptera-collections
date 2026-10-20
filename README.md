@@ -1,12 +1,12 @@
 # Sistema de Gestão de Coleções – Coleoptera INPA
 
-Código-fonte inicial, portável e **versionado em repositório privado**, do painel de consulta a guias de movimentação da Coleção Entomológica do INPA.
+Código-fonte inicial, portável e **versionado em repositório público**, do painel de consulta a guias de movimentação da Coleção Entomológica do INPA.
 
 **Origem dos documentos:** [pasta Google Drive compartilhada](https://drive.google.com/drive/u/1/folders/1RdZAIbK9_Hn6o2E_x-vv0HQMpUEeMSxP), subpasta `Guias de empréstimo`, anos 2009–2026. O aplicativo lê os documentos com autenticação Google e **não copia PDFs/Word para o GitHub nem para um servidor da aplicação**.
 
 ## Situação da migração (v0.1)
 
-Este pacote reproduz a arquitetura funcional documentada na conversa, mas **não é uma exportação literal do código do site anterior**: o código-fonte original não estava acessível neste ambiente. Código mantido no repositório privado `acarvalho-wcs/inpa-coleoptera-collections`. A aplicação ainda não está publicada em domínio operacional e o OAuth Google ainda precisa ser configurado.
+Este pacote reproduz a arquitetura funcional documentada na conversa, mas **não é uma exportação literal do código do site anterior**: o código-fonte original não estava acessível neste ambiente. Código mantido no repositório público `acarvalho-wcs/inpa-coleoptera-collections`. A publicação via GitHub Pages depende da ativação da fonte GitHub Actions; o OAuth Google precisa ser configurado para consultar documentos.
 
 ### Funcionalidades implementadas no pacote
 
@@ -55,9 +55,9 @@ npm start
 
 ## Versionamento e futura publicação
 
-- Repositório de origem (privado): `acarvalho-wcs/inpa-coleoptera-collections`.
+- Repositório de origem (público): `acarvalho-wcs/inpa-coleoptera-collections`.
 - Os documentos originais permanecem no Google Drive; não faça commit de dados institucionais, tokens ou `config.js`.
-- Configure OAuth antes de testar o site na hospedagem pretendida; use uma origem HTTPS autorizada no Google Cloud.
+- Configure OAuth antes de testar a integração real com o Google Drive; use uma origem HTTPS autorizada no Google Cloud.
 - Para disponibilizar a terceiros, implemente controle de acesso institucional apropriado, além do login Google. **O código no GitHub não equivale a um site já implantado.**
 - Esta versão é um protótipo documental, não um sistema validado de empréstimos em atraso.
 
@@ -73,7 +73,7 @@ Navegador do pesquisador autorizado
   ├─ classificação documental e PDF preferencial
   ├─ dashboard / detalhe / mapa validado
   └─ download autorizado e exportação CSV
-GitHub privado
+GitHub público
   └─ somente código, testes e documentação
 ```
 
@@ -96,18 +96,18 @@ npm test
 Teste as interfaces e, com uma conta institucional, o login, as permissões, as pastas de 2026/2025 e as guias duplicadas antes de publicar uma versão operacional.
 
 
-## Publicação somente no GitHub: verificação de segurança
+## Publicação no GitHub Pages (repositório público)
 
-O fluxo `.github/workflows/pages.yml` é **manual**, não publica a cada commit e exige um identificador público de cliente OAuth 2.0 previamente configurado em **Settings → Secrets and variables → Actions → Variables → `GOOGLE_OAUTH_CLIENT_ID`**. A publicação usa `npm run build:pages`, que cria um diretório `dist/` contendo apenas oito arquivos permitidos (HTML, CSS, scripts JS, `.nojekyll` e configuração pública OAuth). Nenhuma guia, exportação de metadados, token ou credencial secreta faz parte do artefato.
+O fluxo `.github/workflows/pages.yml` publica automaticamente em commits na branch `main` (e aceita execução manual). Se o Client ID OAuth ainda não estiver configurado, publica apenas a interface, com a consulta Google Drive desativada. O build utiliza uma allowlist de oito arquivos (HTML, CSS, scripts JS, `.nojekyll` e configuração OAuth pública), nunca as guias ou tokens.
 
 A configuração de OAuth exige cadastrar `https://acarvalho-wcs.github.io` como **Authorized JavaScript origin** da credencial no Google Cloud. O domínio de destino do GitHub Pages costuma ser `https://acarvalho-wcs.github.io/inpa-coleoptera-collections/`, mas esse link **não deve ser considerado ativo antes do deploy real ser confirmado no GitHub**.
 
 **Restrições importantes:**
 
-- Para GitHub Pages em repositórios privados de contas pessoais, o GitHub exige **GitHub Pro ou superior** (GitHub Free suporta Pages de repositórios públicos).
-- Páginas de repositórios privados pessoais não são necessariamente privadas: o conteúdo publicado no Pages fica publicamente acessível; o controle dos **documentos** depende do login e das permissões do Google Drive. Publicar o site em si exige autorização institucional apropriada.
-- Até configurar OAuth e a origem permitida, não é possível executar uma consulta autenticada real. Os testes automatizados asseguram somente a lógica de construção e classificação.
-- Mantenha o repositório privado. Não mude a visibilidade sem avaliação da política institucional.
+- Como o repositório agora é público, o GitHub Free permite GitHub Pages. Os arquivos de origem do Drive não são incluídos no site.
+- O site e o código-fonte são públicos. O acesso às guias permanece condicionado à autenticação e às permissões do Google Drive.
+- Até configurar OAuth e a origem permitida, a página será somente uma interface demonstrativa sem registros reais; não há consulta autenticada.
+- O repositório é público por decisão do mantenedor; nunca adicione PDFs, DOCX, CSVs institucionais, tokens ou dados pessoais.
 
 Para conferir o build localmente **sem publicar**:
 
@@ -115,3 +115,13 @@ Para conferir o build localmente **sem publicar**:
 npm test
 GOOGLE_OAUTH_CLIENT_ID='CLIENT_ID_DO_GOOGLE.apps.googleusercontent.com' npm run build:pages
 ```
+
+### Próximas etapas de ativação
+
+1. Em `Settings > Pages > Build and deployment > Source`, selecionar `GitHub Actions` se necessário.
+2. No Google Cloud Console, habilitar `Google Drive API` e cadastrar um `OAuth 2.0 Client ID` de aplicação Web.
+3. Em `Authorized JavaScript origins`, adicionar `https://acarvalho-wcs.github.io` (sem o caminho do projeto).
+4. No GitHub, em `Settings > Secrets and variables > Actions > Variables`, adicionar `GOOGLE_OAUTH_CLIENT_ID` (Client ID público, nunca um client secret).
+5. Executar `Actions > Publicar site no GitHub Pages > Run workflow`, para publicar novamente com OAuth habilitado.
+
+O URL previsto (ainda não confirmado ativo) é `https://acarvalho-wcs.github.io/inpa-coleoptera-collections/`.

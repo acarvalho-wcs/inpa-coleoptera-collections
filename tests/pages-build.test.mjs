@@ -14,12 +14,15 @@ const run = (where, googleClientId) => spawnSync(process.execPath, [builder, whe
 
 const makeOut = () => mkdtemp(join(tmpdir(), 'inpa-pages-test-'));
 
-test('never builds Pages without a configured OAuth client ID', async () => {
+test('builds an empty-data public site shell without OAuth', async () => {
   const out = await makeOut();
   try {
     const result = run(out, '');
-    assert.notEqual(result.status, 0);
-    assert.match(result.stderr, /GOOGLE_OAUTH_CLIENT_ID/);
+    assert.equal(result.status, 0, result.stderr);
+    assert.match(result.stdout, /OAuth: pending/);
+    const config = await readFile(join(out, 'config.js'), 'utf8');
+    assert.match(config, /"googleClientId": ""/);
+    assert.doesNotMatch(config, /client_secret|access_token|refresh_token/i);
   } finally { await rm(out, { recursive: true, force: true }); }
 });
 
