@@ -43,7 +43,7 @@ test('publishes only app allowlist and public OAuth client ID', async () => {
     assert.deepEqual(top, ['.nojekyll', 'assets', 'config.js', 'data', 'index.html', 'js', 'styles.css']);
     assert.deepEqual((await readdir(join(out, 'js'))).sort(), ['app.js', 'canonical.js', 'countries.js', 'document-extract.js', 'drive.js', 'guide-fields.js', 'loan-status.js', 'private-index.js', 'records.js', 'taxon-format.js']);
     assert.deepEqual((await readdir(join(out, 'data'))).sort(),['public-preview.json', 'triage-2026-audit.json']);
-    assert.deepEqual((await readdir(join(out,'assets'))).sort(),['inpa.png','invertebrados.png','wcs-brasil.png']);
+    assert.deepEqual((await readdir(join(out,'assets'))).sort(),['dynastes-hercules-macho.png','inpa.png','invertebrados.png','wcs-brasil.png']);
     const html=await readFile(join(out,'index.html'),'utf8');
     assert.match(html,/Curadoria e Gestão/);
     assert.match(html,/Apoio/);
@@ -159,4 +159,18 @@ test('static HTML italicizes documented taxa while leaving ranks and qualifiers 
   assert.match(html,/Ordem: Coleoptera/);
   assert.doesNotMatch(html,/<i class="taxon-scientific">(?:Coleoptera|Buprestidae|Scirtiidae|sp\.|spp\.)<\/i>/);
  }finally{await rm(out,{recursive:true,force:true});}
+});
+
+test('hero uses supplied Dynastes hercules drawing instead of rings or star',async()=>{
+  const out=await makeOut();
+  try{
+    const result=run(out,'');
+    assert.equal(result.status,0,result.stderr);
+    const html=await readFile(join(out,'index.html'),'utf8');
+    assert.match(html,/<img class="hero-beetle" src="\.\/assets\/dynastes-hercules-macho\.png"/);
+    assert.doesNotMatch(html,/class="ring ring[12]"|class="beetle">✳/);
+    const file=await readFile(join(out,'assets','dynastes-hercules-macho.png'));
+    assert.equal(file.subarray(1,4).toString('ascii'),'PNG');
+    assert.ok(file.length>10000);
+  }finally{await rm(out,{recursive:true,force:true});}
 });
