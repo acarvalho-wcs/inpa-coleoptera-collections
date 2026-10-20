@@ -10,7 +10,7 @@ const config=window.INPA_CONFIG||{};
 const client=new DriveClient(config.googleClientId||'');
 const state={tree:null,years:new Map(),loaded:new Map(),rows:[],filtered:[],currentYear:config.startingYear||'2026',
   currentTab:'table',selected:null,map:null,mapMarkers:null,loading:false,canonical:new Map(),transcripts:new Map(),
-  scanning:false,lastSnapshot:null,previewMode:false,previewCache:[]};
+  scanning:false,lastSnapshot:null,previewMode:false,previewCache:[],scannedOnce:new Set()};
 const escapeHtml=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const message=(text,type='')=>{$('notice').textContent=text;$('notice').className=`notice ${type}`;};
 const typeLabel=r=>TYPE_LABELS[r.type]||'Não classificada';
@@ -73,7 +73,14 @@ async function loadSelection(refresh=false){
 function filters(){return {query:$('searchInput').value,type:$('typeSelect').value,format:$('formatSelect').value};}
 function taxonTag(r){const code=r.canonical?.taxonomy?.classification||'pending';return `<span class="taxon-tag ${code}">${escapeHtml(({coleoptera:'Coleoptera',other:'Outra ordem',mixed:'Mista',pending:'Pendente'})[code]||code)}</span>`;}
 function statusTag(row){const s=loanStatus(row);return `<span class="deadline-tag ${s.code}">${escapeHtml(s.label)}</span>`;}
-function dueLabel(row){const s=loanStatus(row);return s.dueDate?showDate(s.dueDate):'—';}
+const guideNames=r=>({
+  name:r.preview?'Acesso restrito':r.canonical?.guide?.fields?.recipient||r.researcher||null,
+  requestedBy:r.preview?'Acesso restrito':r.canonical?.guide?.fields?.requestedBy||null,
+  nameFromGuide:Boolean(r.canonical?.guide?.fields?.recipient)
+});
+function dueLabel(row){const s=loanStatus(row);return s.dueSource==='not_applicable'||s.dueSource==='return_guide'?'Não aplicável':s.displayedDue;}
+function dueExtra(row){const s=loanStatus(row);return s.dueSource==='one_year'?'Estimativa: +1 ano':s.dueSource==='ambiguous_document'?'Conferir formato na guia':s.needsOriginal?'Conferir data na guia original':'';}
+
 function render(){
   const selectedTaxon=$('taxonSelect').value,statusFilter=$('statusSelect').value;
   const rows=filterRecords(state.rows,filters()).filter(r=>(selectedTaxon==='all'||(r.canonical?.taxonomy?.classification||'pending')===selectedTaxon)&&
@@ -83,30 +90,34 @@ function render(){
   $('mOverdue').textContent=statuses.filter(s=>s.code==='overdue').length.toLocaleString('pt-BR');
   $('mSoon').textContent=statuses.filter(s=>s.code==='soon'||s.code==='today').length.toLocaleString('pt-BR');
   $('mTracked').textContent=statuses.filter((s,i)=>rows[i].type==='EMP'&&s.dueDate).length.toLocaleString('pt-BR');
-  $('mUnknown').textContent=statuses.filter((s,i)=>rows[i].type==='EMP'&&s.code==='unknown').length.toLocaleString('pt-BR');
-  $('personColumn').textContent=state.previewMode?'Família / identificação':'Destinatário / identificação';
+  $('mUnknown').textContent=statuses.filter((s,i)=>rows[i].type==='EMP'&&['unknown','date_check'].includes(s.code)).length.toLocaleString('pt-BR');
+  $('personColumn').textContent='Nome (destinatário)';
   $('countLabel').textContent=state.previewMode?`${rows.length} guias na prévia parcial de 2026`:`${rows.length} registros na seleção · ${state.rows.length} carregados`;
   $('recordsBody').innerHTML=rows.length?rows.map(r=>{
     const status=loanStatus(r);
-    const line=r.preview?`${r.specimens||'—'} espécimes · ${r.country||'—'}`:(r.family||r.name||'—');
+    const names=guideNames(r);
     return `<tr><td>${escapeHtml(r.number?`${r.year}/${r.number}`:'—')}</td><td>${escapeHtml(r.year||'—')}</td>`+
-      `<td><div class="doc-name">${escapeHtml(r.researcher||r.name)}</div><div class="submeta">${escapeHtml(line)}</div></td>`+
+      `<td><div class="doc-name">${escapeHtml(names.name||'Não extraído')}</div><div class="submeta">${escapeHtml(r.preview?r.family:(names.nameFromGuide?'Nome confirmado no texto':'Identificação sugerida pelo nome do arquivo'))}</div></td>`+
+      `<td><div class="doc-name">${escapeHtml(names.requestedBy||'Não extraído')}</div><div class="submeta">${escapeHtml(r.preview?'Disponível após login':'Campo Solicitante da guia')}</div></td>`+
       `<td><span class="type-tag">${escapeHtml(typeLabel(r))}</span></td><td>${taxonTag(r)}</td>`+
-      `<td><strong class="due-value">${escapeHtml(dueLabel(r))}</strong></td>`+
+      `<td><strong class="due-value">${escapeHtml(dueLabel(r))}</strong><div class="submeta">${escapeHtml(dueExtra(r))}</div></td>`+
       `<td>${statusTag(r)}</td><td><button class="link-btn" data-open="${escapeHtml(r.id)}">Ver guia ↗</button></td></tr>`;
-  }).join(''):'<tr><td colspan="8" class="empty">Nenhuma guia corresponde aos filtros selecionados.</td></tr>';
+  }).join(''):'<tr><td colspan="9" class="empty">Nenhuma guia corresponde aos filtros selecionados.</td></tr>';
   renderCanonicalStatus();if(state.currentTab==='map')renderMap();
 }
 function pair(label,value){return `<div class="detail-pair"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value===null||value===undefined||value===''?'Não identificado':value)}</strong></div>`;}
 function showDetails(r){
   const status=loanStatus(r),c=r.canonical||{},f=c.guide?.fields||{},loan=c.loan||{};
   $('detailTitle').textContent=`Guia ${r.year}/${r.number||'s/n'}${r.preview?' · prévia pública':''}`;
-  $('detailDeadline').innerHTML=`<div><small>DEVOLUÇÃO PREVISTA</small><strong>${escapeHtml(showDate(status.dueDate))}</strong></div>`+
+  $('detailDeadline').innerHTML=`<div><small>DEVOLUÇÃO PREVISTA</small><strong>${escapeHtml(dueLabel(r))}</strong><p>${escapeHtml(status.basisLabel||'')} ${status.needsOriginal?'· CONFERIR GUIA ORIGINAL':''}</p></div>`+
     `<div>${statusTag(r)}<p>${escapeHtml(r.preview?'Prévia documental. Verifique o original após autenticação.':
-    'Prazo calculado para acompanhamento; confirmar envio, prorrogações e devolução com documentos.')}</p></div>`;
+    'Prazo calculado para acompanhamento; confirmar datas, prorrogações e devolução na Guia Original.')}</p></div>`;
   const common=[pair('Movimentação',typeLabel(r)),pair('Grupo taxonômico',c.taxonomy?.order||r.taxonomicOrder||'Coleoptera (prévia)'),
     pair('Família',f.family||r.family),pair('Espécimes',c.specimenCount??r.specimens),
-    pair('Envio informado',showDate(loan.sentDate||r.sentDate)),pair('Prazo original',showDate(loan.dueDate||r.dueDate)),
+    pair('Data de empréstimo (literal na guia)',loan.sentDateRaw||r.sentDateRaw||showDate(loan.sentDate||r.sentDate)),
+    pair('Devolução prevista (literal na guia)',loan.dueDateRaw||r.dueDateRaw||showDate(loan.dueDate||r.dueDate)),
+    pair('Prazo efetivo / origem',`${dueLabel(r)} · ${status.basisLabel}`),
+    pair('Verificação de formato das datas',status.needsOriginal?'CONFERIR GUIA ORIGINAL: formatos dia/mês/ano e mês/dia/ano':'Sem ambiguidade identificada'),
     pair('Prorrogação',showDate(loan.extensionDueDate)),pair('Devolução efetivamente confirmada',showDate(loan.returnedDate))];
   if(r.preview){
     $('detailBody').innerHTML=common.join('')+pair('País',r.country)+pair('Observação',r.previewStatus)+
@@ -115,7 +126,7 @@ function showDetails(r){
     document.querySelector('#details .dialog-foot').hidden=true;return;
   }
   const list=[...common,
-    pair('Destinatário',f.recipient||r.researcher),pair('Instituição',c.destination?.institution||f.institution||r.institution),
+    pair('Nome (destinatário)',f.recipient||r.researcher),pair('Instituição',c.destination?.institution||f.institution||r.institution),
     pair('País',c.destination?.country||f.country||r.country),pair('Cidade',c.destination?.city||r.city),
     pair('Contato (e-mail)',f.email),pair('Contato da chefia',f.departmentHead),
     pair('Coleção',f.collection),pair('Curador',f.curator),pair('Solicitante',f.requestedBy),
@@ -123,7 +134,7 @@ function showDetails(r){
     pair('Filo',f.phylum),pair('Classe',f.className),pair('Ordem (texto)',f.order),
     pair('Outros táxons',f.other),pair('Material discriminado',f.discrimination),
     pair('Observações',f.observations),pair('Autorização',f.authorizedBy),
-    pair('Estado da devolução',loan.returnStatus==='returned'?'Confirmada':loan.returnStatus==='partial'?'Parcial':'Não conciliada'),
+    pair('Estado da devolução',r.type==='DEV'?'Devolução registrada nesta guia (-DEV)':loan.returnStatus==='returned'?'Confirmada':loan.returnStatus==='partial'?'Parcial':'Não conciliada'),
     pair('Evidência da devolução',loan.returnEvidence),pair('Notas curatoriais',c.validation?.notes),
     pair('Alertas de auditoria',c.validation?.issues?.join(' · '))];
   $('detailBody').innerHTML=list.join('');
@@ -158,8 +169,14 @@ async function openDetails(id){
       if(existing){
         // Do not overwrite manually reviewed status or deadline extensions.
         existing.guide={...extracted.guide,...existing.guide,fields:{...extracted.guide.fields,...existing.guide?.fields}};
-        if(!existing.loan?.dueDate)existing.loan.dueDate=extracted.loan.dueDate;
-        if(!existing.loan?.sentDate)existing.loan.sentDate=extracted.loan.sentDate;
+        existing.loan=existing.loan||{};
+        existing.loan.sentDateRaw=extracted.loan.sentDateRaw;
+        existing.loan.dueDateRaw=extracted.loan.dueDateRaw;
+        existing.loan.datesNeedReview=extracted.loan.datesNeedReview;
+        if(extracted.loan.sentDateRaw && !extracted.loan.sentDate)existing.loan.sentDate=null;
+        else if(!existing.loan.sentDate)existing.loan.sentDate=extracted.loan.sentDate;
+        if(extracted.loan.dueDateRaw && !extracted.loan.dueDate)existing.loan.dueDate=null;
+        else if(!existing.loan.dueDate)existing.loan.dueDate=extracted.loan.dueDate;
         if(!existing.specimenCount)existing.specimenCount=extracted.specimenCount;
       }else row.canonical=extracted;
       state.canonical.set(row.canonical.key,row.canonical);
@@ -187,11 +204,13 @@ function saveMetadata(event){
 }
 function exportCsv(){
   if(!client.token)return;
-  const fields=['year','number','researcher','type','family','country','dueDate','deadlineStatus','returnStatus','name','url'];
+  const fields=['year','number','recipient','requestedBy','type','family','country','sentDateRaw','dueDateRaw','dueDate','dueSource','deadlineStatus','returnStatus','name','url'];
   const q=v=>`"${String(v??'').replace(/"/g,'""')}"`;
   const csv='\ufeff'+fields.join(';')+'\r\n'+state.filtered.map(r=>{
     const s=loanStatus(r),c=r.canonical||{};
-    const data={...r,dueDate:s.dueDate,deadlineStatus:s.label,returnStatus:c.loan?.returnStatus};
+    const data={...r,recipient:guideNames(r).name,requestedBy:guideNames(r).requestedBy,
+      sentDateRaw:c.loan?.sentDateRaw,dueDateRaw:c.loan?.dueDateRaw,dueDate:s.dueDate,dueSource:s.dueSource,
+      deadlineStatus:s.label,returnStatus:c.loan?.returnStatus};
     return fields.map(k=>q(data[k])).join(';');
   }).join('\r\n');
   const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
@@ -227,9 +246,12 @@ async function renderMap(){
       `<p class="destination-subtitle">${overdue?`${overdue} com prazo vencido, devolução a conferir`:'Sem prazo vencido identificado nesta seleção'}</p>`+
       `<div class="destination-list">`+group.rows.slice(0,30).map(r=>{
         const s=loanStatus(r);
+        const names=guideNames(r);
         return `<div class="destination-record"><div><b>Guia ${escapeHtml(r.year+'/'+r.number)}</b> · ${escapeHtml(r.family||'Coleoptera')}`+
           `<span>${escapeHtml(r.specimens||r.canonical?.specimenCount||'—')} espécimes · ${escapeHtml(typeLabel(r))}</span>`+
-          `<span>Devolução prevista: <b>${escapeHtml(showDate(s.dueDate))}</b></span>`+
+          `<span><b>Nome:</b> ${escapeHtml(names.name||'Não extraído')}</span>`+
+          `<span><b>Solicitante:</b> ${escapeHtml(names.requestedBy||'Não extraído')}</span>`+
+          `<span>Devolução prevista: <b>${escapeHtml(dueLabel(r))}</b> ${escapeHtml(dueExtra(r))}</span>`+
           `<span class="status-text ${s.code}">${escapeHtml(s.label)}</span></div>`+
           `<button type="button" data-map-open="${escapeHtml(r.id)}">Ver guia</button></div>`;
       }).join('')+'</div><small>Marcador aproximado do país; não da instituição.</small></div>';
@@ -264,16 +286,26 @@ async function loadCanonicalIndex(){
 }
 async function scanBatch(){
   if(state.scanning||!client.token)return;
-  const queue=state.rows.filter(r=>!state.canonical.has(canonicalKey(r))).slice(0,25);
+  const queue=state.rows.filter(r=>!state.scannedOnce.has(canonicalKey(r))&&
+    (!state.canonical.has(canonicalKey(r))||!state.canonical.get(canonicalKey(r))?.guide?.fields)).slice(0,25);
   if(!queue.length){message('Não há mais guias pendentes nesta seleção.','success');return;}
   state.scanning=true;setBusy(true);let success=0,failed=0;
   try{
     for(let i=0;i<queue.length;i++){
       const r=queue[i];message(`Extração ${i+1}/${queue.length}: guia ${r.year}/${r.number||'s/n'}`);
       try{const text=await extractDocumentText(r,client);state.transcripts.set(r.id,text);
-        r.canonical=extractFacts(text,r);success++;
+        const extracted=extractFacts(text,r),previous=r.canonical;
+        if(previous?.validation?.status==='reviewed'){
+          extracted.validation=previous.validation;
+          extracted.destination=previous.destination;
+          extracted.loan.extensionDueDate=previous.loan?.extensionDueDate||null;
+          extracted.loan.returnStatus=previous.loan?.returnStatus||extracted.loan.returnStatus;
+          extracted.loan.returnEvidence=previous.loan?.returnEvidence||extracted.loan.returnEvidence;
+          extracted.loan.returnedDate=previous.loan?.returnedDate||null;
+        }
+        r.canonical=extracted;success++;
       }catch(e){r.canonical=extractFacts('',r);r.canonical.validation.issues.push(`Falha de extração: ${e.message}`);failed++;}
-      state.canonical.set(r.canonical.key,r.canonical);attachCanonical(r);
+      state.scannedOnce.add(canonicalKey(r));state.canonical.set(r.canonical.key,r.canonical);attachCanonical(r);
     }
     render();message(`${success} documentos lidos; ${failed} pendentes. Prazos identificados precisam ser validados antes de confirmar atrasos. Salve o índice no Drive.`, 'success');
   }finally{state.scanning=false;setBusy(false);}
@@ -305,13 +337,14 @@ async function loadPublicPreview(){
       sources:[],family:r.family,taxonomicOrder:'Coleoptera',specimens:r.specimenCount,country:r.country,
       sentDate:r.sentDate||null,dueDate:r.dueDate||null,previewStatus:r.status,preview:true,
       canonical:{movement:{type:r.type},taxonomy:{classification:'coleoptera',order:'Coleoptera',evidence:[]},
-        loan:{sentDate:r.sentDate||null,dueDate:r.dueDate||null,returnStatus:'not_reconciled'}}}));
+        loan:{sentDate:r.sentDate||null,dueDate:r.dueDate||null,
+          sentDateRaw:r.sentDateRaw||null,datesNeedReview:Boolean(r.sentDateRaw),returnStatus:'not_reconciled'}}}));
     if(client.token)return;
     state.previewCache=rows;state.rows=rows.slice();state.previewMode=true;
     $('yearSelect').innerHTML='<option value="2026">2026 · prévia</option>';
     $('yearSelect').value='2026';setBusy(false);render();
     $('connectBtn').disabled=false;$('connectBtn').textContent='Conectar Google Drive';setConnected(false);
-    message('PRÉVIA PARCIAL · 4 guias de Coleoptera. Consulte os prazos documentados e os destinos; a verificação de devoluções exige autorização ao acervo.');
+    message('PRÉVIA PARCIAL · datas reproduzidas das guias. A data 02/12/2026 da guia 013 possui formato ambíguo: CONFERIR GUIA ORIGINAL. Envio futuro não é presumido.');
   }catch(e){message(`Prévia indisponível: ${e.message}`,'error');}
 }
 $('connectBtn').addEventListener('click',()=>{

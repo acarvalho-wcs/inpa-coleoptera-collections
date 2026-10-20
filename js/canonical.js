@@ -85,6 +85,7 @@ export function extractFacts(text, row) {
   if(guide && (guide[1]!==row.year||String(Number(guide[2])).padStart(3,'0')!==row.number)) issues.push('Divergência entre identificação do arquivo e da guia');
   if(tax.classification==='pending')issues.push('Ordem taxonômica não demonstrada no texto');
   if(tax.classification==='mixed')issues.push('Múltiplas ordens taxonômicas; conferir movimentação mista');
+  issues.push(...(extracted.fields.dateCheckNotes||[]));
   const type=String(row.type||'OUTRO');
   return {
     schema:CANONICAL_SCHEMA, key:canonicalKey(row), sourceId:row.id,
@@ -92,7 +93,10 @@ export function extractFacts(text, row) {
       url:s.webViewLink||`https://drive.google.com/file/d/${encodeURIComponent(s.id)}/view`})),
     guide:{year:row.year,number:row.number,filenameRowType:type,filenameRecipient:row.researcher||null,fields:extracted.fields,fieldNote:extracted.extractionNote},
     taxonomy:tax, movement:{type,source:'filename',confirmed:false},
-    loan:{sentDate:extracted.fields.sentDate||candidates[0]||null,dueDate:extracted.fields.dueDate||candidates[1]||null,extensionDueDate:null,returnedDate:null,returnStatus:'not_reconciled',returnEvidence:null},
+    loan:{sentDate:extracted.fields.sentDate||null,dueDate:extracted.fields.dueDate||null,
+      sentDateRaw:extracted.fields.sentDateRaw||null,dueDateRaw:extracted.fields.dueDateRaw||null,datesNeedReview:extracted.fields.datesNeedReview||false,
+      extensionDueDate:null,returnedDate:null,returnStatus:type==='DEV'?'returned_document':'not_reconciled',
+      returnEvidence:type==='DEV'&&['2025','2026'].includes(row.year)?`Documento de devolução: ${row.name}`:null},
     destination:{country:null,city:null,institution:null,latitude:null,longitude:null,georefPrecision:'not_georeferenced'},
     specimenCount:extracted.fields.specimens||null, validation:{status:'pending',issues,notes:'',reviewedAt:null},
     provenance:{method:'client-side-text-extraction',extractedAt:new Date().toISOString(),source:'Google Drive',sourceOfTruth:true}

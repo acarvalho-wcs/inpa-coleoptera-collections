@@ -2,7 +2,7 @@
   "kind": "public-anonymized-preview",
   "snapshotDate": "2026-10-20",
   "source": "Google Drive da Coleção Entomológica do INPA",
-  "note": "Recorte parcial das quatro guias de 2026 com datas de envio e devolução transcritas das guias. Datas são documentais, não prova de envio ou de devolução. Sem dados pessoais ou links dos documentos.",
+  "note": "Recorte documental parcial. Datas reproduzidas das guias; datas ambíguas devem ser conferidas nos originais. Nenhum envio futuro é presumido. Não representa conciliação de devoluções.",
   "records": [
     {
       "year": "2026",
@@ -11,9 +11,10 @@
       "family": "Lampyridae / Lycidae",
       "specimenCount": 184,
       "country": "Alemanha",
-      "status": "Guia com data de envio futura: confirmar efetivação",
-      "sentDate": "2026-12-02",
-      "dueDate": "2026-12-12"
+      "status": "Data de envio escrita como 02/12/2026 (formato ambíguo dia/mês ou mês/dia). Conferir Guia Original; envio futuro não presumido.",
+      "sentDate": null,
+      "dueDate": "2026-12-12",
+      "sentDateRaw": "02/12/2026"
     },
     {
       "year": "2026",
@@ -24,7 +25,8 @@
       "country": "Brasil",
       "status": "Movimentação documentada; execução e devolução não conciliadas",
       "sentDate": "2026-02-24",
-      "dueDate": null
+      "dueDate": null,
+      "sentDateRaw": null
     },
     {
       "year": "2026",
@@ -35,7 +37,8 @@
       "country": "Brasil",
       "status": "Movimentação documentada; execução e devolução não conciliadas",
       "sentDate": "2026-04-14",
-      "dueDate": "2026-12-14"
+      "dueDate": "2026-12-14",
+      "sentDateRaw": null
     },
     {
       "year": "2026",
@@ -46,7 +49,8 @@
       "country": "Brasil",
       "status": "Movimentação documentada; execução e devolução não conciliadas",
       "sentDate": "2026-07-27",
-      "dueDate": "2028-07-27"
+      "dueDate": "2028-07-27",
+      "sentDateRaw": null
     }
   ]
 }

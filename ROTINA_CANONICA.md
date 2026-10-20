@@ -46,3 +46,13 @@ Após login OAuth, o usuário pode abrir uma guia e acessar a extração estrutu
 O mapa agrupa as guias por país indicado, com card contendo situação do prazo, guia, família, quantidade de espécimes e botão de consulta. Países sem georreferência documentada não recebem pontos. Centros geográficos dos países **não representam** a localização de instituições.
 
 A prévia pública contém exclusivamente quatro guias resumidas de 2026, com datas e quantidades documentais; não contém nomes de pesquisadores, contatos, arquivos originais ou links privados. A consulta integral depende de uma credencial OAuth Web no Google Cloud e da conta Google autorizada na pasta.
+
+## Regra operacional aprovada (20/10/2026)
+
+- Quando a guia não trouxer uma **data de devolução prevista**, mas tiver uma **data de empréstimo inequívoca**, calcular prazo de um ano civil após o empréstimo; o dashboard apresenta **estimado (+1 ano)** e mantém a data original vazia.
+- Quando existir uma data expressa de devolução na guia, ela prevalece sobre a regra geral de um ano. Prorrogação curatorial validada prevalece sobre ambas.
+- Datas como `02/12/2026` podem significar 2 de dezembro ou 12 de fevereiro: preservar a representação literal da guia, **não** atribuir um formato sem base, exigir **CONFERIR GUIA ORIGINAL** e evitar status de envio futuro provocado por interpretação automática.
+- Arquivos de 2025 e 2026 terminados em `-DEV` indicam **devolução registrada** ao INPA; não contam como empréstimo vencido. Nunca marcar automaticamente como devolvido um `-EMP` distinto sem conciliação inequívoca.
+- Em registros autenticados, **Nome** e **Solicitante** são campos distintos; extração do conteúdo documental é preferida ao nome do arquivo. Sem leitura do original, sinalizar não extraído ou a origem provisória da identificação.
+- Apenas a prévia anônima fica no GitHub Pages público. Nomes completos, solicitantes, telefones, e-mails e transcrições devem ser consultados na sessão com OAuth Google autorizado e mantidos no Drive.
+- O filtro de atraso é um indicador **documental provisório**. Até automatizar a conciliação de devoluções, status de atraso permanece sujeito à validação curatorial.

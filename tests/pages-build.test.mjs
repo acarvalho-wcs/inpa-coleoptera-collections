@@ -56,9 +56,9 @@ test('public preview contains only anonymized and sourced four-guide summary',as
   assert.equal(sample.records.filter(r=>r.type==='EMP').length,3);
   assert.equal(sample.records.filter(r=>r.type==='DOA').length,1);
   assert.equal(sample.records.reduce((n,r)=>n+r.specimenCount,0),599);
-  assert.equal(sample.records.some(r=>r.number==='013'&&r.status.includes('futura')),true);
+  assert.equal(sample.records.some(r=>r.number==='013'&&r.status.includes('Conferir Guia Original')&&r.sentDate===null),true);
   for(const r of sample.records){
-    assert.deepEqual(Object.keys(r).sort(), ['country','dueDate','family','number','sentDate','specimenCount','status','type','year']);
+    assert.deepEqual(Object.keys(r).sort(), ['country','dueDate','family','number','sentDate','sentDateRaw','specimenCount','status','type','year']);
     assert.equal(r.year,'2026');
   }
   const raw=JSON.stringify(sample);
@@ -77,4 +77,16 @@ test('public snapshot HTML contains expected return dates and deadline columns',
     assert.match(html,/id="mOverdue"/);
     assert.doesNotMatch(html,/Migliori|Hamada|Ferreira|Sampaio|file\/d\//i);
   }finally{await rm(out,{recursive:true,force:true});}
+});
+
+test('public page has separate columns for recipient and requester without real personal data',async()=>{
+  const out=await makeOut();try{
+    assert.equal(run(out,'').status,0);
+    const html=await readFile(join(out,'index.html'),'utf8');
+    assert.match(html,/Nome \(destinatário\)/);
+    assert.match(html,/<th>Solicitante<\/th>/);
+    assert.match(html,/Acesso restrito/);
+    assert.doesNotMatch(html,/Migliori|Hamada|Ferreira|Sampaio/i);
+    assert.doesNotMatch(html,/Envio futuro/);
+  } finally {await rm(out,{recursive:true,force:true});}
 });
