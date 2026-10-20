@@ -41,7 +41,7 @@ test('publishes only app allowlist and public OAuth client ID', async () => {
     assert.equal(result.status, 0, result.stderr);
     const top = (await readdir(out)).sort();
     assert.deepEqual(top, ['.nojekyll', 'config.js', 'data', 'index.html', 'js', 'styles.css']);
-    assert.deepEqual((await readdir(join(out, 'js'))).sort(), ['app.js', 'canonical.js', 'countries.js', 'document-extract.js', 'drive.js', 'guide-fields.js', 'loan-status.js', 'records.js']);
+    assert.deepEqual((await readdir(join(out, 'js'))).sort(), ['app.js', 'canonical.js', 'countries.js', 'document-extract.js', 'drive.js', 'guide-fields.js', 'loan-status.js', 'private-index.js', 'records.js']);
     assert.deepEqual((await readdir(join(out, 'data'))).sort(),['public-preview.json']);
     const cfg = await readFile(join(out, 'config.js'), 'utf8');
     assert.match(cfg, /123456789-sample\.apps\.googleusercontent\.com/);
