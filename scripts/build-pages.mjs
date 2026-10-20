@@ -23,6 +23,8 @@ for (const filename of ['index.html', 'styles.css', '.nojekyll']) {
 }
 await mkdir(join(destination, 'js'), { recursive: true });
 await mkdir(join(destination, 'data'), { recursive: true });
+await mkdir(join(destination, 'assets'), { recursive: true });
+for(const file of ['inpa.png','invertebrados.png','wcs-brasil.png']) await cp(join(source,'assets',file),join(destination,'assets',file));
 await cp(join(source,'data','public-preview.json'),join(destination,'data','public-preview.json'));
 await cp(join(source,'data','triage-2026-audit.json'),join(destination,'data','triage-2026-audit.json'));
 const snapshot=JSON.parse(await readFile(join(source,'data','public-preview.json'),'utf8'));
@@ -41,5 +43,5 @@ const cfg = {
   mapTiles: true
 };
 await writeFile(join(destination, 'config.js'), `window.INPA_CONFIG = ${JSON.stringify(cfg, null, 2)};\n`, { mode: 0o644 });
-const output = ['index.html', 'styles.css', '.nojekyll', 'config.js', ...scripts.map(x => `js/${x}`), 'data/public-preview.json', 'data/triage-2026-audit.json'];
+const output = ['index.html', 'styles.css', '.nojekyll', 'config.js', ...scripts.map(x => `js/${x}`), 'data/public-preview.json', 'data/triage-2026-audit.json', 'assets/inpa.png','assets/invertebrados.png','assets/wcs-brasil.png'];
 console.log(`Pages build: ${output.length} allowlisted files only. Google OAuth: ${clientId ? 'configured' : 'pending'}. No PDF, DOCX, CSV or tokens copied.`);
