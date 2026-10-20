@@ -6,3 +6,6 @@ config.js
 !*.example
 *.log
 .vscode/
+
+.netlify/
+_site/
