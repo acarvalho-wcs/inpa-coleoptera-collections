@@ -125,3 +125,10 @@ GOOGLE_OAUTH_CLIENT_ID='CLIENT_ID_DO_GOOGLE.apps.googleusercontent.com' npm run 
 5. Executar `Actions > Publicar site no GitHub Pages > Run workflow`, para publicar novamente com OAuth habilitado.
 
 O URL previsto (ainda não confirmado ativo) é `https://acarvalho-wcs.github.io/inpa-coleoptera-collections/`.
+
+
+### Primeira publicação após ativar GitHub Pages
+
+Se o workflow **Publicar site no GitHub Pages** falhou com `Get Pages site failed (404)`, isso pode ter ocorrido porque o Pages ainda não estava habilitado no momento daquela execução. A tela **Settings → Pages → Build and deployment → Source = GitHub Actions** deve exibir a confirmação de salvamento. Depois disso, uma nova atualização da branch `main` executa novamente o workflow. Confira o resultado em **Actions** e depois o URL divulgado em **Settings → Pages**.
+
+Não selecione os templates **GitHub Pages Jekyll** nem **Static HTML**, pois o projeto já possui seu próprio workflow `.github/workflows/pages.yml`. Não é necessário configurar um Client ID Google para publicar apenas a interface; as guias continuarão inacessíveis até que o OAuth seja configurado.
