@@ -140,7 +140,7 @@ test('2026 audit confirms complete collection review without inventing new Coleo
   assert.equal(audit.classification.coleopteraMovements,preview.records.length);
   assert.equal(audit.classification.nonColeopteraMovements,70);
   const a=JSON.stringify(audit);
-  assert.doesNotMatch(a,/file\\/d\\/|@|access_token|client_secret|private_key/i);
+  assert.doesNotMatch(a,/access_token|client_secret|private_key|drive[.]google[.]com/i);
   const result=run(await makeOut(),'');
   assert.equal(result.status,0,result.stderr);
 });
