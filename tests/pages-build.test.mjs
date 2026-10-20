@@ -14,12 +14,19 @@ const run = (where, googleClientId) => spawnSync(process.execPath, [builder, whe
 
 const makeOut = () => mkdtemp(join(tmpdir(), 'inpa-pages-test-'));
 
-test('builds an empty-data public site shell without OAuth', async () => {
+test('builds pre-rendered public preview shell without OAuth', async () => {
   const out = await makeOut();
   try {
     const result = run(out, '');
     assert.equal(result.status, 0, result.stderr);
     assert.match(result.stdout, /OAuth: pending/);
+    const html=await readFile(join(out,'index.html'),'utf8');
+    assert.match(html,/PRÉVIA PÚBLICA/);
+    assert.match(html,/<strong id="mRecords">4<\/strong>/);
+    assert.match(html,/<strong id="mPdfs">599<\/strong>/);
+    assert.match(html,/<tbody id="recordsBody">[\s\S]*2026\/063[\s\S]*<\/tbody>/);
+    assert.doesNotMatch(html,/Nenhum dado carregado|Conecte o Google Drive para consultar o acervo/);
+    assert.doesNotMatch(html,/Migliori|Hamada|Ferreira|Sampaio|@|file\/d\//i);
     const config = await readFile(join(out, 'config.js'), 'utf8');
     assert.match(config, /"googleClientId": ""/);
     assert.doesNotMatch(config, /client_secret|access_token|refresh_token/i);
@@ -63,4 +70,21 @@ test('public preview contains only anonymized and sourced four-guide summary',as
   }
   const raw=JSON.stringify(sample);
   assert.doesNotMatch(raw,/file\/d\/|@|drive\.google\.com|https?:\/\/|sourceId|filenameRecipient|access_token|Migliori|Hamada|Ferreira|Sampaio/i);
+});
+
+test('public preview HTML renderer rejects unexpected personal fields',async()=>{
+  const {renderPublicPreview}=await import('../scripts/render-public-preview.mjs');
+  const data=JSON.parse(await readFile(join(root,'data','public-preview.json'),'utf8'));
+  const html=await readFile(join(root,'index.html'),'utf8');
+  data.records[0].researcher='Sensitive';
+  assert.throws(()=>renderPublicPreview(html,data,'abcdef0123456789'),/unexpected fields/);
+});
+
+test('generated assets use cache-busting commit identifier',async()=>{
+  const {renderPublicPreview}=await import('../scripts/render-public-preview.mjs');
+  const data=JSON.parse(await readFile(join(root,'data','public-preview.json'),'utf8'));
+  const html=await readFile(join(root,'index.html'),'utf8');
+  const rendered=renderPublicPreview(html,data,'abcdef0123456789');
+  assert.match(rendered,/\.\/js\/app\.js\?v=abcdef012345/);
+  assert.match(rendered,/\.\/config\.js\?v=abcdef012345/);
 });

@@ -1,4 +1,5 @@
-import { cp, mkdir, readdir, writeFile } from 'node:fs/promises';
+import { cp, mkdir, readdir, writeFile, readFile } from 'node:fs/promises';
+import { renderPublicPreview } from './render-public-preview.mjs';
 import { resolve, join } from 'node:path';
 
 // GitHub Pages is a static site. Never copy the repository wholesale: it may
@@ -23,6 +24,10 @@ for (const filename of ['index.html', 'styles.css', '.nojekyll']) {
 await mkdir(join(destination, 'js'), { recursive: true });
 await mkdir(join(destination, 'data'), { recursive: true });
 await cp(join(source,'data','public-preview.json'),join(destination,'data','public-preview.json'));
+const snapshot=JSON.parse(await readFile(join(source,'data','public-preview.json'),'utf8'));
+const sourceHtml=await readFile(join(source,'index.html'),'utf8');
+await writeFile(join(destination,'index.html'),
+  renderPublicPreview(sourceHtml,snapshot,process.env.GITHUB_SHA||'local'),'utf8');
 const scripts = (await readdir(join(source, 'js'))).filter(name => /^[a-z0-9-]+\.js$/i.test(name));
 for (const filename of scripts) await cp(join(source, 'js', filename), join(destination, 'js', filename));
 
