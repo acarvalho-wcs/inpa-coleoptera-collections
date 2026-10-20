@@ -20,7 +20,7 @@
     <div class="masthead-partner wcs-partner"><img src="./assets/wcs-brasil.png" alt="WCS Brasil" width="52" height="64"><span>Apoio</span></div>
   </div><div class="top-actions" hidden><span class="connection" id="connectionBadge"><span class="status-dot"></span> Não conectado</span><button id="connectBtn" class="primary small">Conectar Google Drive</button><button id="disconnectBtn" class="ghost small" hidden>Sair</button></div>
   </header>
-  <div class="topstrip"><span>PROJETO PILOTO <b>COLEOPTERA</b></span><span>Fonte documental: Google Drive · acesso restrito</span></div>
+  <div class="topstrip" hidden><span>PROJETO PILOTO <b>COLEOPTERA</b></span><span>Fonte documental: Google Drive · acesso restrito</span></div>
   <main>
     <section class="intro"><div><p class="eyebrow">GESTÃO DO ACERVO · GUIAS DE MOVIMENTAÇÃO</p><h1>Controle de prazos e devoluções de empréstimos</h1><p class="subtitle">Priorize as guias com prazo vencido, acompanhe os próximos vencimentos e consulte todos os dados dos documentos originais. Prazo vencido não comprova ausência de devolução.</p></div><div class="intro-art" aria-hidden="true"><span class="ring ring1"></span><span class="ring ring2"></span><span class="beetle">✳</span></div></section>
     <div id="notice" class="notice" role="status">Conecte a conta Google com permissão de leitura da pasta compartilhada para consultar os documentos.</div>
@@ -32,7 +32,7 @@
     </section>
     <section class="workspace" aria-label="Consulta ao acervo">
       <div class="workspace-head"><div><p class="eyebrow">ACOMPANHAMENTO DE PRAZOS</p><h2>Empréstimos e guias documentais</h2></div><div class="actions"><button class="ghost" id="reloadBtn" disabled>Atualizar Drive</button><button class="ghost" id="exportBtn" disabled>Exportar metadados CSV</button></div></div>
-      <div class="canonical-panel" aria-label="Triagem canônica Coleoptera">
+      <div class="canonical-panel" aria-label="Triagem canônica Coleoptera" hidden>
         <div><strong>Rotina canônica · Coleoptera</strong><p class="private-index-help">Para mostrar Nome e Solicitante na lista e no mapa sem publicar dados pessoais, selecione o índice detalhado. O arquivo não sai do navegador.</p><p id="canonicalStatus">Após conectar o Drive, processe as guias por lotes. A classificação usa o conteúdo do documento, não o nome.</p></div>
         <div class="canonical-actions"><button id="loadLocalIndexBtn" class="ghost" type="button" title="O JSON permanece apenas nesta sessão">Carregar índice privado (JSON)</button><input id="localIndexFile" type="file" accept=".json,application/json" hidden aria-label="Selecionar índice canônico privado"/> <button id="scanBtn" class="primary" disabled>Triar próximo lote (25)</button><button id="snapshotBtn" class="ghost" disabled>Salvar índice no Drive</button><button id="jsonBtn" class="ghost" disabled>Exportar JSON auditável</button></div>
       </div>
