@@ -153,3 +153,17 @@ main{max-width:none;width:100%;margin:0;padding:0 clamp(16px,2.5vw,52px)}
 .destination-geonote{padding:9px;border-radius:8px;background:#f5f8ee;font-size:11px}
 .destination-card>small{margin-top:13px}
 @media(max-width:700px){.map-toolbar{padding:5px 16px 0;align-items:flex-start;flex-direction:column;gap:0}.map-toolbar .panel-lead{padding-bottom:5px}.map-fullscreen-btn{align-self:flex-end;margin-bottom:8px}.destination-card{width:min(310px,calc(100vw - 72px));padding:12px}}
+
+/* Controles interativos do mapa de destinos - piloto Coleoptera */
+.map-stage .map-overlay-controls{position:absolute;z-index:800;top:22px;left:44px;right:44px;display:flex;justify-content:space-between;align-items:flex-start;pointer-events:none;gap:12px}
+.map-stage .map-filter-panel{pointer-events:auto;width:min(285px,calc(100vw - 105px));padding:13px;background:#102c27f2;color:#f4faf6;border:1px solid #34554a;border-radius:13px;box-shadow:0 13px 28px #09231c36;display:grid;gap:6px}
+.map-filter-panel label{color:#d0e6d7;font-size:11px;font-weight:750}
+.map-filter-panel input,.map-filter-panel select{width:100%;min-width:0;box-sizing:border-box;border:1px solid #557568;border-radius:7px;padding:9px 10px;font-size:12px;color:#173d32;background:#f8fcf9}
+.map-filter-panel button{justify-self:end;border:0;border-radius:7px;background:#dcefe2;color:#194e3e;padding:7px 10px;font-weight:750;font-size:11px;cursor:pointer}
+.map-exit-fullscreen{pointer-events:auto;border:1px solid #527969;border-radius:9px;padding:9px 12px;font-weight:800;background:#102c27;color:#fff;cursor:pointer;white-space:nowrap;box-shadow:0 5px 17px #173a303d}
+.map-exit-fullscreen[hidden]{display:none!important}
+.coleoptera-map-point{filter:drop-shadow(0 1px 2px #173a3055);transition:stroke-width .15s,fill-opacity .15s}
+.coleoptera-map-point:hover{stroke-width:2.8;fill-opacity:1}
+.map-stage:fullscreen .map-overlay-controls{top:14px;left:60px;right:16px}
+.map-stage:fullscreen .map-filter-panel{max-height:min(65vh,360px);overflow:auto}
+@media(max-width:650px){.map-stage .map-overlay-controls{top:20px;left:18px;right:18px}.map-stage:fullscreen .map-overlay-controls{top:15px;left:12px;right:12px}.map-filter-panel{padding:10px!important}.map-exit-fullscreen span{display:none}}
