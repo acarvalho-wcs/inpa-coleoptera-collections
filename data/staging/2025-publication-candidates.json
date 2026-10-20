@@ -1,0 +1,610 @@
+{
+  "kind": "inpa.coleoptera.publication-candidates.v1",
+  "year": 2025,
+  "createdOn": "2026-10-20",
+  "publicationStatus": "STAGING_ONLY_DO_NOT_DEPLOY",
+  "source": "Drive / Guias de empréstimo / 2025",
+  "catalogueNotice": "Dados candidatos à homologação. A extração textual do conector não recupera de modo confiável campos em caixas de texto DOCX. Não inferir datas, países, destinatários, entrega ou devolução. Campos de nomes profissionais não estão preenchidos.",
+  "recordCount": 12,
+  "records": [
+    {
+      "id": "2025-candidate-01",
+      "year": "2025",
+      "number": "007a",
+      "type": "DEV",
+      "specimenCount": 3,
+      "family": null,
+      "country": null,
+      "recipient": null,
+      "requestedBy": null,
+      "sentDate": null,
+      "sentDateRaw": null,
+      "dueDate": null,
+      "dueDateRaw": null,
+      "dueSource": "not_applicable",
+      "status": "Proposta taxonômica: conferir campos estruturados antes de publicar.",
+      "taxa": {
+        "order": null,
+        "families": [],
+        "subfamilies": [
+          "Lamprossomatinae"
+        ],
+        "genera": [],
+        "species": [],
+        "discrimination": "3 exemplares de Lamprossomatinae."
+      },
+      "validation": {
+        "status": "requires_original_structured_fields",
+        "classification": "pending",
+        "explicitOrderInExtractedText": false,
+        "specimenCountEvidence": true,
+        "requiresRecipientReview": true,
+        "requiresDateReview": true,
+        "requiresGeolocationReview": true,
+        "returnNotReconciled": true,
+        "finalPublicationApproved": false
+      },
+      "sourceKey": "guide:007a:DEV",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1m9-OT9r9G0zfSpMP8eDwPIsccHwE4E1m/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1m9-OT9r9G0zfSpMP8eDwPIsccHwE4E1m/view",
+      "destination": null,
+      "sourceTotalSpecimens": null
+    },
+    {
+      "id": "2025-candidate-02",
+      "year": "2025",
+      "number": "012",
+      "type": "DEV",
+      "specimenCount": 152,
+      "family": "Chrysomelidae / Cerambycidae",
+      "country": null,
+      "recipient": null,
+      "requestedBy": null,
+      "sentDate": null,
+      "sentDateRaw": null,
+      "dueDate": null,
+      "dueDateRaw": null,
+      "dueSource": "not_applicable",
+      "status": "Proposta taxonômica: conferir campos estruturados antes de publicar.",
+      "taxa": {
+        "order": null,
+        "families": [
+          "Chrysomelidae",
+          "Cerambycidae"
+        ],
+        "subfamilies": [
+          "Lamprosomatinae"
+        ],
+        "genera": [],
+        "species": [],
+        "discrimination": "3 Lamprosomatinae/Chrysomelidae; 144 Chrysomelidae; 5 Cerambycidae."
+      },
+      "validation": {
+        "status": "requires_original_structured_fields",
+        "classification": "pending",
+        "explicitOrderInExtractedText": false,
+        "specimenCountEvidence": true,
+        "requiresRecipientReview": true,
+        "requiresDateReview": true,
+        "requiresGeolocationReview": true,
+        "returnNotReconciled": true,
+        "finalPublicationApproved": false
+      },
+      "sourceKey": "guide:012:DEV",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1MgEdxRr1O6bPsLaK3E4M0_1ypYzoQ7o3/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1MgEdxRr1O6bPsLaK3E4M0_1ypYzoQ7o3/view",
+      "destination": null,
+      "sourceTotalSpecimens": null
+    },
+    {
+      "id": "2025-candidate-03",
+      "year": "2025",
+      "number": "014",
+      "type": "EMP",
+      "specimenCount": 1,
+      "family": null,
+      "country": null,
+      "recipient": null,
+      "requestedBy": null,
+      "sentDate": null,
+      "sentDateRaw": null,
+      "dueDate": null,
+      "dueDateRaw": null,
+      "dueSource": "missing",
+      "status": "Proposta taxonômica: conferir campos estruturados antes de publicar.",
+      "taxa": {
+        "order": null,
+        "families": [],
+        "subfamilies": [
+          "Lamiinae"
+        ],
+        "genera": [
+          "Bacuris"
+        ],
+        "species": [
+          "Bacuris sexvittatus"
+        ],
+        "discrimination": "1 Bacuris sexvittatus; Lamiinae, Onciderini."
+      },
+      "validation": {
+        "status": "requires_original_structured_fields",
+        "classification": "pending",
+        "explicitOrderInExtractedText": false,
+        "specimenCountEvidence": true,
+        "requiresRecipientReview": true,
+        "requiresDateReview": true,
+        "requiresGeolocationReview": true,
+        "returnNotReconciled": true,
+        "finalPublicationApproved": false
+      },
+      "sourceKey": "guide:014:EMP",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1NRimTI1dxbd5jfS4urZAwg2u7PS_H_Vg/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1NRimTI1dxbd5jfS4urZAwg2u7PS_H_Vg/view",
+      "destination": null,
+      "sourceTotalSpecimens": null
+    },
+    {
+      "id": "2025-candidate-04",
+      "year": "2025",
+      "number": "027",
+      "type": "EMP",
+      "specimenCount": 28,
+      "family": null,
+      "country": null,
+      "recipient": null,
+      "requestedBy": null,
+      "sentDate": null,
+      "sentDateRaw": "10/06/2025",
+      "dueDate": null,
+      "dueDateRaw": "10/07/2025",
+      "dueSource": "ambiguous_document",
+      "status": "Múltiplas ordens: 28 Coleoptera dos 116 espécimes do documento. Datas literais a conferir.",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [],
+        "subfamilies": [],
+        "genera": [],
+        "species": [],
+        "discrimination": "28 Coleoptera; 28 Lepidoptera; 60 ordens diversas; 116 no total."
+      },
+      "validation": {
+        "status": "requires_original_structured_fields",
+        "classification": "mixed",
+        "explicitOrderInExtractedText": true,
+        "specimenCountEvidence": true,
+        "requiresRecipientReview": true,
+        "requiresDateReview": true,
+        "requiresGeolocationReview": true,
+        "returnNotReconciled": true,
+        "finalPublicationApproved": false
+      },
+      "sourceKey": "guide:027:EMP:sbpc",
+      "sources": [
+        {
+          "format": "PDF",
+          "url": "https://drive.google.com/file/d/1Tyh9eQpMR8Si2d3gbkot68HQESXKKf6m/view"
+        },
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1NYJWwmM2eLrNivvkCmWRJdAhgmabKJRA/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1Tyh9eQpMR8Si2d3gbkot68HQESXKKf6m/view",
+      "destination": null,
+      "sourceTotalSpecimens": 116
+    },
+    {
+      "id": "2025-candidate-05",
+      "year": "2025",
+      "number": "033",
+      "type": "DEV",
+      "specimenCount": 201,
+      "family": "Lymexylidae / Curculionidae",
+      "country": null,
+      "recipient": null,
+      "requestedBy": null,
+      "sentDate": null,
+      "sentDateRaw": null,
+      "dueDate": null,
+      "dueDateRaw": null,
+      "dueSource": "not_applicable",
+      "status": "Proposta taxonômica: conferir campos estruturados antes de publicar.",
+      "taxa": {
+        "order": null,
+        "families": [
+          "Lymexylidae",
+          "Curculionidae"
+        ],
+        "subfamilies": [],
+        "genera": [],
+        "species": [],
+        "discrimination": "96 Lymexylidae e 105 Curculionidae."
+      },
+      "validation": {
+        "status": "requires_original_structured_fields",
+        "classification": "pending",
+        "explicitOrderInExtractedText": false,
+        "specimenCountEvidence": true,
+        "requiresRecipientReview": true,
+        "requiresDateReview": true,
+        "requiresGeolocationReview": true,
+        "returnNotReconciled": true,
+        "finalPublicationApproved": false
+      },
+      "sourceKey": "guide:033:DEV",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1ggfXZypxrq8cEOd4VYejFS3OmblfDm2_/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1ggfXZypxrq8cEOd4VYejFS3OmblfDm2_/view",
+      "destination": null,
+      "sourceTotalSpecimens": null
+    },
+    {
+      "id": "2025-candidate-06",
+      "year": "2025",
+      "number": "038",
+      "type": "EMP",
+      "specimenCount": 151,
+      "family": "Staphylinidae",
+      "country": null,
+      "recipient": null,
+      "requestedBy": null,
+      "sentDate": null,
+      "sentDateRaw": null,
+      "dueDate": null,
+      "dueDateRaw": null,
+      "dueSource": "missing",
+      "status": "Proposta taxonômica: conferir campos estruturados antes de publicar.",
+      "taxa": {
+        "order": null,
+        "families": [
+          "Staphylinidae"
+        ],
+        "subfamilies": [],
+        "genera": [
+          "Aderobium",
+          "Biocrypta",
+          "Homaeotarsus",
+          "Ochthephilum",
+          "Scopaeodes",
+          "Synecitonides"
+        ],
+        "species": [],
+        "discrimination": "78+73; 151 espécimes."
+      },
+      "validation": {
+        "status": "requires_original_structured_fields",
+        "classification": "pending",
+        "explicitOrderInExtractedText": false,
+        "specimenCountEvidence": true,
+        "requiresRecipientReview": true,
+        "requiresDateReview": true,
+        "requiresGeolocationReview": true,
+        "returnNotReconciled": true,
+        "finalPublicationApproved": false
+      },
+      "sourceKey": "guide:038:EMP",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1y-TroCxwyXABson3e6yo-9vh_qLYH3mO/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1y-TroCxwyXABson3e6yo-9vh_qLYH3mO/view",
+      "destination": null,
+      "sourceTotalSpecimens": null
+    },
+    {
+      "id": "2025-candidate-07",
+      "year": "2025",
+      "number": "040",
+      "type": "DEV",
+      "specimenCount": null,
+      "family": null,
+      "country": null,
+      "recipient": null,
+      "requestedBy": null,
+      "sentDate": null,
+      "sentDateRaw": null,
+      "dueDate": null,
+      "dueDateRaw": null,
+      "dueSource": "not_applicable",
+      "status": "Proposta taxonômica: conferir campos estruturados antes de publicar.",
+      "taxa": {
+        "order": null,
+        "families": [],
+        "subfamilies": [
+          "Paederinae"
+        ],
+        "genera": [],
+        "species": [],
+        "discrimination": "Paederinae; quantidade não legível."
+      },
+      "validation": {
+        "status": "requires_original_structured_fields",
+        "classification": "pending",
+        "explicitOrderInExtractedText": false,
+        "specimenCountEvidence": false,
+        "requiresRecipientReview": true,
+        "requiresDateReview": true,
+        "requiresGeolocationReview": true,
+        "returnNotReconciled": true,
+        "finalPublicationApproved": false
+      },
+      "sourceKey": "guide:040:DEV",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1p-sjxEMxilqgrFVdUSgX3ccBBS8uGIT5/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1p-sjxEMxilqgrFVdUSgX3ccBBS8uGIT5/view",
+      "destination": null,
+      "sourceTotalSpecimens": null
+    },
+    {
+      "id": "2025-candidate-08",
+      "year": "2025",
+      "number": "041",
+      "type": "DEV",
+      "specimenCount": null,
+      "family": null,
+      "country": null,
+      "recipient": null,
+      "requestedBy": null,
+      "sentDate": null,
+      "sentDateRaw": null,
+      "dueDate": null,
+      "dueDateRaw": null,
+      "dueSource": "not_applicable",
+      "status": "Proposta taxonômica: conferir campos estruturados antes de publicar.",
+      "taxa": {
+        "order": null,
+        "families": [],
+        "subfamilies": [
+          "Paederinae"
+        ],
+        "genera": [],
+        "species": [],
+        "discrimination": "Paederinae; quantidade não legível."
+      },
+      "validation": {
+        "status": "requires_original_structured_fields",
+        "classification": "pending",
+        "explicitOrderInExtractedText": false,
+        "specimenCountEvidence": false,
+        "requiresRecipientReview": true,
+        "requiresDateReview": true,
+        "requiresGeolocationReview": true,
+        "returnNotReconciled": true,
+        "finalPublicationApproved": false
+      },
+      "sourceKey": "guide:041:DEV",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1cvHi_Pmczv_TuSspVOIQstvTfcxMzd0T/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1cvHi_Pmczv_TuSspVOIQstvTfcxMzd0T/view",
+      "destination": null,
+      "sourceTotalSpecimens": null
+    },
+    {
+      "id": "2025-candidate-09",
+      "year": "2025",
+      "number": "052",
+      "type": "EMP",
+      "specimenCount": 23,
+      "family": null,
+      "country": null,
+      "recipient": null,
+      "requestedBy": null,
+      "sentDate": null,
+      "sentDateRaw": null,
+      "dueDate": null,
+      "dueDateRaw": null,
+      "dueSource": "missing",
+      "status": "Proposta taxonômica: conferir campos estruturados antes de publicar.",
+      "taxa": {
+        "order": null,
+        "families": [],
+        "subfamilies": [],
+        "genera": [
+          "Eumolpus"
+        ],
+        "species": [],
+        "discrimination": "23 exemplares de Eumolpus spp."
+      },
+      "validation": {
+        "status": "requires_original_structured_fields",
+        "classification": "pending",
+        "explicitOrderInExtractedText": false,
+        "specimenCountEvidence": true,
+        "requiresRecipientReview": true,
+        "requiresDateReview": true,
+        "requiresGeolocationReview": true,
+        "returnNotReconciled": true,
+        "finalPublicationApproved": false
+      },
+      "sourceKey": "guide:052:EMP",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1Cdcj6JImd69-AETtmi9bub1tPxQg0g7g/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1Cdcj6JImd69-AETtmi9bub1tPxQg0g7g/view",
+      "destination": null,
+      "sourceTotalSpecimens": null
+    },
+    {
+      "id": "2025-candidate-10",
+      "year": "2025",
+      "number": "062",
+      "type": "EMP",
+      "specimenCount": null,
+      "family": "Chrysomelidae",
+      "country": null,
+      "recipient": null,
+      "requestedBy": null,
+      "sentDate": null,
+      "sentDateRaw": null,
+      "dueDate": null,
+      "dueDateRaw": null,
+      "dueSource": "missing",
+      "status": "Proposta taxonômica: conferir campos estruturados antes de publicar.",
+      "taxa": {
+        "order": null,
+        "families": [
+          "Chrysomelidae"
+        ],
+        "subfamilies": [
+          "Cassidinae"
+        ],
+        "genera": [],
+        "species": [],
+        "discrimination": "Chrysomelidae; Cassidinae: Hispini."
+      },
+      "validation": {
+        "status": "requires_original_structured_fields",
+        "classification": "pending",
+        "explicitOrderInExtractedText": false,
+        "specimenCountEvidence": false,
+        "requiresRecipientReview": true,
+        "requiresDateReview": true,
+        "requiresGeolocationReview": true,
+        "returnNotReconciled": true,
+        "finalPublicationApproved": false
+      },
+      "sourceKey": "guide:062:EMP",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1QBw7UG0MDFYL-n75N461qCIyno1TqwOX/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1QBw7UG0MDFYL-n75N461qCIyno1TqwOX/view",
+      "destination": null,
+      "sourceTotalSpecimens": null
+    },
+    {
+      "id": "2025-candidate-11",
+      "year": "2025",
+      "number": "062",
+      "type": "DEV",
+      "specimenCount": null,
+      "family": "Chrysomelidae",
+      "country": null,
+      "recipient": null,
+      "requestedBy": null,
+      "sentDate": null,
+      "sentDateRaw": null,
+      "dueDate": null,
+      "dueDateRaw": null,
+      "dueSource": "not_applicable",
+      "status": "Proposta taxonômica: conferir campos estruturados antes de publicar.",
+      "taxa": {
+        "order": null,
+        "families": [
+          "Chrysomelidae"
+        ],
+        "subfamilies": [
+          "Cassidinae"
+        ],
+        "genera": [],
+        "species": [],
+        "discrimination": "Chrysomelidae; Cassidinae: Hispini; movimento distinto do EMP."
+      },
+      "validation": {
+        "status": "requires_original_structured_fields",
+        "classification": "pending",
+        "explicitOrderInExtractedText": false,
+        "specimenCountEvidence": false,
+        "requiresRecipientReview": true,
+        "requiresDateReview": true,
+        "requiresGeolocationReview": true,
+        "returnNotReconciled": true,
+        "finalPublicationApproved": false
+      },
+      "sourceKey": "guide:062:DEV",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1GMs_F2CpQJzto0A_pztAu20LLsHKAsPP/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1GMs_F2CpQJzto0A_pztAu20LLsHKAsPP/view",
+      "destination": null,
+      "sourceTotalSpecimens": null
+    },
+    {
+      "id": "2025-candidate-12",
+      "year": "2025",
+      "number": "076",
+      "type": "TRAN",
+      "specimenCount": 11,
+      "family": "Staphylinidae",
+      "country": null,
+      "recipient": null,
+      "requestedBy": null,
+      "sentDate": null,
+      "sentDateRaw": null,
+      "dueDate": null,
+      "dueDateRaw": null,
+      "dueSource": "not_applicable",
+      "status": "Proposta taxonômica: conferir campos estruturados antes de publicar.",
+      "taxa": {
+        "order": null,
+        "families": [
+          "Staphylinidae"
+        ],
+        "subfamilies": [],
+        "genera": [
+          "Paederus"
+        ],
+        "species": [],
+        "discrimination": "11 exemplares de Paederus."
+      },
+      "validation": {
+        "status": "requires_original_structured_fields",
+        "classification": "pending",
+        "explicitOrderInExtractedText": false,
+        "specimenCountEvidence": true,
+        "requiresRecipientReview": true,
+        "requiresDateReview": true,
+        "requiresGeolocationReview": true,
+        "returnNotReconciled": true,
+        "finalPublicationApproved": false
+      },
+      "sourceKey": "guide:076:TRAN",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1mlwp7ZLxKwT5S2427kQ_LSA1nll_lUQc/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1mlwp7ZLxKwT5S2427kQ_LSA1nll_lUQc/view",
+      "destination": null,
+      "sourceTotalSpecimens": null
+    }
+  ]
+}
