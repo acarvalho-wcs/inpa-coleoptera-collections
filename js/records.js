@@ -3,14 +3,14 @@ export const TYPE_ORDER=['EMP','DEV','DOA','TRAN','PER','OUTRO'];
 const stripExt=s=>String(s||'').replace(/\.(pdf|docx?|odt)$/i,'');
 export const normalize=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('pt-BR').replace(/[^a-z0-9]+/g,' ').trim();
 export function parseFilename(name,folderYear=''){
-  const base=stripExt(name); const m=base.match(/(?:invoice|guia)?\s*inpa\s*(\d{1,4})\s*(?:de|[-_/])\s*(20\d{2})\s*[_-]\s*(.+?)(?:\s*[-_]\s*(EMP|DEV|DEVO|DOA|TRAN|PER))?\s*$/i);
+  const base=stripExt(name); const m=base.match(/(?:invoice|guia)?\s*inpa\s*(\d{1,4})\s*(?:de|[-_/])\s*(20\d{2})\s*[_-]\s*(.+?)(?:\s*[-_]\s*(EMP|DEV|DEVO|DOA|DOAÇÃO|DOACAO|TRAN|PER))?\s*$/i);
   const year=m?.[2]||String(folderYear||'');
   const number=m?String(Number(m[1])).padStart(3,'0'):null;
   let researcher=m?.[3]?.trim()||'';
   let type=(m?.[4]||'').toUpperCase();
-  if(!type){const match=base.match(/(?:^|[-_\s])(EMP|DEV|DEVO|DOA|TRAN|PER)(?:$|[-_\s])/i);type=match?.[1]?.toUpperCase()||'OUTRO';}
-  if(!researcher&&base.includes('_'))researcher=base.split('_').slice(1).join('_').replace(/[-_](EMP|DEV|DEVO|DOA|TRAN|PER)$/i,'').trim();
-  return {year,number,researcher,type:type==='DEVO'?'DEV':type,rawType:type, title:name};
+  if(!type){const match=base.match(/(?:^|[-_\s])(EMP|DEV|DEVO|DOA|DOAÇÃO|DOACAO|TRAN|PER)(?:$|[-_\s])/i);type=match?.[1]?.toUpperCase()||'OUTRO';}
+  if(!researcher&&base.includes('_'))researcher=base.split('_').slice(1).join('_').replace(/[-_](EMP|DEV|DEVO|DOA|DOAÇÃO|DOACAO|TRAN|PER)$/i,'').trim();
+  return {year,number,researcher,type:type==='DEVO'?'DEV':/^(DOAÇÃO|DOACAO)$/.test(type)?'DOA':type,rawType:type, title:name};
 }
 export const isPreferred = f=>f.mimeType==='application/pdf'||/\.pdf$/i.test(f.name||'');
 export function docToRecord(file,folderYear){

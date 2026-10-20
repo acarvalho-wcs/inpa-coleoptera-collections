@@ -53,3 +53,32 @@ export class DriveClient{
     return resp.arrayBuffer();
   }
 }
+
+// Optional, explicit and user-triggered additional grant: only app-created files
+// can be written using drive.file. The original loan documents stay read-only.
+DriveClient.prototype.requestCanonicalWrite = function(){
+  if(!this.clientId)throw Error('Google OAuth não configurado');
+  return new Promise((resolve,reject)=>{
+    const auth=google.accounts.oauth2.initTokenClient({client_id:this.clientId,
+      scope:'https://www.googleapis.com/auth/drive.file',callback:r=>{
+        if(r.error||!r.access_token){reject(Error(r.error||'Permissão de gravação não concedida'));return;}
+        this.canonicalWriteToken=r.access_token;resolve(r.access_token);
+      }});
+    auth.requestAccessToken({prompt:'consent'});
+  });
+};
+DriveClient.prototype.saveCanonicalSnapshot=async function(rootFolderId,snapshot){
+  if(!this.canonicalWriteToken)throw Error('Autorize a gravação do índice canônico');
+  const name=`inpa-coleoptera-canonical-${new Date().toISOString().replace(/[:.]/g,'-')}.json`;
+  const metadata={name,mimeType:'application/json',parents:[rootFolderId]};
+  const boundary=`inpaBoundary${Math.random().toString(16).slice(2)}`;
+  const body=`--${boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(metadata)}\r\n--${boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(snapshot)}\r\n--${boundary}--`;
+  const res=await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name,webViewLink',{method:'POST',headers:{Authorization:`Bearer ${this.canonicalWriteToken}`,'Content-Type':`multipart/related; boundary=${boundary}`},body});
+  if(!res.ok){let detail='';try{detail=(await res.json()).error?.message||''}catch{}throw Error(`Gravação no Drive falhou (${res.status}). ${detail}`);}
+  return res.json();
+};
+DriveClient.prototype.loadCanonicalSnapshot=async function(fileId){
+  const buffer=await this.downloadTextBuffer(fileId);
+  if(buffer.byteLength>15_000_000)throw Error('Índice do Drive grande demais');
+  return JSON.parse(new TextDecoder('utf-8').decode(buffer));
+};

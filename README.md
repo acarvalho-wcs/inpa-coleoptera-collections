@@ -132,3 +132,9 @@ O URL previsto (ainda não confirmado ativo) é `https://acarvalho-wcs.github.io
 Se o workflow **Publicar site no GitHub Pages** falhou com `Get Pages site failed (404)`, isso pode ter ocorrido porque o Pages ainda não estava habilitado no momento daquela execução. A tela **Settings → Pages → Build and deployment → Source = GitHub Actions** deve exibir a confirmação de salvamento. Depois disso, uma nova atualização da branch `main` executa novamente o workflow. Confira o resultado em **Actions** e depois o URL divulgado em **Settings → Pages**.
 
 Não selecione os templates **GitHub Pages Jekyll** nem **Static HTML**, pois o projeto já possui seu próprio workflow `.github/workflows/pages.yml`. Não é necessário configurar um Client ID Google para publicar apenas a interface; as guias continuarão inacessíveis até que o OAuth seja configurado.
+
+## Rotina canônica de Coleoptera (v1)
+
+O código inclui `js/canonical.js` para produzir registros auditáveis a partir dos documentos originais, `js/document-extract.js` para extrair texto PDF/DOCX no navegador autenticado e uma seção de triagem por lotes no dashboard. Após autenticação, o usuário pode selecionar **Triagem taxonômica**, processar lotes de até 25 documentos, revisar evidências e salvar um índice JSON versionado no **Google Drive** (mediante consentimento adicional `drive.file`, sem alterar guias originais). A rotina permite exportação local para auditoria, com aviso explícito de não publicar dados no GitHub. Veja [ROTINA_CANONICA.md](ROTINA_CANONICA.md) para o protocolo.
+
+**Sem OAuth Google configurado, a base canônica não se popula sozinha:** o Pages publica somente a interface vazia. A indexação real ocorre depois da conexão de uma conta autorizada, por solicitação explícita do usuário no painel. O código do repositório público não contém guias originais nem índices com dados pessoais.
