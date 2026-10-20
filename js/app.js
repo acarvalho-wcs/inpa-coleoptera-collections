@@ -253,7 +253,8 @@ async function renderMap(){
   if(!await loadMapLibrary()){box.innerHTML='<div class="empty-map">A biblioteca do mapa está indisponível.</div>';return;}
   if(!state.map){
     box.innerHTML='';
-    state.map=L.map(box,{scrollWheelZoom:true,zoomSnap:0.5,zoomDelta:0.5,wheelPxPerZoomLevel:90}).setView([0,-25],2);
+    state.map=L.map(box,{scrollWheelZoom:true,zoomControl:false,zoomSnap:0.5,zoomDelta:0.5,wheelPxPerZoomLevel:90}).setView([0,-25],2);
+    L.control.zoom({position:'bottomright'}).addTo(state.map);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap contributors'}).addTo(state.map);
     state.mapMarkers=L.layerGroup().addTo(state.map);
     box.addEventListener('click',event=>{const b=event.target.closest('[data-map-open]');if(b)openDetails(b.dataset.mapOpen);});
