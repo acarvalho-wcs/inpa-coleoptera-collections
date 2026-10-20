@@ -55,3 +55,12 @@ test('PDF agregado de 2009 não equivale a uma única guia',()=>{
   const x=extractFacts('Guia/Invoice nº: 2009/001\nArthropoda Hexapoda Coleoptera',consolidate([{id:'archive',name:'Guias 2009.pdf',mimeType:'application/pdf'}],'2009')[0]);
   assert.equal(x.taxonomy.classification,'pending');assert.match(x.validation.issues.join(';'),/PDF agregado/);
 });
+
+test('ordem explícita em coluna deslocada do PDF é Coleoptera',()=>{
+  const t='Guia 2026/013\nTaxonomia Taxonomy\nFilo: Arthropoda Family Hexapoda Other Coleoptera\nPhylum Classe: Familia: Lampyridae Ordem:\nAutorizado Por';
+  const x=detectTaxonomy(t);
+  assert.equal(x.classification,'coleoptera');assert.equal(x.family,'Lampyridae');
+});
+test('menção genérica à ordem fora da taxonomia não classifica',()=>{
+  assert.equal(detectTaxonomy('Observações: seminário sobre Coleoptera, sem taxonomia da guia.').classification,'pending');
+});
