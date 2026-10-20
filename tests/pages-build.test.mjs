@@ -40,10 +40,27 @@ test('publishes only app allowlist and public OAuth client ID', async () => {
     const result = run(out, clientId);
     assert.equal(result.status, 0, result.stderr);
     const top = (await readdir(out)).sort();
-    assert.deepEqual(top, ['.nojekyll', 'config.js', 'index.html', 'js', 'styles.css']);
+    assert.deepEqual(top, ['.nojekyll', 'config.js', 'data', 'index.html', 'js', 'styles.css']);
     assert.deepEqual((await readdir(join(out, 'js'))).sort(), ['app.js', 'canonical.js', 'countries.js', 'document-extract.js', 'drive.js', 'records.js']);
+    assert.deepEqual((await readdir(join(out, 'data'))).sort(),['public-preview.json']);
     const cfg = await readFile(join(out, 'config.js'), 'utf8');
     assert.match(cfg, /123456789-sample\.apps\.googleusercontent\.com/);
     assert.doesNotMatch(cfg, /client_secret|access_token|refresh_token/i);
   } finally { await rm(out, { recursive: true, force: true }); }
+});
+
+test('public preview contains only anonymized and sourced four-guide summary',async()=>{
+  const sample=JSON.parse(await readFile(join(root,'data','public-preview.json'),'utf8'));
+  assert.equal(sample.kind,'public-anonymized-preview');
+  assert.equal(sample.records.length,4);
+  assert.equal(sample.records.filter(r=>r.type==='EMP').length,3);
+  assert.equal(sample.records.filter(r=>r.type==='DOA').length,1);
+  assert.equal(sample.records.reduce((n,r)=>n+r.specimenCount,0),599);
+  assert.equal(sample.records.some(r=>r.number==='013'&&r.status.includes('futura')),true);
+  for(const r of sample.records){
+    assert.deepEqual(Object.keys(r).sort(), ['country','family','number','specimenCount','status','type','year']);
+    assert.equal(r.year,'2026');
+  }
+  const raw=JSON.stringify(sample);
+  assert.doesNotMatch(raw,/file\/d\/|@|drive\.google\.com|https?:\/\/|sourceId|filenameRecipient|access_token|Migliori|Hamada|Ferreira|Sampaio/i);
 });

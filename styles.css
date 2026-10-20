@@ -11,3 +11,8 @@
 .taxon-tag.other{background:#f1eeee;color:#62656a}
 .taxon-tag.mixed{background:#fff2d8;color:#915c13}
 @media(max-width:780px){.canonical-actions button{white-space:normal}}
+
+.oauth-dialog{max-width:620px;width:min(95vw,620px);border:1px solid #dbe7e2;border-radius:16px;padding:24px 28px;background:#fff;box-shadow:0 14px 70px #0003;color:#1d4144}
+.oauth-dialog::backdrop{background:#0d353bcc}.oauth-dialog .dialog-head{display:flex;justify-content:space-between;align-items:start;gap:15px}.oauth-form{display:grid;gap:10px;margin:18px 0}.oauth-form label{font-size:12px;font-weight:750}.oauth-form input{width:100%;padding:12px;font-size:13px;border:1px solid #bbd1c8;border-radius:8px}.oauth-form .primary{justify-self:start}.oauth-help{font-size:12px;line-height:1.6;color:#54746b}.oauth-help code{white-space:normal;overflow-wrap:anywhere}.oauth-help a{color:#19675e;text-decoration:underline}
+
+[hidden]{display:none!important}

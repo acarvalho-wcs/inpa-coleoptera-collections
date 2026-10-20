@@ -126,15 +126,17 @@ GOOGLE_OAUTH_CLIENT_ID='CLIENT_ID_DO_GOOGLE.apps.googleusercontent.com' npm run 
 
 O URL previsto (ainda não confirmado ativo) é `https://acarvalho-wcs.github.io/inpa-coleoptera-collections/`.
 
-
-### Primeira publicação após ativar GitHub Pages
-
-Se o workflow **Publicar site no GitHub Pages** falhou com `Get Pages site failed (404)`, isso pode ter ocorrido porque o Pages ainda não estava habilitado no momento daquela execução. A tela **Settings → Pages → Build and deployment → Source = GitHub Actions** deve exibir a confirmação de salvamento. Depois disso, uma nova atualização da branch `main` executa novamente o workflow. Confira o resultado em **Actions** e depois o URL divulgado em **Settings → Pages**.
-
-Não selecione os templates **GitHub Pages Jekyll** nem **Static HTML**, pois o projeto já possui seu próprio workflow `.github/workflows/pages.yml`. Não é necessário configurar um Client ID Google para publicar apenas a interface; as guias continuarão inacessíveis até que o OAuth seja configurado.
-
 ## Rotina canônica de Coleoptera (v1)
 
-O código inclui `js/canonical.js` para produzir registros auditáveis a partir dos documentos originais, `js/document-extract.js` para extrair texto PDF/DOCX no navegador autenticado e uma seção de triagem por lotes no dashboard. Após autenticação, o usuário pode selecionar **Triagem taxonômica**, processar lotes de até 25 documentos, revisar evidências e salvar um índice JSON versionado no **Google Drive** (mediante consentimento adicional `drive.file`, sem alterar guias originais). A rotina permite exportação local para auditoria, com aviso explícito de não publicar dados no GitHub. Veja [ROTINA_CANONICA.md](ROTINA_CANONICA.md) para o protocolo.
+O código inclui `js/canonical.js` para produzir registros auditáveis a partir dos documentos originais, `js/document-extract.js` para extrair texto PDF/DOCX no navegador autenticado e uma seção de triagem por lotes no dashboard. O usuário pode selecionar **Triagem taxonômica**, processar lotes de 25 documentos, revisar evidências e salvar um índice JSON versionado no **Google Drive** (mediante consentimento `drive.file`, sem alterar guias originais). A rotina também permite exportação local para revisão, com aviso de não publicar dados no GitHub. Veja [ROTINA_CANONICA.md](ROTINA_CANONICA.md) para o protocolo operacional e as limitações.
 
-**Sem OAuth Google configurado, a base canônica não se popula sozinha:** o Pages publica somente a interface vazia. A indexação real ocorre depois da conexão de uma conta autorizada, por solicitação explícita do usuário no painel. O código do repositório público não contém guias originais nem índices com dados pessoais.
+**Sem OAuth Google configurado, a base canônica não se popula sozinha:** o Pages publica somente a interface vazia. A indexação real ocorre depois da conexão de uma conta autorizada, por solicitação explícita do usuário no painel.
+
+
+## Prévia pública em produção (outubro de 2026)
+
+Enquanto o OAuth da API Drive não estiver configurado, o GitHub Pages exibe um **recorte público anonimizado** de quatro guias (2026/013, /020, /035, /063), verificadas diretamente nos documentos do Drive. O arquivo `data/public-preview.json` contém somente ano, número, família(s), contagem documental, tipo de movimentação e país de destino declarado. Não contém nomes de pesquisadores, IDs, documentos, URLs, e-mails, tokens, ou qualquer índice integral. **Não é uma base sincronizada:** representa exclusivamente um retrato parcial de 20/10/2026, não comprova remessas, retornos ou pendências.
+
+Para ativar acesso aos documentos sem precisar alterar o GitHub imediatamente, clique **Conectar Google Drive** e informe o **Client ID OAuth Web** do seu projeto Google Cloud na janela de configuração. Em Google Cloud, habilite Drive API, defina a tela de consentimento e autorize `https://acarvalho-wcs.github.io` em **Authorized JavaScript origins**. Essa origem não inclui caminho `/inpa-coleoptera-collections/`. Autorize como usuários de teste as contas que consultarão o Drive. Em seguida use o login Google na própria aplicação. O Client ID é um identificador público, mantido somente na memória da aba. Os arquivos exigem permissão individual no Google Drive.
+
+Depois, para configuração permanente entre sessões, defina a variável do repositório `GOOGLE_OAUTH_CLIENT_ID` em Settings > Secrets and variables > Actions > Variables e execute um deploy por push ou manual. **Nunca cole um Client Secret, service-account JSON ou refresh/access token na janela de configuração.**

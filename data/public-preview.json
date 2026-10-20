@@ -1,0 +1,44 @@
+{
+  "kind": "public-anonymized-preview",
+  "snapshotDate": "2026-10-20",
+  "source": "Google Drive da Coleção Entomológica do INPA",
+  "note": "Recorte parcial de quatro guias de 2026 conferidas em documentos originais. Não é a base completa nem comprova envio ou devolução. Sem nomes, e-mails, IDs de arquivos ou links privados.",
+  "records": [
+    {
+      "year": "2026",
+      "number": "013",
+      "type": "EMP",
+      "family": "Lampyridae / Lycidae",
+      "specimenCount": 184,
+      "country": "Alemanha",
+      "status": "Guia com data de envio futura: confirmar efetivação"
+    },
+    {
+      "year": "2026",
+      "number": "020",
+      "type": "DOA",
+      "family": "Chrysomelidae",
+      "specimenCount": 20,
+      "country": "Brasil",
+      "status": "Movimentação documentada; execução e devolução não conciliadas"
+    },
+    {
+      "year": "2026",
+      "number": "035",
+      "type": "EMP",
+      "family": "Scirtiidae",
+      "specimenCount": 381,
+      "country": "Brasil",
+      "status": "Movimentação documentada; execução e devolução não conciliadas"
+    },
+    {
+      "year": "2026",
+      "number": "063",
+      "type": "EMP",
+      "family": "Buprestidae",
+      "specimenCount": 14,
+      "country": "Brasil",
+      "status": "Movimentação documentada; execução e devolução não conciliadas"
+    }
+  ]
+}

@@ -21,6 +21,8 @@ for (const filename of ['index.html', 'styles.css', '.nojekyll']) {
   await cp(join(source, filename), join(destination, filename));
 }
 await mkdir(join(destination, 'js'), { recursive: true });
+await mkdir(join(destination, 'data'), { recursive: true });
+await cp(join(source,'data','public-preview.json'),join(destination,'data','public-preview.json'));
 const scripts = (await readdir(join(source, 'js'))).filter(name => /^[a-z0-9-]+\.js$/i.test(name));
 for (const filename of scripts) await cp(join(source, 'js', filename), join(destination, 'js', filename));
 
@@ -34,5 +36,5 @@ const cfg = {
   mapTiles: true
 };
 await writeFile(join(destination, 'config.js'), `window.INPA_CONFIG = ${JSON.stringify(cfg, null, 2)};\n`, { mode: 0o644 });
-const output = ['index.html', 'styles.css', '.nojekyll', 'config.js', ...scripts.map(x => `js/${x}`)];
+const output = ['index.html', 'styles.css', '.nojekyll', 'config.js', ...scripts.map(x => `js/${x}`), 'data/public-preview.json'];
 console.log(`Pages build: ${output.length} allowlisted files only. Google OAuth: ${clientId ? 'configured' : 'pending'}. No PDF, DOCX, CSV or tokens copied.`);
