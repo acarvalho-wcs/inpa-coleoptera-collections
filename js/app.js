@@ -234,43 +234,58 @@ async function loadMapLibrary(){
   return new Promise(resolve=>{const script=document.createElement('script');script.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';script.onload=()=>resolve(Boolean(window.L));script.onerror=()=>resolve(false);document.head.append(script);});
 }
 async function renderMap(){
-  const box=$('destinationMap'), groups=new Map();
-  for(const row of state.filtered){const coords=centerForCountry(row.country);if(!coords)continue;
-    const key=row.country.toLocaleLowerCase('pt-BR');
-    if(!groups.has(key))groups.set(key,{country:row.country,coords,rows:[]});
+  const box=$('destinationMap'),groups=new Map();
+  for(const row of state.filtered){
+    const d=row.destination,verified=d&&Number.isFinite(d.lat)&&Number.isFinite(d.lng);
+    const coords=verified?[d.lat,d.lng]:centerForCountry(row.country);
+    if(!coords)continue;
+    const key=verified?coords.map(v=>v.toFixed(4)).join(','):'country-'+row.country;
+    if(!groups.has(key))groups.set(key,{destination:verified?d:null,coords,rows:[]});
     groups.get(key).rows.push(row);
   }
-  const missing=state.filtered.length-[...groups.values()].reduce((n,g)=>n+g.rows.length,0);
-  $('mapCount').textContent=`${groups.size} países de destino · ${state.filtered.length-missing} guias com país informado · ${missing} sem georreferenciamento. Centro aproximado de cada país.`;
-  if(!groups.size){if(state.map){state.map.remove();state.map=null;}box.innerHTML='<div class="empty-map">Sem países de destino identificados. A localização só aparece quando documentada.</div>';return;}
-  if(!await loadMapLibrary()){box.innerHTML='<div class="empty-map">O mapa depende da biblioteca Leaflet, indisponível nesta conexão.</div>';return;}
-  if(!state.map){box.innerHTML='';state.map=L.map(box,{scrollWheelZoom:false}).setView([0,-25],2);
+  const plotted=[...groups.values()].reduce((n,g)=>n+g.rows.length,0);
+  $('mapCount').textContent=plotted+' guias em '+groups.size+' localidades · '+(state.filtered.length-plotted)+' sem localização. Pontos aproximados de instituições e cidades.';
+  if(!groups.size){if(state.map){state.map.remove();state.map=null;}box.innerHTML='<div class="empty-map">Não há destinos georreferenciáveis na seleção.</div>';return;}
+  if(!await loadMapLibrary()){box.innerHTML='<div class="empty-map">A biblioteca do mapa está indisponível.</div>';return;}
+  if(!state.map){
+    box.innerHTML='';
+    state.map=L.map(box,{scrollWheelZoom:false}).setView([0,-25],2);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:12,attribution:'© OpenStreetMap contributors'}).addTo(state.map);
     state.mapMarkers=L.layerGroup().addTo(state.map);
-    box.addEventListener('click',e=>{const target=e.target.closest('[data-map-open]');if(target)openDetails(target.dataset.mapOpen);});
+    box.addEventListener('click',event=>{const b=event.target.closest('[data-map-open]');if(b)openDetails(b.dataset.mapOpen);});
   }
   state.mapMarkers.clearLayers();const bounds=[];
   for(const group of groups.values()){
-    const count=group.rows.length,overdue=group.rows.filter(x=>loanStatus(x).code==='overdue').length;
-    const color=overdue?'#b25f36':'#16665d';
-    const popup=`<div class="destination-card"><div class="destination-head"><strong>${escapeHtml(group.country)}</strong><span>${count} guia${count===1?'':'s'}</span></div>`+
-      `<p class="destination-subtitle">${overdue?`${overdue} com prazo vencido, devolução a conferir`:'Sem prazo vencido identificado nesta seleção'}</p>`+
-      `<div class="destination-list">`+group.rows.slice(0,30).map(r=>{
-        const s=loanStatus(r);
-        const names=guideNames(r);
-        return `<div class="destination-record"><div><b>Guia ${escapeHtml(r.year+'/'+r.number)}</b> · ${escapeHtml(r.family||'Coleoptera')}`+
-          `<span>${escapeHtml(r.specimens||r.canonical?.specimenCount||'—')} espécimes · ${escapeHtml(typeLabel(r))}</span>`+
-          `<span><b>Nome:</b> ${escapeHtml(names.name||'Não extraído')}</span>`+
-          `<span><b>Solicitante:</b> ${escapeHtml(names.requestedBy||'Não extraído')}</span>`+
-          `<span><b>Táxons:</b> ${taxonHtml(r)}</span><span>Devolução prevista: <b>${escapeHtml(dueLabel(r))}</b> ${escapeHtml(dueExtra(r))}</span>`+
-          `<span class="status-text ${s.code}">${escapeHtml(s.label)}</span></div>`+
-          `<div class="map-record-actions"><button type="button" class="guide-details-btn" data-map-open="${escapeHtml(r.id)}">Detalhes</button>${guideLinks(r)}</div></div>`;
-      }).join('')+'</div><small>Marcador aproximado do país; não da instituição.</small></div>';
-    L.circleMarker(group.coords,{radius:9+Math.min(7,count),color,fillColor:color,fillOpacity:.65,weight:2}).bindPopup(popup,{maxWidth:420,minWidth:280}).addTo(state.mapMarkers);
+    const count=group.rows.length,d=group.destination;
+    const overdue=group.rows.filter(r=>loanStatus(r).code==='overdue').length;
+    const color=overdue?'#ae6540':'#16665d';
+    const place=d?.institution||group.rows[0].country;
+    const where=d?.city||group.rows[0].country;
+    const accuracy=d?.precision==='institution_approx'?'Instituição (posição aproximada)':d?'Centro urbano aproximado':'Centro do país (provisório)';
+    const popup='<section class="destination-card">'+
+      '<div class="destination-head"><strong>'+escapeHtml(place)+'</strong><span>'+count+' guia'+(count===1?'':'s')+'</span></div>'+
+      '<p class="destination-subtitle">'+escapeHtml(where)+' · '+escapeHtml(accuracy)+'</p>'+
+      '<div class="destination-list">'+group.rows.map(r=>{
+        const status=loanStatus(r),names=guideNames(r);
+        return '<article class="destination-record"><div class="destination-record-main">'+
+          '<h4>Guia '+escapeHtml(r.year+'/'+r.number)+'</h4>'+
+          '<p class="destination-meta">'+escapeHtml(r.specimens??r.canonical?.specimenCount??'—')+' espécimes · '+escapeHtml(typeLabel(r))+'</p>'+
+          '<p><b>Nome:</b> '+escapeHtml(names.name||'Não extraído')+'</p>'+
+          '<p><b>Solicitante:</b> '+escapeHtml(names.requestedBy||'Não extraído')+'</p>'+
+          '<p class="destination-taxa"><b>Táxons:</b> '+taxonHtml(r)+'</p>'+
+          '<p><b>Devolução prevista:</b> '+escapeHtml(dueLabel(r))+'</p>'+
+          '<span class="deadline-tag '+status.code+'">'+escapeHtml(status.label)+'</span>'+
+          '<div class="destination-actions"><button type="button" class="guide-details-btn" data-map-open="'+escapeHtml(r.id)+'">Detalhes</button>'+guideLinks(r)+'</div>'+
+          '</div></article>';
+      }).join('')+'</div>'+
+      (d?.note?'<p class="destination-geonote">'+escapeHtml(d.note)+'</p>':'')+
+      '<small>Georreferência aproximada; não comprova recebimento ou devolução.</small></section>';
+    L.circleMarker(group.coords,{radius:8+Math.min(count,4),color,fillColor:color,fillOpacity:.7,weight:2})
+      .bindPopup(popup,{maxWidth:420,minWidth:310,autoPan:true,keepInView:true}).addTo(state.mapMarkers);
     bounds.push(group.coords);
   }
-  state.map.fitBounds(bounds.length>1?bounds:[[bounds[0][0]-1,bounds[0][1]-1],[bounds[0][0]+1,bounds[0][1]+1]],{padding:[40,40],maxZoom:5});
-  setTimeout(()=>state.map?.invalidateSize(),80);
+  state.map.fitBounds(bounds.length>1?bounds:[[bounds[0][0]-1,bounds[0][1]-1],[bounds[0][0]+1,bounds[0][1]+1]],{padding:[38,38],maxZoom:6});
+  setTimeout(()=>state.map?.invalidateSize(),90);
 }
 async function downloadOriginal(){
   const r=state.selected;if(!r||r.preview)return;
@@ -347,7 +362,7 @@ async function loadPublicPreview(){
       researcher:null,name:`${r.family} · guia ${r.year}/${r.number}`,type:r.type,mimeType:'application/pdf',
       sources:[],family:r.family,taxonomicOrder:'Coleoptera',specimens:r.specimenCount,country:r.country,
       sentDate:r.sentDate||null,dueDate:r.dueDate||null,previewStatus:r.status,preview:true,
-      recipient:r.recipient,requestedBy:r.requestedBy,taxa:r.taxa,sources:r.sources,originalUrl:r.originalUrl,
+      recipient:r.recipient,requestedBy:r.requestedBy,taxa:r.taxa,sources:r.sources,originalUrl:r.originalUrl,destination:r.destination,
       canonical:{movement:{type:r.type},taxonomy:{classification:'coleoptera',order:'Coleoptera',evidence:[]},
         loan:{sentDate:r.sentDate||null,dueDate:r.dueDate||null,
           sentDateRaw:r.sentDateRaw||null,dueDateRaw:r.dueDateRaw||null,dueSource:r.dueSource||null,datesNeedReview:Boolean(r.sentDateRaw||r.dueDateRaw),returnStatus:'not_reconciled'}}}));
@@ -385,6 +400,20 @@ for(const tab of document.querySelectorAll('[data-tab]'))tab.addEventListener('c
   document.querySelectorAll('[data-tab]').forEach(b=>b.setAttribute('aria-selected',String(b===tab)));
   document.querySelectorAll('.tab-panel').forEach(p=>p.hidden=p.id!==`tab-${state.currentTab}`);
   if(state.currentTab==='map')renderMap();
+});
+const fullscreenBtn=$('mapFullscreenBtn');
+const mapStage=$('mapStage');
+fullscreenBtn.addEventListener('click',async()=>{
+ try{
+   if(document.fullscreenElement===mapStage)await document.exitFullscreen();
+   else if(mapStage.requestFullscreen)await mapStage.requestFullscreen();
+ }catch(e){message('Tela cheia indisponível: '+e.message,'error');}
+});
+document.addEventListener('fullscreenchange',()=>{
+ const active=document.fullscreenElement===mapStage;
+ fullscreenBtn.textContent=active?'Sair da tela cheia':'Tela cheia';
+ fullscreenBtn.setAttribute('aria-pressed',String(active));
+ setTimeout(()=>state.map?.invalidateSize(),180);
 });
 $('closeOauth').addEventListener('click',()=>$('oauthSetup').close());
 $('oauthForm').addEventListener('submit',event=>{

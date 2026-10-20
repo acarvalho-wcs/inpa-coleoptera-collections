@@ -3,7 +3,7 @@ import {formatTaxonSummary} from '../js/taxon-format.js';
 // Pre-render the anonymized public preview so useful content is visible even
 // without running JS, while its full data remain Google Drive protected.
 const escapeHtml=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const ALLOWED=['country','dueDate','dueDateRaw','dueSource','family','number','originalUrl','recipient','requestedBy','sentDate','sentDateRaw','sources','specimenCount','status','taxa','type','year'].join(',');
+const ALLOWED=['country','destination','dueDate','dueDateRaw','dueSource','family','number','originalUrl','recipient','requestedBy','sentDate','sentDateRaw','sources','specimenCount','status','taxa','type','year'].join(',');
 const safePublicName=name=>typeof name==='string'&&name.length>=2&&name.length<=160&&
   /^[\p{L}\p{M}\s.,'’/()&-]+$/u.test(name)&&!/[\r\n]/.test(name);
 const labels={EMP:'Empréstimo',DEV:'Devolução',DOA:'Doação',TRAN:'Transferência',PER:'Permuta',MIX:'Movimentação mista'};

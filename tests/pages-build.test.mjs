@@ -66,7 +66,7 @@ test('public preview includes only explicitly approved name fields from sourced 
   assert.equal(sample.records.some(r=>r.number==='049'&&r.dueDate==='2027-05-27'&&r.dueSource==='one_year'),true);
   assert.equal(sample.records.some(r=>r.number==='024'&&r.dueDateRaw==='12/03/2026'&&r.dueDate===null),true);
   for(const r of sample.records){
-    assert.deepEqual(Object.keys(r).sort(), ['country','dueDate','dueDateRaw','dueSource','family','number','originalUrl','recipient','requestedBy','sentDate','sentDateRaw','sources','specimenCount','status','taxa','type','year']);
+    assert.deepEqual(Object.keys(r).sort(), ['country','destination','dueDate','dueDateRaw','dueSource','family','number','originalUrl','recipient','requestedBy','sentDate','sentDateRaw','sources','specimenCount','status','taxa','type','year']);
     assert.equal(r.year,'2026');
   }
   const raw=JSON.stringify(sample);
@@ -199,4 +199,21 @@ test('quality tab has proper spacing and responsive cards',async()=>{
     assert.match(css,/#tab-quality \.quality-grid\s*\{[^}]*grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/);
     assert.match(css,/@media\(max-width:760px\)\s*\{/);
   }finally{await rm(out,{recursive:true,force:true});}
+});
+
+test('institution georeferences and fullscreen map controls are included',async()=>{
+ const out=await makeOut();
+ try{
+  assert.equal(run(out,'').status,0);
+  const html=await readFile(join(out,'index.html'),'utf8');
+  const data=JSON.parse(await readFile(join(out,'data','public-preview.json'),'utf8'));
+  assert.match(html,/id="mapFullscreenBtn"/);
+  assert.match(html,/id="mapStage"/);
+  assert.equal(data.records.length,14);
+  for(const r of data.records){
+   assert.equal(typeof r.destination.institution,'string');
+   assert.ok(Number.isFinite(r.destination.lat)&&Number.isFinite(r.destination.lng));
+   assert.ok(['institution_approx','city_approx'].includes(r.destination.precision));
+  }
+ }finally{await rm(out,{recursive:true,force:true});}
 });

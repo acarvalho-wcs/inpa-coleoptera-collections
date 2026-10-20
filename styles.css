@@ -121,3 +121,35 @@ main{max-width:none;width:100%;margin:0;padding:0 clamp(16px,2.5vw,52px)}
   #tab-quality .audit-summary{padding-top:24px}
   #tab-quality .quality-grid article{padding:20px}
 }
+
+/* Cartographic guide cards: compact, readable, stacked controls */
+.map-toolbar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:4px 30px 0}
+.map-toolbar .panel-lead{padding:14px 0;margin:0;flex:1;min-width:0}
+.map-fullscreen-btn{flex:none;border:1px solid #bcd5c9;background:#e7f2eb;color:#18574d;border-radius:10px;padding:10px 15px;font-weight:800;font-size:12px}
+.map-fullscreen-btn:hover{background:#cce7d8}
+.map-stage{position:relative;min-height:440px;background:#f3f7f4}
+.map-stage:fullscreen{display:flex;flex-direction:column;width:100vw;height:100vh;background:#f3f7f4;padding:0}
+.map-stage:fullscreen .map{flex:1;min-height:0;height:100%;margin:0;border:0;border-radius:0}
+.map-stage:fullscreen .map-note{margin:0;background:white;padding:8px 16px}
+.map-stage .map{height:clamp(440px,58vh,740px)}
+.leaflet-popup-content-wrapper{max-width:min(92vw,460px);border-radius:15px!important}
+.leaflet-popup-content{width:auto!important;margin:0!important}
+.destination-card{width:min(385px,calc(100vw - 85px));max-width:100%;font-size:12px;line-height:1.5;overflow-wrap:anywhere;padding:17px 18px}
+.destination-head{align-items:flex-start}
+.destination-head strong{font-size:16px;line-height:1.35;flex:1;min-width:0}
+.destination-head span{flex:none;white-space:nowrap}
+.destination-subtitle{margin:7px 0 12px}
+.destination-list{max-height:min(48vh,400px);overflow-y:auto;overflow-x:hidden}
+.destination-record{display:block;padding:14px 0;border-top:1px solid #dce9e2}
+.destination-record .destination-record-main{display:block;min-width:0;width:100%;overflow-wrap:anywhere}
+.destination-record h4{font-size:13px;margin:0 0 5px;color:#194f4b}
+.destination-record p{margin:5px 0;line-height:1.5;color:#4c6e63}
+.destination-record p b{color:#285248}
+.destination-record .destination-meta{color:#789084;font-size:11px}
+.destination-record .destination-taxa{overflow-wrap:anywhere}
+.destination-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;align-items:center}
+.destination-actions .guide-open-btn,.destination-actions .guide-details-btn{font:750 11px 'DM Sans',sans-serif;min-height:34px;max-width:100%;white-space:normal;line-height:1.2;padding:9px 11px;border-radius:9px}
+.destination-actions .guide-details-btn{background:#e5f0eb!important;color:#245c51!important;border:1px solid #cbded4!important}
+.destination-geonote{padding:9px;border-radius:8px;background:#f5f8ee;font-size:11px}
+.destination-card>small{margin-top:13px}
+@media(max-width:700px){.map-toolbar{padding:5px 16px 0;align-items:flex-start;flex-direction:column;gap:0}.map-toolbar .panel-lead{padding-bottom:5px}.map-fullscreen-btn{align-self:flex-end;margin-bottom:8px}.destination-card{width:min(310px,calc(100vw - 72px));padding:12px}}
