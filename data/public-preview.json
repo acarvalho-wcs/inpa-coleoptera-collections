@@ -2,7 +2,7 @@
   "kind": "public-anonymized-preview",
   "snapshotDate": "2026-10-20",
   "source": "Guias de empréstimo / 2026 - Google Drive INPA",
-  "note": "Triagem documental preliminar de 2026. Nome e Solicitante são transcritos das guias e exibidos no painel público mediante autorização de publicação; contatos e documentos originais permanecem no Drive. Datas literais podem ser ambíguas; prazo estimado de um ano na ausência de vencimento. Devoluções ainda não conciliadas.",
+  "note": "Guias documentadas de Coleoptera em 2026; taxonomia transcrita de Ordem, Família, Outro e Discriminação dos originais; níveis não descritos permanecem vazios. Links abrem PDF/Word com acesso controlado pelo Google Drive. Datas ambíguas exigem conferência; devoluções não conciliadas.",
   "records": [
     {
       "year": "2026",
@@ -18,7 +18,30 @@
       "status": "Doação, não empréstimo.",
       "dueSource": "not_applicable",
       "recipient": "Dr. Francisco Limeira de Oliveira",
-      "requestedBy": "Aline Sampaio"
+      "requestedBy": "Aline Sampaio",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Chrysomelidae"
+        ],
+        "subfamilies": [],
+        "genera": [
+          "Sennius",
+          "Megacerus"
+        ],
+        "species": [
+          "Sennius binotatus",
+          "Megacerus ibiaiso"
+        ],
+        "discrimination": "8 parátipos de Sennius binotatus n. sp.; 18 parátipos de Megacerus ibiaiso n. sp."
+      },
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1BDKI_m_uNhiLTDA3VZ7Ka3O-2EhlaKpa/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1BDKI_m_uNhiLTDA3VZ7Ka3O-2EhlaKpa/view"
     },
     {
       "year": "2026",
@@ -34,7 +57,30 @@
       "status": "Doação, não empréstimo.",
       "dueSource": "not_applicable",
       "recipient": "Dra. Lúcia Massutti de Almeida",
-      "requestedBy": "Leandro Felipe Zeballos"
+      "requestedBy": "Leandro Felipe Zeballos",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Lampyridae"
+        ],
+        "subfamilies": [],
+        "genera": [
+          "Haplocauda"
+        ],
+        "species": [
+          "Haplocauda lata",
+          "Haplocauda amazonensis",
+          "Haplocauda aculeata"
+        ],
+        "discrimination": "7 parátipos de Haplocauda lata; 5 de Haplocauda amazonensis; 5 de Haplocauda aculeata."
+      },
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/15yUg0hkuquZS7EKl6xJA7Bs-ohF8nbq0/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/15yUg0hkuquZS7EKl6xJA7Bs-ohF8nbq0/view"
     },
     {
       "year": "2026",
@@ -50,7 +96,33 @@
       "status": "Data ambígua no documento: conferir Guia Original. Empréstimo documental; devolução efetiva ainda não conciliada.",
       "dueSource": "document",
       "recipient": "Dr. Vinicius S. Ferreira",
-      "requestedBy": "Leandro Zeballos"
+      "requestedBy": "Leandro Zeballos",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Lampyridae",
+          "Lycidae"
+        ],
+        "subfamilies": [
+          "Psilocladinae"
+        ],
+        "genera": [
+          "Psilocladus"
+        ],
+        "species": [],
+        "discrimination": "117 Lycidae sp.; 63 Psilocladus sp. (Lampyridae); 4 Psilocladinae sp. (Lampyridae)."
+      },
+      "sources": [
+        {
+          "format": "PDF",
+          "url": "https://drive.google.com/file/d/1t3BvcsvWMleQT71TPzlqHWPIzqNLG7kn/view"
+        },
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1yjvlzqLIn5AWEjlBSY5SJryJ7CLzq2Dx/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1t3BvcsvWMleQT71TPzlqHWPIzqNLG7kn/view"
     },
     {
       "year": "2026",
@@ -66,7 +138,34 @@
       "status": "Doação, não empréstimo.",
       "dueSource": "not_applicable",
       "recipient": "Dr. Jéssica Herzog Viana",
-      "requestedBy": "Aline Sampaio"
+      "requestedBy": "Aline Sampaio",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Chrysomelidae"
+        ],
+        "subfamilies": [],
+        "genera": [
+          "Sennius",
+          "Megacerus"
+        ],
+        "species": [
+          "Sennius binotatus",
+          "Megacerus ibiaiso"
+        ],
+        "discrimination": "3 parátipos de Sennius binotatus sp. n.; 17 parátipos de Megacerus ibiaiso sp. n."
+      },
+      "sources": [
+        {
+          "format": "PDF",
+          "url": "https://drive.google.com/file/d/1oFwPfZRqRd2S6TZhdo-EalEQ6sHf9VUr/view"
+        },
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1znqurEPdoQOv_INg_-hZyq-jKgfFReo4/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1oFwPfZRqRd2S6TZhdo-EalEQ6sHf9VUr/view"
     },
     {
       "year": "2026",
@@ -82,7 +181,30 @@
       "status": "Data ambígua no documento: conferir Guia Original. Empréstimo documental; devolução efetiva ainda não conciliada.",
       "dueSource": "ambiguous_document",
       "recipient": "Dr. Joseph V, McHugh",
-      "requestedBy": "Leandro Zeballos"
+      "requestedBy": "Leandro Zeballos",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Lampyridae"
+        ],
+        "subfamilies": [
+          "Lampyrinae"
+        ],
+        "genera": [],
+        "species": [],
+        "discrimination": "A guia indica Lampyrinae no campo Outro; sem gênero ou espécie informados."
+      },
+      "sources": [
+        {
+          "format": "PDF",
+          "url": "https://drive.google.com/file/d/1ulKQBhIbxYaDh5zNRjnr0dqoeONV02ua/view"
+        },
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1oiTxzAWTINzGp8dMKmLDuV6VfQM7aC90/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1ulKQBhIbxYaDh5zNRjnr0dqoeONV02ua/view"
     },
     {
       "year": "2026",
@@ -98,7 +220,30 @@
       "status": "Doação, não empréstimo.",
       "dueSource": "not_applicable",
       "recipient": "Sônia Casari / Michele Leocádio",
-      "requestedBy": "Aline Sampaio"
+      "requestedBy": "Aline Sampaio",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Chrysomelidae"
+        ],
+        "subfamilies": [],
+        "genera": [
+          "Sennius",
+          "Megacerus"
+        ],
+        "species": [
+          "Sennius binotatus",
+          "Megacerus ibiaiso"
+        ],
+        "discrimination": "8 parátipos de Sennius binotatus sp. n.; 20 parátipos de Megacerus ibiaiso sp. n."
+      },
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1T_Xw77A8nDtXigQozQKODSuykV5kIT4-/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1T_Xw77A8nDtXigQozQKODSuykV5kIT4-/view"
     },
     {
       "year": "2026",
@@ -114,7 +259,28 @@
       "status": "Empréstimo documental; devolução efetiva ainda não conciliada.",
       "dueSource": "document",
       "recipient": "Dras. Neusa Hamada e Gabrielle Jorge",
-      "requestedBy": "Gabrielle Matos"
+      "requestedBy": "Gabrielle Matos",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Scirtiidae"
+        ],
+        "subfamilies": [],
+        "genera": [],
+        "species": [],
+        "discrimination": "381 espécimes de Scirtiidae; a guia não discrimina gêneros ou espécies."
+      },
+      "sources": [
+        {
+          "format": "PDF",
+          "url": "https://drive.google.com/file/d/1hsa6aUw-bJpYmhB_xNUUdWL1sdmh_xv0/view"
+        },
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1kYeTpdYMu2RrxJNi2R2w_P5GBjuoDj3U/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1hsa6aUw-bJpYmhB_xNUUdWL1sdmh_xv0/view"
     },
     {
       "year": "2026",
@@ -130,7 +296,27 @@
       "status": "Documento combina devolução de 22 Passalidae e doação de 10 Coleoptera, além de 3 livros; o original informa que outros exemplares não foram localizados.",
       "dueSource": "not_applicable",
       "recipient": "Dr. Fernando Vaz de Melo",
-      "requestedBy": "Alie Sampaio"
+      "requestedBy": "Alie Sampaio",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Passalidae",
+          "Carabidae",
+          "Scarabaeidae",
+          "Curculionidae"
+        ],
+        "subfamilies": [],
+        "genera": [],
+        "species": [],
+        "discrimination": "Devolução: 22 Passalidae. Doação: 2 Carabidae, 2 Passalidae, 4 Scarabaeidae e 2 Curculionidae."
+      },
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1ABmixgjyF4X8RNTkNl4hsCtg7HbOw-Y1/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1ABmixgjyF4X8RNTkNl4hsCtg7HbOw-Y1/view"
     },
     {
       "year": "2026",
@@ -146,7 +332,24 @@
       "status": "Empréstimo documental; devolução efetiva ainda não conciliada.",
       "dueSource": "document",
       "recipient": "Profs. Drs. Bruno Begha e Sarah Siqueira de Oliveira",
-      "requestedBy": "Aline Sampaio"
+      "requestedBy": "Aline Sampaio",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Alticidae"
+        ],
+        "subfamilies": [],
+        "genera": [],
+        "species": [],
+        "discrimination": "3 espécimes, família indicada como Alticidae na guia; gêneros e espécies não discriminados."
+      },
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1CBOEy5fWawOpE2mfAS8Kb01YWGRJGNVs/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1CBOEy5fWawOpE2mfAS8Kb01YWGRJGNVs/view"
     },
     {
       "year": "2026",
@@ -162,7 +365,26 @@
       "status": "Guia mista: 10 exemplares em empréstimo (INPA) e 8 em trânsito (MIZA); não atribuir 18 exemplares ao saldo de empréstimo.",
       "dueSource": "document",
       "recipient": "Profa. Dra. Paulo Henrique G. Zarbin/Aluska Tavares dos Santos",
-      "requestedBy": "Aline Sampaio"
+      "requestedBy": "Aline Sampaio",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Chrysomelidae"
+        ],
+        "subfamilies": [
+          "Lamprosomatinae"
+        ],
+        "genera": [],
+        "species": [],
+        "discrimination": "Lamprosomatinae: 10 exemplares INPA (empréstimo) e 8 exemplares MIZA (trânsito)."
+      },
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1gWYSYPZAj8aE0_NFM4ee3SSK5L09px3H/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1gWYSYPZAj8aE0_NFM4ee3SSK5L09px3H/view"
     },
     {
       "year": "2026",
@@ -178,7 +400,25 @@
       "status": "Guia mista: 7 Eumolpinae em empréstimo (INPA) e 1 Bruchinae em doação (MEPEG); não atribuir 8 exemplares ao saldo de empréstimo.",
       "dueSource": "document",
       "recipient": "Profa. Dra. Jéssica Herzog Viana",
-      "requestedBy": "Aline Sampaio"
+      "requestedBy": "Aline Sampaio",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [],
+        "subfamilies": [
+          "Bruchinae",
+          "Eumolpinae"
+        ],
+        "genera": [],
+        "species": [],
+        "discrimination": "Bruchinae: 1 exemplar MEPEG (doação); Eumolpinae: 7 exemplares INPA (empréstimo). O campo Família não está preenchido na guia."
+      },
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1SDZAMv9MxFlF48ycTB_mp2iaW0BeNgOq/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1SDZAMv9MxFlF48ycTB_mp2iaW0BeNgOq/view"
     },
     {
       "year": "2026",
@@ -194,7 +434,28 @@
       "status": "Empréstimo documental; devolução efetiva ainda não conciliada.",
       "dueSource": "one_year",
       "recipient": "Prof. Dr. Louri Klemann Junior",
-      "requestedBy": "Paulo Ricardo Ramires Barroso"
+      "requestedBy": "Paulo Ricardo Ramires Barroso",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [],
+        "subfamilies": [
+          "Osoriinae"
+        ],
+        "genera": [
+          "Plociopterus",
+          "Agrodes",
+          "Piestus"
+        ],
+        "species": [],
+        "discrimination": "1 Plociopterus; 4 Osoriinae; 1 Agrodes; 1 Piestus. Família não indicada na guia."
+      },
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1QlCiqFTxSwOMQOR3sCdHrqQvCs48m5Uo/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1QlCiqFTxSwOMQOR3sCdHrqQvCs48m5Uo/view"
     },
     {
       "year": "2026",
@@ -210,7 +471,29 @@
       "status": "Data ambígua no documento: conferir Guia Original. Devolução registrada por sufixo -DEV; não conciliada com empréstimo anterior.",
       "dueSource": "not_applicable",
       "recipient": "Prof. Dr. Fernando Vaz de Melo",
-      "requestedBy": "Aline Sampaio"
+      "requestedBy": "Aline Sampaio",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Passalidae"
+        ],
+        "subfamilies": [],
+        "genera": [
+          "Passalus"
+        ],
+        "species": [
+          "Passalus lunaris",
+          "P. quadricollis"
+        ],
+        "discrimination": "1 exemplar de Passalus lunaris e 1 de P. quadricollis (grafia abreviada na guia)."
+      },
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1xqYXsmK5i0LxvH03LRmeIO7TD7pXvLTl/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1xqYXsmK5i0LxvH03LRmeIO7TD7pXvLTl/view"
     },
     {
       "year": "2026",
@@ -226,7 +509,36 @@
       "status": "Empréstimo documental; devolução efetiva ainda não conciliada.",
       "dueSource": "document",
       "recipient": "Dra. Letizia Migliore.",
-      "requestedBy": "Eric Toshiki Miyamoto Satô"
+      "requestedBy": "Eric Toshiki Miyamoto Satô",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Buprestidae"
+        ],
+        "subfamilies": [],
+        "genera": [
+          "Pachyschelus",
+          "Chrysobrithris",
+          "Miscrasta",
+          "Agrilus"
+        ],
+        "species": [
+          "Miscrasta alvarengai",
+          "Agrilus oceanicus"
+        ],
+        "discrimination": "3 Buprestidae indet.; 1 Pachyschelus sp.; 3 Chrysobrithris sp.; 5 Miscrasta alvarengai; 2 Agrilus oceanicus (últimos quatro táxons: Fernando de Noronha)."
+      },
+      "sources": [
+        {
+          "format": "PDF",
+          "url": "https://drive.google.com/file/d/1392KL2yv36Ku-I8ALrbhP4clvN0D7fmQ/view"
+        },
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1YKwv6OKfze84_exX6F4ucYi63xBbvdbl/view"
+        }
+      ],
+      "originalUrl": "https://drive.google.com/file/d/1392KL2yv36Ku-I8ALrbhP4clvN0D7fmQ/view"
     }
   ]
 }
