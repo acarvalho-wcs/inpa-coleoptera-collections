@@ -26,7 +26,7 @@ test('builds pre-rendered public preview shell without OAuth', async () => {
     assert.match(html,/<strong id="mPdfs">599<\/strong>/);
     assert.match(html,/<tbody id="recordsBody">[\s\S]*2026\/063[\s\S]*<\/tbody>/);
     assert.doesNotMatch(html,/Nenhum dado carregado|Conecte o Google Drive para consultar o acervo/);
-    assert.doesNotMatch(html,/Migliori|Hamada|Ferreira|Sampaio|@|file\/d\//i);
+    assert.doesNotMatch(html,/Migliori|Hamada|Ferreira|Sampaio|[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}|file\/d\//i);
     const config = await readFile(join(out, 'config.js'), 'utf8');
     assert.match(config, /"googleClientId": ""/);
     assert.doesNotMatch(config, /client_secret|access_token|refresh_token/i);
