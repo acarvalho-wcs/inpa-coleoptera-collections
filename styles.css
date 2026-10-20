@@ -52,3 +52,13 @@ main{max-width:none;width:100%;margin:0;padding:0 clamp(16px,2.5vw,52px)}
 .masthead-partner.collection-partner img{height:61px;max-width:105px}
 @media(max-width:1000px){.masthead{flex-wrap:wrap}.masthead-partners{flex-wrap:wrap;justify-content:flex-start;margin-left:0}.masthead-partner img{height:45px}.masthead-partner.collection-partner img{height:49px}.masthead-partner.wcs-partner img{height:48px}}
 @media(max-width:580px){.brand-icon{width:40px;height:40px}.brand strong{font-size:13px}.masthead-partners{width:100%;gap:15px}.masthead-partner{gap:5px}.masthead-partner span{font-size:9px}.masthead-partner img{height:38px;max-width:76px}.masthead-partner.collection-partner img{height:42px;max-width:74px}.masthead-partner.wcs-partner img{height:40px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.intro h1{font-size:clamp(25px,5vw,36px)}}
+
+/* Guia original: links diretos, botões verde-lima e taxonomia pesquisável */
+.guide-actions,.map-record-actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.guide-open-btn{display:inline-flex;align-items:center;justify-content:center;min-height:35px;padding:9px 13px;background:#d4ff59;color:#17261b;border-radius:14px;font-weight:850;font-size:11px;text-decoration:none;white-space:nowrap;box-shadow:0 2px 0 #9ebd36}
+.guide-open-btn:hover,.guide-open-btn:focus-visible{background:#bcf43f;outline:2px solid #215347;outline-offset:2px}
+.guide-details-btn{background:#e9f2ef;border:1px solid #d0e5db;border-radius:10px;color:#245c51;padding:9px 11px;font-size:11px;font-weight:750;cursor:pointer}
+.taxon-summary{line-height:1.6;font-size:11px;font-weight:650;color:#315b54;min-width:180px;max-width:460px;overflow-wrap:anywhere}
+.table-wrap th:nth-child(6),.table-wrap td:nth-child(6){min-width:260px}
+.table-wrap th:last-child,.table-wrap td:last-child{min-width:170px}
+.destination-record{align-items:flex-start}.destination-record>div:first-child{flex:1}.map-record-actions{flex-direction:column;align-items:flex-end}.destination-card{width:min(450px,calc(100vw - 70px))}

@@ -66,11 +66,11 @@ test('public preview includes only explicitly approved name fields from sourced 
   assert.equal(sample.records.some(r=>r.number==='049'&&r.dueDate==='2027-05-27'&&r.dueSource==='one_year'),true);
   assert.equal(sample.records.some(r=>r.number==='024'&&r.dueDateRaw==='12/03/2026'&&r.dueDate===null),true);
   for(const r of sample.records){
-    assert.deepEqual(Object.keys(r).sort(), ['country','dueDate','dueDateRaw','dueSource','family','number','recipient','requestedBy','sentDate','sentDateRaw','specimenCount','status','type','year']);
+    assert.deepEqual(Object.keys(r).sort(), ['country','dueDate','dueDateRaw','dueSource','family','number','originalUrl','recipient','requestedBy','sentDate','sentDateRaw','sources','specimenCount','status','taxa','type','year']);
     assert.equal(r.year,'2026');
   }
   const raw=JSON.stringify(sample);
-  assert.doesNotMatch(raw,/file\/d\/|@|drive\.google\.com|https?:\/\/|sourceId|filenameRecipient|access_token|phone|email/i);
+  assert.doesNotMatch(raw,/@|sourceId|filenameRecipient|access_token|phone|email/i);
   assert.equal(sample.records.find(r=>r.number==='035').recipient,'Dras. Neusa Hamada e Gabrielle Jorge');
   assert.equal(sample.records.find(r=>r.number==='035').requestedBy,'Gabrielle Matos');
   assert.equal(sample.records.find(r=>r.number==='063').recipient,'Dra. Letizia Migliore.');
@@ -94,7 +94,7 @@ test('public snapshot HTML contains expected return dates and deadline columns',
     assert.match(html,/Neusa Hamada e Gabrielle Jorge/);
     assert.match(html,/Gabrielle Matos/);
     assert.match(html,/Aline Sampaio/);
-    assert.doesNotMatch(html,/file\/d\/|mailto:|access_token/i);
+    assert.match(html,/https:\/\/drive\.google\.com\/file\/d\//);assert.doesNotMatch(html,/mailto:|access_token/i);
   }finally{await rm(out,{recursive:true,force:true});}
 });
 

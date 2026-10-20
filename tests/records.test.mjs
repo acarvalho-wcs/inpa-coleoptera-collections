@@ -45,3 +45,8 @@ test('public preview can be searched by Nome and Solicitante',()=>{
   assert.equal(filterRecords(x,{query:'Gabrielle Matos'}).length,1);
   assert.equal(filterRecords(x,{query:'Pessoa inexistente'}).length,0);
 });
+
+test('pesquisa por familia, subfamilia, genero e especie',()=>{
+ const r={id:'x',year:'2026',number:'063',type:'EMP',taxa:{order:'Coleoptera',families:['Buprestidae'],subfamilies:['Agrilinae'],genera:['Agrilus'],species:['Agrilus oceanicus'],discrimination:'Fernando de Noronha'}};
+ for(const x of ['coleoptera','buprestidae','agrilinae','agrilus','oceanicus','Fernando de Noronha'])assert.equal(filterRecords([r],{query:x}).length,1,x);
+});

@@ -81,6 +81,11 @@ const guideNames=r=>({
 function dueLabel(row){const s=loanStatus(row);return s.dueSource==='not_applicable'||s.dueSource==='return_guide'?'Não aplicável':s.displayedDue;}
 function dueExtra(row){const s=loanStatus(row);return s.dueSource==='one_year'?'Estimativa: +1 ano':s.dueSource==='ambiguous_document'?'Conferir formato na guia':s.needsOriginal?'Conferir data na guia original':'';}
 
+function taxonText(r){
+ const t=r.taxa;if(!t)return r.family||r.canonical?.taxonomy?.family||'Coleoptera';
+ return [t.order&&'Ordem: '+t.order,t.families?.length&&'Família: '+t.families.join(', '),t.subfamilies?.length&&'Subfamília: '+t.subfamilies.join(', '),t.genera?.length&&'Gênero: '+t.genera.join(', '),t.species?.length&&'Espécie: '+t.species.join(', ')].filter(Boolean).join(' · ');
+}
+function guideLinks(r){return (r.sources||[]).map(s=>'<a class="guide-open-btn" href="'+escapeHtml(s.url)+'" target="_blank" rel="noopener noreferrer" title="Abrir original no Google Drive">Ver Guia '+escapeHtml(s.format||'')+' ↗</a>').join(' ');}
 function render(){
   const selectedTaxon=$('taxonSelect').value,statusFilter=$('statusSelect').value;
   const rows=filterRecords(state.rows,filters()).filter(r=>(selectedTaxon==='all'||(r.canonical?.taxonomy?.classification||'pending')===selectedTaxon)&&
@@ -99,9 +104,9 @@ function render(){
     return `<tr><td>${escapeHtml(r.number?`${r.year}/${r.number}`:'—')}</td><td>${escapeHtml(r.year||'—')}</td>`+
       `<td><div class="doc-name">${escapeHtml(names.name||'Não extraído')}</div><div class="submeta">${escapeHtml(r.preview?r.family:(names.nameFromGuide?'Nome confirmado no texto':'Identificação sugerida pelo nome do arquivo'))}</div></td>`+
       `<td><div class="doc-name">${escapeHtml(names.requestedBy||'Não extraído')}</div><div class="submeta">${escapeHtml(r.preview?'Transcrito da guia · conferência pendente':'Campo Solicitante da guia')}</div></td>`+
-      `<td><span class="type-tag">${escapeHtml(typeLabel(r))}</span></td><td>${taxonTag(r)}</td>`+
+      `<td><span class="type-tag">${escapeHtml(typeLabel(r))}</span></td><td><div class="taxon-summary">${escapeHtml(taxonText(r))}</div></td>`+
       `<td><strong class="due-value">${escapeHtml(dueLabel(r))}</strong><div class="submeta">${escapeHtml(dueExtra(r))}</div></td>`+
-      `<td>${statusTag(r)}</td><td><button class="link-btn" data-open="${escapeHtml(r.id)}">Ver guia ↗</button></td></tr>`;
+      `<td>${statusTag(r)}</td><td><div class="guide-actions">${guideLinks(r)}<button type="button" class="guide-details-btn" data-open="${escapeHtml(r.id)}">Detalhes</button></div></td></tr>`;
   }).join(''):'<tr><td colspan="9" class="empty">Nenhuma guia corresponde aos filtros selecionados.</td></tr>';
   renderCanonicalStatus();if(state.currentTab==='map')renderMap();
 }
@@ -121,11 +126,12 @@ function showDetails(r){
     pair('Prorrogação',showDate(loan.extensionDueDate)),pair('Devolução efetivamente confirmada',showDate(loan.returnedDate))];
   if(r.preview){
     $('detailBody').innerHTML=common.join('')+pair('Nome (destinatário)',r.recipient)+
-      pair('Solicitante',r.requestedBy)+pair('País',r.country)+pair('Observação',r.previewStatus)+
+      pair('Solicitante',r.requestedBy)+pair('País',r.country)+pair('Taxonomia documentada',taxonText(r))+pair('Discriminação do material',r.taxa?.discrimination)+pair('Observação',r.previewStatus)+
       pair('Origem dos nomes','Transcrição das guias originais de 2026; dados sujeitos à conferência curatorial')+
       pair('Alcance dos dados','Nomes e resumo documental públicos; contatos e guia integral exigem Google Drive autorizado');
     $('guideCompleteness').hidden=true;document.querySelector('#details .edit-panel').hidden=true;
-    document.querySelector('#details .dialog-foot').hidden=true;return;
+    document.querySelector('#details .dialog-foot').hidden=false;
+    $('originalLink').href=r.originalUrl||'#';$('downloadFileBtn').hidden=true;return;
   }
   const list=[...common,
     pair('Nome (destinatário)',f.recipient||r.researcher),pair('Instituição',c.destination?.institution||f.institution||r.institution),
@@ -253,9 +259,9 @@ async function renderMap(){
           `<span>${escapeHtml(r.specimens||r.canonical?.specimenCount||'—')} espécimes · ${escapeHtml(typeLabel(r))}</span>`+
           `<span><b>Nome:</b> ${escapeHtml(names.name||'Não extraído')}</span>`+
           `<span><b>Solicitante:</b> ${escapeHtml(names.requestedBy||'Não extraído')}</span>`+
-          `<span>Devolução prevista: <b>${escapeHtml(dueLabel(r))}</b> ${escapeHtml(dueExtra(r))}</span>`+
+          `<span><b>Táxons:</b> ${escapeHtml(taxonText(r))}</span><span>Devolução prevista: <b>${escapeHtml(dueLabel(r))}</b> ${escapeHtml(dueExtra(r))}</span>`+
           `<span class="status-text ${s.code}">${escapeHtml(s.label)}</span></div>`+
-          `<button type="button" data-map-open="${escapeHtml(r.id)}">Ver guia</button></div>`;
+          `<div class="map-record-actions"><button type="button" class="guide-details-btn" data-map-open="${escapeHtml(r.id)}">Detalhes</button>${guideLinks(r)}</div></div>`;
       }).join('')+'</div><small>Marcador aproximado do país; não da instituição.</small></div>';
     L.circleMarker(group.coords,{radius:9+Math.min(7,count),color,fillColor:color,fillOpacity:.65,weight:2}).bindPopup(popup,{maxWidth:420,minWidth:280}).addTo(state.mapMarkers);
     bounds.push(group.coords);
@@ -338,7 +344,7 @@ async function loadPublicPreview(){
       researcher:null,name:`${r.family} · guia ${r.year}/${r.number}`,type:r.type,mimeType:'application/pdf',
       sources:[],family:r.family,taxonomicOrder:'Coleoptera',specimens:r.specimenCount,country:r.country,
       sentDate:r.sentDate||null,dueDate:r.dueDate||null,previewStatus:r.status,preview:true,
-      recipient:r.recipient,requestedBy:r.requestedBy,
+      recipient:r.recipient,requestedBy:r.requestedBy,taxa:r.taxa,sources:r.sources,originalUrl:r.originalUrl,
       canonical:{movement:{type:r.type},taxonomy:{classification:'coleoptera',order:'Coleoptera',evidence:[]},
         loan:{sentDate:r.sentDate||null,dueDate:r.dueDate||null,
           sentDateRaw:r.sentDateRaw||null,dueDateRaw:r.dueDateRaw||null,dueSource:r.dueSource||null,datesNeedReview:Boolean(r.sentDateRaw||r.dueDateRaw),returnStatus:'not_reconciled'}}}));
