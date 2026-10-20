@@ -273,7 +273,7 @@ function renderCanonicalStatus(){
   const counts={coleoptera:0,other:0,mixed:0,pending:0};
   for(const r of state.rows)counts[r.canonical?.taxonomy?.classification||'pending']++;
   $('canonicalStatus').textContent=state.previewMode?
-    `PRÉVIA PARCIAL · ${state.rows.length} guias de Coleoptera. Prazos extraídos dos PDFs; devoluções não conciliadas. Conecte o Drive para consultar o conteúdo integral.`:
+    `2026 AUDITADO · 100 documentos de guias (83 Word, 17 PDF), 16 pares consolidados: 84 movimentações distintas, 14 Coleoptera e 70 outros grupos. Prazos e devoluções ainda exigem conciliação.`:
     `${state.rows.length} guias · ${counts.coleoptera} Coleoptera com evidência · ${counts.pending} pendentes de triagem · ${counts.other} outras ordens · ${counts.mixed} mistas. Datas exigem conferência.`;
 }
 async function loadCanonicalIndex(){

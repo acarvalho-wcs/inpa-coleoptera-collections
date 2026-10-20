@@ -1,0 +1,29 @@
+{
+  "schema": "inpa.coleoptera.taxonomy-audit.v1",
+  "year": 2026,
+  "verifiedOn": "2026-10-20",
+  "source": "Pasta Guias de empréstimo / 2026 do Google Drive institucional",
+  "basis": "Verificação da taxonomia e discriminação dos documentos originais; PDF e DOCX da mesma guia consolidados por identificação documental.",
+  "inventory": {
+    "totalFiles": 101,
+    "guideFiles": 100,
+    "docx": 83,
+    "pdf": 17,
+    "auxiliarySpreadsheet": 1,
+    "pairedPdfWordCopies": 16,
+    "distinctDocumentMovements": 84
+  },
+  "classification": {
+    "coleopteraMovements": 14,
+    "nonColeopteraMovements": 70,
+    "lackingExplicitOrderButReviewedAsNonColeoptera": 5,
+    "taxonomyEvidence": "Coleoptera determinado pelo conteúdo taxonômico, não por nome de arquivo"
+  },
+  "caveats": [
+    "Registro documental não prova remessa efetiva ou devolução reconciliada.",
+    "Números de guias repetidos para diferentes destinatários ou tipos de movimentação representam ocorrências distintas.",
+    "Guias com data ambígua permanecem marcadas para conferência do original.",
+    "Quantidades registradas podem incluir doações, devoluções e trânsito; não representam estoque de empréstimos aberto."
+  ],
+  "dataset": "data/public-preview.json"
+}
