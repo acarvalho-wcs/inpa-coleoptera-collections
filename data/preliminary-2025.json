@@ -18,7 +18,8 @@
         "species": [],
         "discrimination": "3 exemplares de Lamprossomatinae."
       },
-      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas."
+      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas.",
+      "locationCode": "ufpr-curitiba"
     },
     {
       "number": "012",
@@ -38,7 +39,8 @@
         "species": [],
         "discrimination": "3 Lamprosomatinae/Chrysomelidae; 144 Chrysomelidae; 5 Cerambycidae."
       },
-      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas."
+      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas.",
+      "locationCode": "ufpr-curitiba"
     },
     {
       "number": "014",
@@ -59,7 +61,8 @@
         ],
         "discrimination": "1 Bacuris sexvittatus; Lamiinae, Onciderini."
       },
-      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas."
+      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas.",
+      "locationCode": "mzusp-sao-paulo"
     },
     {
       "number": "027",
@@ -74,7 +77,8 @@
         "species": [],
         "discrimination": "28 Coleoptera; 28 Lepidoptera; 60 ordens diversas; 116 no total."
       },
-      "note": "Documento misto: 28 espécimes Coleoptera de um total de 116."
+      "note": "Documento misto: somente 28 espécimes de Coleoptera, de 116 no total; UFRPE indicada como instituição vinculada, não local de entrega confirmado.",
+      "locationCode": "ufrpe-recife"
     },
     {
       "number": "033",
@@ -92,7 +96,8 @@
         "species": [],
         "discrimination": "96 Lymexylidae e 105 Curculionidae."
       },
-      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas."
+      "note": "Guia de devolução segundo nome do arquivo e campo Tipo de Envio; o formulário tem um campo divergente. Conferir movimento antes de conciliar.",
+      "locationCode": "mzusp-sao-paulo"
     },
     {
       "number": "038",
@@ -116,12 +121,13 @@
         "species": [],
         "discrimination": "78+73; 151 espécimes."
       },
-      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas."
+      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas.",
+      "locationCode": "ufpr-palotina"
     },
     {
       "number": "040",
       "type": "DEV",
-      "specimenCount": null,
+      "specimenCount": 58,
       "displayTaxon": "Paederinae",
       "taxa": {
         "order": null,
@@ -133,12 +139,13 @@
         "species": [],
         "discrimination": "Paederinae; quantidade não legível."
       },
-      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas."
+      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas.",
+      "locationCode": "mzusp-sao-paulo"
     },
     {
       "number": "041",
       "type": "DEV",
-      "specimenCount": null,
+      "specimenCount": 80,
       "displayTaxon": "Paederinae",
       "taxa": {
         "order": null,
@@ -150,7 +157,8 @@
         "species": [],
         "discrimination": "Paederinae; quantidade não legível."
       },
-      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas."
+      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas.",
+      "locationCode": "uema-caxias"
     },
     {
       "number": "052",
@@ -167,12 +175,13 @@
         "species": [],
         "discrimination": "23 exemplares de Eumolpus spp."
       },
-      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas."
+      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas.",
+      "locationCode": "mpeg-belem"
     },
     {
       "number": "062",
       "type": "EMP",
-      "specimenCount": null,
+      "specimenCount": 17,
       "displayTaxon": "Chrysomelidae",
       "taxa": {
         "order": null,
@@ -186,12 +195,13 @@
         "species": [],
         "discrimination": "Chrysomelidae; Cassidinae: Hispini."
       },
-      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas."
+      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas.",
+      "locationCode": "mzusp-sao-paulo"
     },
     {
       "number": "062",
       "type": "DEV",
-      "specimenCount": null,
+      "specimenCount": 17,
       "displayTaxon": "Chrysomelidae",
       "taxa": {
         "order": null,
@@ -205,7 +215,8 @@
         "species": [],
         "discrimination": "Chrysomelidae; Cassidinae: Hispini; movimento distinto do EMP."
       },
-      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas."
+      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas.",
+      "locationCode": "mzusp-sao-paulo"
     },
     {
       "number": "076",
@@ -224,7 +235,8 @@
         "species": [],
         "discrimination": "11 exemplares de Paederus."
       },
-      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas."
+      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas.",
+      "locationCode": "unig-nova-iguacu"
     }
   ]
 }
