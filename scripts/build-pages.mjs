@@ -33,7 +33,8 @@ const legacy2025=JSON.parse(await readFile(join(source,'data','preliminary-2025.
 const years=[];
 const annualFiles=(await readdir(join(source,'data'))).filter(name=>/^year-(?:19|20)\d{2}\.json$/.test(name)).sort();
 for(const filename of annualFiles)years.push(JSON.parse(await readFile(join(source,'data',filename),'utf8')));
-const publicCatalog=buildPublicCatalog({legacy2026,legacy2025,years});
+const documentLinks=JSON.parse(await readFile(join(source,'data','document-links.json'),'utf8'));
+const publicCatalog=buildPublicCatalog({legacy2026,legacy2025,years,documentLinks});
 await writeFile(join(destination,'data','public-catalog.json'),JSON.stringify(publicCatalog,null,2)+'\n','utf8');
 const snapshot=legacy2026;
 const sourceHtml=await readFile(join(source,'index.html'),'utf8');
