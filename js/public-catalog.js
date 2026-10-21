@@ -121,7 +121,32 @@ function fromYear(data){
       loan:makeLoan(r.type,r.sentDate,r.dueDate,r.dueSource)}
   }));
 }
-export function buildPublicCatalog({legacy2026,legacy2025,years=[]}){
+const DOC_RE=/^https:\/\/drive\.google\.com\/file\/d\/[a-zA-Z0-9_-]+\/view$/;
+export function attachDocumentLinks(rows,manifest){
+  if(manifest?.kind!=='inpa.coleoptera.document-links.v1'||!Array.isArray(manifest.records))fail('invalid document link manifest');
+  const movementKey=r=>[r.year,r.number.toLowerCase(),r.type].join('|');
+  const found=new Map();
+  for(const r of manifest.records){
+    if(!r||!/^(19|20)\d{2}$/.test(r.year)||!guide.test(r.number)||!TYPES.has(r.type)||
+      !Array.isArray(r.sources)||r.sources.length===0||r.sources.length>3||
+      r.sources.some(x=>!x||!['PDF','Word'].includes(x.format)||!DOC_RE.test(x.url)))fail('invalid document source');
+    const k=movementKey(r);
+    if(found.has(k))fail('duplicate document movement '+k);
+    found.set(k,r.sources);
+  }
+  const matched=new Set();
+  for(const r of rows){
+    const k=movementKey(r),sources=found.get(k);
+    if(!sources)continue;
+    if((r.sources||[]).length)fail('document source conflict '+k);
+    r.sources=sources.map(x=>({...x}));
+    r.originalUrl=r.sources[0].url;
+    matched.add(k);
+  }
+  if(matched.size!==found.size)fail('document source refers to unlisted movement');
+  return rows;
+}
+export function buildPublicCatalog({legacy2026,legacy2025,years=[],documentLinks=null}){
   if(legacy2026?.kind!=='public-anonymized-preview'||!Array.isArray(legacy2026.records)||
     legacy2025?.kind!=='inpa.coleoptera.preliminary-2025.v1'||!Array.isArray(years))
     fail('legacy data or annual list invalid');
@@ -130,6 +155,7 @@ export function buildPublicCatalog({legacy2026,legacy2025,years=[]}){
     ...fromLegacy2025(legacy2025),
     ...years.flatMap(fromYear)
   ];
+  if(documentLinks)attachDocumentLinks(rows,documentLinks);
   const ids=new Set(),movementKeys=new Set();
   for(const r of rows){
     if(ids.has(r.id))fail('duplicate public ID '+r.id);
