@@ -131,6 +131,7 @@ function showDetails(r){
   if(r.preview){
     $('detailBody').innerHTML=common.join('')+pair('Nome (destinatário)',r.recipient)+
       pair('Solicitante',r.requestedBy)+pair('País',r.country)+pairFormatted('Taxonomia documentada',taxonHtml(r))+pairFormatted('Discriminação do material',formatTaxonDiscrimination(r.taxa))+pair('Observação',r.previewStatus)+
+      pairFormatted('Guias originais (PDF e Word)',guideLinks(r)||'Nenhum documento vinculado')+
       pair('Origem dos nomes',`Transcrição das guias originais de ${r.year}; dados sujeitos à conferência curatorial`)+
       pair('Alcance dos dados','Nomes e resumo documental públicos; contatos e guia integral exigem Google Drive autorizado');
     $('guideCompleteness').hidden=true;document.querySelector('#details .edit-panel').hidden=true;
