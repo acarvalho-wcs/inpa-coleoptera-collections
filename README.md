@@ -1,5 +1,7 @@
 # Sistema de Gestão de Coleções – Coleoptera INPA
 
+> **Inclusões anuais (nova arquitetura):** consulte [INCLUSAO_ANUAL.md](./INCLUSAO_ANUAL.md). O GitHub Pages gera um catálogo único `data/public-catalog.json` a partir dos 26 registros preservados de 2025–2026 e de novos arquivos `data/year-AAAA.json`. O exemplo de esquema está em [examples/year-2024.example.json](./examples/year-2024.example.json). Um novo ano não exige alteração no dashboard; não colocar documentos originais ou dados de contato no GitHub público.
+
 Código-fonte inicial, portável e **versionado em repositório público**, do painel de consulta a guias de movimentação da Coleção Entomológica do INPA.
 
 **Origem dos documentos:** [pasta Google Drive compartilhada](https://drive.google.com/drive/u/1/folders/1RdZAIbK9_Hn6o2E_x-vv0HQMpUEeMSxP), subpasta `Guias de empréstimo`, anos 2009–2026. O aplicativo lê os documentos com autenticação Google e **não copia PDFs/Word para o GitHub nem para um servidor da aplicação**.
