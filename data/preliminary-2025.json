@@ -1,0 +1,230 @@
+{
+  "kind": "inpa.coleoptera.preliminary-2025.v1",
+  "year": "2025",
+  "note": "Triagem taxonômica preliminar de 12 movimentações, sem dados de contato ou destinos e sem conciliação de devoluções.",
+  "records": [
+    {
+      "number": "007a",
+      "type": "DEV",
+      "specimenCount": 3,
+      "displayTaxon": "Lamprossomatinae",
+      "taxa": {
+        "order": null,
+        "families": [],
+        "subfamilies": [
+          "Lamprossomatinae"
+        ],
+        "genera": [],
+        "species": [],
+        "discrimination": "3 exemplares de Lamprossomatinae."
+      },
+      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas."
+    },
+    {
+      "number": "012",
+      "type": "DEV",
+      "specimenCount": 152,
+      "displayTaxon": "Chrysomelidae / Cerambycidae",
+      "taxa": {
+        "order": null,
+        "families": [
+          "Chrysomelidae",
+          "Cerambycidae"
+        ],
+        "subfamilies": [
+          "Lamprosomatinae"
+        ],
+        "genera": [],
+        "species": [],
+        "discrimination": "3 Lamprosomatinae/Chrysomelidae; 144 Chrysomelidae; 5 Cerambycidae."
+      },
+      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas."
+    },
+    {
+      "number": "014",
+      "type": "EMP",
+      "specimenCount": 1,
+      "displayTaxon": "Lamiinae / Bacuris",
+      "taxa": {
+        "order": null,
+        "families": [],
+        "subfamilies": [
+          "Lamiinae"
+        ],
+        "genera": [
+          "Bacuris"
+        ],
+        "species": [
+          "Bacuris sexvittatus"
+        ],
+        "discrimination": "1 Bacuris sexvittatus; Lamiinae, Onciderini."
+      },
+      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas."
+    },
+    {
+      "number": "027",
+      "type": "EMP",
+      "specimenCount": 28,
+      "displayTaxon": "Coleoptera (documento misto)",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [],
+        "subfamilies": [],
+        "genera": [],
+        "species": [],
+        "discrimination": "28 Coleoptera; 28 Lepidoptera; 60 ordens diversas; 116 no total."
+      },
+      "note": "Documento misto: 28 espécimes Coleoptera de um total de 116."
+    },
+    {
+      "number": "033",
+      "type": "DEV",
+      "specimenCount": 201,
+      "displayTaxon": "Lymexylidae / Curculionidae",
+      "taxa": {
+        "order": null,
+        "families": [
+          "Lymexylidae",
+          "Curculionidae"
+        ],
+        "subfamilies": [],
+        "genera": [],
+        "species": [],
+        "discrimination": "96 Lymexylidae e 105 Curculionidae."
+      },
+      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas."
+    },
+    {
+      "number": "038",
+      "type": "EMP",
+      "specimenCount": 151,
+      "displayTaxon": "Staphylinidae",
+      "taxa": {
+        "order": null,
+        "families": [
+          "Staphylinidae"
+        ],
+        "subfamilies": [],
+        "genera": [
+          "Aderobium",
+          "Biocrypta",
+          "Homaeotarsus",
+          "Ochthephilum",
+          "Scopaeodes",
+          "Synecitonides"
+        ],
+        "species": [],
+        "discrimination": "78+73; 151 espécimes."
+      },
+      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas."
+    },
+    {
+      "number": "040",
+      "type": "DEV",
+      "specimenCount": null,
+      "displayTaxon": "Paederinae",
+      "taxa": {
+        "order": null,
+        "families": [],
+        "subfamilies": [
+          "Paederinae"
+        ],
+        "genera": [],
+        "species": [],
+        "discrimination": "Paederinae; quantidade não legível."
+      },
+      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas."
+    },
+    {
+      "number": "041",
+      "type": "DEV",
+      "specimenCount": null,
+      "displayTaxon": "Paederinae",
+      "taxa": {
+        "order": null,
+        "families": [],
+        "subfamilies": [
+          "Paederinae"
+        ],
+        "genera": [],
+        "species": [],
+        "discrimination": "Paederinae; quantidade não legível."
+      },
+      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas."
+    },
+    {
+      "number": "052",
+      "type": "EMP",
+      "specimenCount": 23,
+      "displayTaxon": "Eumolpus",
+      "taxa": {
+        "order": null,
+        "families": [],
+        "subfamilies": [],
+        "genera": [
+          "Eumolpus"
+        ],
+        "species": [],
+        "discrimination": "23 exemplares de Eumolpus spp."
+      },
+      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas."
+    },
+    {
+      "number": "062",
+      "type": "EMP",
+      "specimenCount": null,
+      "displayTaxon": "Chrysomelidae",
+      "taxa": {
+        "order": null,
+        "families": [
+          "Chrysomelidae"
+        ],
+        "subfamilies": [
+          "Cassidinae"
+        ],
+        "genera": [],
+        "species": [],
+        "discrimination": "Chrysomelidae; Cassidinae: Hispini."
+      },
+      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas."
+    },
+    {
+      "number": "062",
+      "type": "DEV",
+      "specimenCount": null,
+      "displayTaxon": "Chrysomelidae",
+      "taxa": {
+        "order": null,
+        "families": [
+          "Chrysomelidae"
+        ],
+        "subfamilies": [
+          "Cassidinae"
+        ],
+        "genera": [],
+        "species": [],
+        "discrimination": "Chrysomelidae; Cassidinae: Hispini; movimento distinto do EMP."
+      },
+      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas."
+    },
+    {
+      "number": "076",
+      "type": "TRAN",
+      "specimenCount": 11,
+      "displayTaxon": "Staphylinidae",
+      "taxa": {
+        "order": null,
+        "families": [
+          "Staphylinidae"
+        ],
+        "subfamilies": [],
+        "genera": [
+          "Paederus"
+        ],
+        "species": [],
+        "discrimination": "11 exemplares de Paederus."
+      },
+      "note": "Triagem preliminar: datas, destino, quantidades pendentes e devolução não homologadas."
+    }
+  ]
+}
