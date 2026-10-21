@@ -1,5 +1,5 @@
 import {DriveClient} from './drive.js';
-import {projectPreliminary2025} from './preliminary-2025.js';
+import {projectPreliminary2025} from './preliminary-2025.js?v=20261021-nomes-1';
 import {consolidate,filterRecords,TYPE_LABELS} from './records.js?v=public-names-20261020';
 import {centerForCountry} from './countries.js';
 import {canonicalKey,extractFacts,applyReview,createSnapshot,readSnapshot} from './canonical.js';
@@ -131,7 +131,7 @@ function showDetails(r){
   if(r.preview){
     $('detailBody').innerHTML=common.join('')+pair('Nome (destinatário)',r.recipient)+
       pair('Solicitante',r.requestedBy)+pair('País',r.country)+pairFormatted('Taxonomia documentada',taxonHtml(r))+pairFormatted('Discriminação do material',formatTaxonDiscrimination(r.taxa))+pair('Observação',r.previewStatus)+
-      pair('Origem dos nomes','Transcrição das guias originais de 2026; dados sujeitos à conferência curatorial')+
+      pair('Origem dos nomes',`Transcrição das guias originais de ${r.year}; dados sujeitos à conferência curatorial`)+
       pair('Alcance dos dados','Nomes e resumo documental públicos; contatos e guia integral exigem Google Drive autorizado');
     $('guideCompleteness').hidden=true;document.querySelector('#details .edit-panel').hidden=true;
     document.querySelector('#details .dialog-foot').hidden=false;
@@ -372,19 +372,23 @@ async function loadPublicPreview(){
       canonical:{movement:{type:r.type},taxonomy:{classification:'coleoptera',order:'Coleoptera',evidence:[]},
         loan:{sentDate:r.sentDate||null,dueDate:r.dueDate||null,
           sentDateRaw:r.sentDateRaw||null,dueDateRaw:r.dueDateRaw||null,dueSource:r.dueSource||null,datesNeedReview:Boolean(r.sentDateRaw||r.dueDateRaw),returnStatus:'not_reconciled'}}}));
+    let preliminaryError=null;
     try{
       const extra=await fetch('./data/preliminary-2025.json',{cache:'no-store'});
-      if(extra.ok){
-        const candidates=projectPreliminary2025(await extra.json());
-        rows.push(...candidates);
-      }
-    }catch(err){console.warn('Prévia preliminar 2025 não carregada:',err.message);}
+      if(!extra.ok)throw Error('Arquivo 2025 indisponível (HTTP '+extra.status+')');
+      const candidates=projectPreliminary2025(await extra.json());
+      if(candidates.length!==12)throw Error('Quantidade inesperada de guias em 2025');
+      rows.push(...candidates);
+    }catch(err){
+      preliminaryError=err.message||'Falha desconhecida';
+      console.error('Falha de carregamento da prévia 2025:',err);
+    }
     if(client.token)return;
     state.previewCache=rows;state.rows=rows.slice();state.previewMode=true;
     $('yearSelect').innerHTML='<option value="all">Todos os anos</option><option value="2026">2026 · prévia</option>'+(rows.some(r=>r.year==='2025')?'<option value="2025">2025 · triagem preliminar</option>':'');
     state.currentYear='all';$('yearSelect').value='all';setBusy(false);render();
     $('connectBtn').disabled=false;$('connectBtn').textContent='Conectar Google Drive';setConnected(false);
-    message(`PRÉVIA DOCUMENTAL · ${rows.filter(r=>r.year==='2026').length} registros de 2026 e ${rows.filter(r=>r.preliminary).length} registros preliminares de 2025. 2025 não tem dados pessoais, prazos validados ou georreferências. Para consultar os originais, é necessário acesso autorizado ao Drive.`);
+    message(`PRÉVIA DOCUMENTAL · ${rows.filter(r=>r.year==='2026').length} registros de 2026 e ${rows.filter(r=>r.preliminary).length} registros preliminares de 2025. Os nomes profissionais e localidades institucionais de 2025 foram transcritos das guias; datas e devoluções ainda exigem conciliação. ${preliminaryError?'ERRO AO CARREGAR 2025: '+preliminaryError+'. ':''}Os originais exigem acesso autorizado ao Drive.`,preliminaryError?'error':'');
   }catch(e){message(`Prévia indisponível: ${e.message}`,'error');}
 }
 $('connectBtn').addEventListener('click',()=>{
@@ -397,7 +401,7 @@ $('disconnectBtn').addEventListener('click',()=>{
   message('Desconectado. Exibindo novamente apenas a prévia pública.');
 });
 $('reloadBtn').addEventListener('click',()=>loadSelection(true));
-$('yearSelect').addEventListener('change',e=>{state.currentYear=e.target.value;if(client.token)loadSelection();});
+$('yearSelect').addEventListener('change',e=>{state.currentYear=e.target.value;if(client.token)loadSelection();else render();});
 for(const id of ['searchInput','typeSelect','formatSelect','taxonSelect','statusSelect'])
   $(id).addEventListener(id==='searchInput'?'input':'change',render);
 $('recordsBody').addEventListener('click',event=>{const b=event.target.closest('[data-open]');if(b)openDetails(b.dataset.open);});
