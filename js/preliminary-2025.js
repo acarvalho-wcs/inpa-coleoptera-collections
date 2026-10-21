@@ -1,9 +1,11 @@
-// Strict public-only format. Do not accept original guide links, people,
-// emails, private Drive references or unreviewed dates/destinations.
+// Strict public-only format. Names of professional recipients/requesters may be
+// shown as transcribed from original 2025 guides, as already done for 2026.
+// Never accept email, phone, private links, document identifiers or inferred dates.
 const labels=new Set(['EMP','DEV','TRAN','DOA','PER','MIX']);
 const own=(o,names)=>Object.keys(o||{}).sort().join('|')===names.slice().sort().join('|');
 const taxonName=s=>typeof s==='string'&&s.length>0&&s.length<=100&&/^[\p{L}\p{M} .-]+$/u.test(s);
 const safeText=s=>typeof s==='string'&&s.length>0&&s.length<=320&&!/@|https?:|drive|[<>]/i.test(s);
+const safeGuideName=name=>typeof name==='string'&&name.length>=2&&name.length<=160&&/^[\p{L}\p{M}\s.,'’/()&-]+$/u.test(name)&&!/[\r\n]/.test(name);
 
 const LOCATIONS={
   'ufpr-curitiba':{institution:'Universidade Federal do Paraná (UFPR)',city:'Curitiba, Paraná',country:'Brasil',lat:-25.4463,lng:-49.23321,source:'https://www.ufpr.br/',precision:'city_approx'},
@@ -21,10 +23,10 @@ export function projectPreliminary2025(data){
      !Array.isArray(data.records)||data.records.length>100)throw Error('Formato de triagem 2025 inválido');
   const seen=new Set();
   return data.records.map((r,i)=>{
-    if(!own(r,['number','type','specimenCount','displayTaxon','taxa','note','locationCode'])||
+    if(!own(r,['number','type','specimenCount','displayTaxon','taxa','note','locationCode','recipient','requestedBy'])||
        !/^\d{1,4}[a-z]?$/.test(r.number)||!labels.has(r.type)||
        !(r.specimenCount===null||(Number.isInteger(r.specimenCount)&&r.specimenCount>=0&&r.specimenCount<=1000000))||
-       !safeText(r.displayTaxon)||!safeText(r.note)||!Object.hasOwn(LOCATIONS,r.locationCode)||
+       !safeText(r.displayTaxon)||!safeText(r.note)||!safeGuideName(r.recipient)||!safeGuideName(r.requestedBy)||!Object.hasOwn(LOCATIONS,r.locationCode)||
        !own(r.taxa,['order','families','subfamilies','genera','species','discrimination'])||
        ![null,'Coleoptera'].includes(r.taxa.order)||
        !['families','subfamilies','genera','species'].every(k=>Array.isArray(r.taxa[k])&&r.taxa[k].length<=30&&r.taxa[k].every(taxonName))||
@@ -35,7 +37,7 @@ export function projectPreliminary2025(data){
     return {
       id:'preliminary-2025-'+i,year:'2025',number:r.number,type:r.type,
       name:'Triagem taxonômica · guia 2025/'+r.number,
-      researcher:null,recipient:null,requestedBy:null,
+      researcher:null,recipient:r.recipient,requestedBy:r.requestedBy,
       family:r.displayTaxon,specimens:r.specimenCount,taxa:r.taxa,
       sentDate:null,dueDate:null,sentDateRaw:null,dueDateRaw:null,
       country:destination.country,destination,originalUrl:null,sources:[],preview:true,preliminary:true,
