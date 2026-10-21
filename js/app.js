@@ -29,7 +29,7 @@ function setConnected(on){
 function updateYears(){
   const years=[...state.years.keys()].sort().reverse();
   $('yearSelect').innerHTML='<option value="all">Todos os anos disponíveis</option>'+years.map(y=>`<option value="${escapeHtml(y)}">${escapeHtml(y)}</option>`).join('');
-  if(!state.years.has(state.currentYear))state.currentYear=years[0]||'all';
+  if(!state.years.has(state.currentYear))state.currentYear=state.years.has('2025')?'2025':years[0]||'all';
   $('yearSelect').value=state.currentYear;
 }
 async function connect(){
@@ -100,7 +100,7 @@ function render(){
   $('mTracked').textContent=statuses.filter((s,i)=>rows[i].type==='EMP'&&s.dueDate).length.toLocaleString('pt-BR');
   $('mUnknown').textContent=statuses.filter((s,i)=>rows[i].type==='EMP'&&['unknown','date_check'].includes(s.code)).length.toLocaleString('pt-BR');
   $('personColumn').textContent='Nome (destinatário)';
-  $('countLabel').textContent=state.previewMode?`${rows.length} guias na prévia parcial de 2026`:`${rows.length} registros na seleção · ${state.rows.length} carregados`;
+  $('countLabel').textContent=state.previewMode?`${rows.length} guias na prévia parcial de ${state.currentYear==='all'?'2026':state.currentYear}`:`${rows.length} registros na seleção · ${state.rows.length} carregados`;
   $('recordsBody').innerHTML=rows.length?rows.map(r=>{
     const status=loanStatus(r);
     const names=guideNames(r);
