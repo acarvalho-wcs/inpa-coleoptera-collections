@@ -7,7 +7,7 @@ const ALLOWED=['country','destination','dueDate','dueDateRaw','dueSource','famil
 const safePublicName=name=>typeof name==='string'&&name.length>=2&&name.length<=160&&
   /^[\p{L}\p{M}\s.,'’/()&-]+$/u.test(name)&&!/[\r\n]/.test(name);
 const labels={EMP:'Empréstimo',DEV:'Devolução',DOA:'Doação',TRAN:'Transferência',PER:'Permuta',MIX:'Movimentação mista'};
-export function renderPublicPreview(source,data,revision='local'){
+export function renderPublicPreview(source,data,revision='local',catalog=null){
   if(data?.kind!=='public-anonymized-preview'||!Array.isArray(data.records)||!data.records.length||data.records.length>100)
     throw Error('Public preview invalid');
   for(const r of data.records){
@@ -31,24 +31,28 @@ export function renderPublicPreview(source,data,revision='local'){
   ];
   const metricHtml='<section class="metrics" aria-label="Indicadores de prazos">'+metrics.map(([label,id,n,caption],i)=>
     `<article class="metric${i===0?' metric-attention':''}"><span${i===0?' id="overdueLabel"':''}>${escapeHtml(label)}</span><strong id="${id}">${n}</strong><small>${escapeHtml(caption)}</small></article>`).join('')+'</section>';
-  const table=rows.map((r,i)=>{
-    const st=statuses[i];
+  const visibleRows=catalog?.records||rows;
+  if(catalog && (catalog.kind!=='inpa.coleoptera.public-catalog.v1'||!Array.isArray(catalog.records)))throw Error('Public catalogue invalid');
+  const table=visibleRows.map((r,i)=>{
+    const st=loanStatus(r);
+    const count=r.specimens??r.specimenCount;
+    const links=Array.isArray(r.sources)?r.sources:[];
     return `<tr><td>${escapeHtml(r.year+'/'+r.number)}</td><td>${escapeHtml(r.year)}</td>`+
-      `<td><div class="doc-name">${escapeHtml(r.recipient)}</div><div class="submeta">${escapeHtml(r.family)} · ${r.specimenCount} espécimes</div></td>`+
+      `<td><div class="doc-name">${escapeHtml(r.recipient)}</div><div class="submeta">${escapeHtml(r.family)} · ${count??'quantidade a conferir'} espécimes</div></td>`+
       `<td><div class="doc-name">${escapeHtml(r.requestedBy)}</div><div class="submeta">Transcrito da guia</div></td>`+
       `<td><span class="type-tag">${escapeHtml(labels[r.type])}</span></td>`+
       `<td><span class="taxon-summary">${formatTaxonSummary(r.taxa)}</span></td>`+
       `<td><strong class="due-value">${escapeHtml(st.displayedDue||showDate(st.dueDate))}</strong>${st.needsOriginal?'<small> Conferir Guia Original</small>':''}</td>`+
       `<td><span class="deadline-tag ${st.code}">${escapeHtml(st.label)}</span></td>`+
-      `<td><div class="guide-actions">${r.sources.map(s=>'<a class="guide-open-btn" href="'+escapeHtml(s.url)+'" target="_blank" rel="noopener noreferrer">Ver Guia '+escapeHtml(s.format)+' ↗</a>').join(' ')}<button class="guide-details-btn" data-open="preview-${i}">Detalhes</button></div></td></tr>`;
+      `<td><div class="guide-actions">${links.map(s=>'<a class="guide-open-btn" href="'+escapeHtml(s.url)+'" target="_blank" rel="noopener noreferrer">Ver Guia '+escapeHtml(s.format)+' ↗</a>').join(' ')}<button class="guide-details-btn" data-open="${escapeHtml(r.id||'preview-'+i)}">Detalhes</button></div></td></tr>`;
   }).join('');
   let html=source;
   const replace=(regex,text)=>{if(!regex.test(html))throw Error('Unexpected HTML template');html=html.replace(regex,()=>text);};
   replace(/<section class="metrics" aria-label="Indicadores de prazos">[\s\S]*?<\/section>/,metricHtml);
   replace(/<tbody id="recordsBody">[\s\S]*?<\/tbody>/,`<tbody id="recordsBody">${table}</tbody>`);
-  replace(/<span id="countLabel">[\s\S]*?<\/span>/,`<span id="countLabel">Prévia parcial · ${rows.length} guias verificadas</span>`);
+  replace(/<span id="countLabel">[\s\S]*?<\/span>/,`<span id="countLabel">Prévia documental · ${visibleRows.length} registros</span>`);
   replace(/<div id="notice" class="notice" role="status">[\s\S]*?<\/div>/,
-    `<div id="notice" class="notice" role="status"><strong>PRÉVIA DOCUMENTAL:</strong> ${rows.length} guias de Coleoptera. Nome e Solicitante transcritos das guias; sujeitos à conferência. Datas ambíguas exigem revisão do original. Demais campos e documentos exigem Google Drive autorizado.</div>`);
+    `<div id="notice" class="notice" role="status"><strong>PRÉVIA DOCUMENTAL:</strong> ${visibleRows.length} registros de Coleoptera. Nome e Solicitante transcritos das guias; sujeitos à conferência. Datas ambíguas exigem revisão do original. Demais campos e documentos exigem Google Drive autorizado.</div>`);
   const v=/^[0-9a-f]{7,40}$/i.test(revision)?revision.slice(0,12):'local';
   replace(/<script type="module" src="\.\/js\/app\.js"><\/script>/,`<script type="module" src="./js/app.js?v=${v}"></script>`);
   replace(/<script src="\.\/config\.js"><\/script>/,`<script src="./config.js?v=${v}"></script>`);
