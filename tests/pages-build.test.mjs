@@ -42,7 +42,7 @@ test('publishes only app allowlist and public OAuth client ID', async () => {
     const top = (await readdir(out)).sort();
     assert.deepEqual(top, ['.nojekyll', 'assets', 'config.js', 'data', 'index.html', 'js', 'styles.css']);
     assert.deepEqual((await readdir(join(out, 'js'))).sort(), ['app.js', 'canonical.js', 'countries.js', 'document-extract.js', 'drive.js', 'guide-fields.js', 'loan-status.js', 'preliminary-2025.js', 'private-index.js', 'records.js', 'taxon-format.js']);
-    assert.deepEqual((await readdir(join(out, 'data'))).sort(),['public-preview.json', 'triage-2026-audit.json']);
+    assert.deepEqual((await readdir(join(out, 'data'))).sort(),['preliminary-2025.json', 'public-preview.json', 'triage-2026-audit.json']);
     assert.deepEqual((await readdir(join(out,'assets'))).sort(),['dynastes-hercules-macho.png','inpa.png','invertebrados.png','wcs-brasil.png']);
     const html=await readFile(join(out,'index.html'),'utf8');
     assert.match(html,/Curadoria e Gestão/);
