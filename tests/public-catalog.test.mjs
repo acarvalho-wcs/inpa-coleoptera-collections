@@ -68,6 +68,12 @@ test('build generates catalogue and never copies private annual source documents
   assert.equal(compiled.records.length,26+annual.records.length);
   assert.equal(compiled.records.filter(r=>r.year==='2024').length,annual.records.length);
   assert.equal(compiled.records.filter(r=>r.year==='2025').length,12);
+  const forGuide=(year,number,type)=>compiled.records.find(r=>r.year===year&&r.number===number&&r.type===type);
+  assert.equal(forGuide('2024','048a','EMP').sources[0].format,'Word');
+  assert.deepEqual(forGuide('2025','027','EMP').sources.map(s=>s.format),['PDF','Word']);
+  assert.notEqual(forGuide('2025','062','EMP').sources[0].url,forGuide('2025','062','DEV').sources[0].url);
+  assert.equal(compiled.records.filter(r=>['2024','2025'].includes(r.year)&&r.sources.length>0).length,19);
+  assert.equal(compiled.records.filter(r=>r.year==='2026').length,14);
   assert.equal(compiled.records.filter(r=>r.year==='2026').length,14);
   assert.deepEqual(compiled.summary.map(y=>y.year),['2024','2025','2026']);
   const html=await readFile(join(path,'index.html'),'utf8');
