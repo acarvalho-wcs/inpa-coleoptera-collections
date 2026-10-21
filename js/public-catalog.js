@@ -81,7 +81,13 @@ function fromLegacy2026(r,i){
     country:r.country,destination:r.destination,sentDate:r.sentDate||null,dueDate:r.dueDate||null,
     previewStatus:r.status,preview:true,preliminary:false,reviewStatus:'documented',
     sources:r.sources,originalUrl:r.originalUrl,
-    components:[{type:r.type==='MIX'?'DEV':r.type,specimenCount:r.specimenCount}],
+    components:r.number==='037'?[
+      {type:'DEV',specimenCount:22},{type:'DOA',specimenCount:10}
+    ]:r.number==='046'?[
+      {type:'EMP',specimenCount:10},{type:'TRAN',specimenCount:8}
+    ]:r.number==='047'?[
+      {type:'EMP',specimenCount:7},{type:'DOA',specimenCount:1}
+    ]:[{type:r.type,specimenCount:r.specimenCount}],
     canonical:{
       movement:{type:r.type},taxonomy:{classification:'coleoptera',order:'Coleoptera',evidence:[]},
       loan:{sentDate:r.sentDate||null,dueDate:r.dueDate||null,
