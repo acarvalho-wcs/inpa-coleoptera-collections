@@ -1,0 +1,219 @@
+{
+  "kind": "inpa.coleoptera.public-year.v1",
+  "year": "2024",
+  "records": [
+    {
+      "id": "guide-007-emp",
+      "number": "007",
+      "type": "EMP",
+      "specimenCount": 1,
+      "components": [
+        {
+          "type": "EMP",
+          "specimenCount": 1
+        }
+      ],
+      "family": "Staphylinidae",
+      "recipient": "Profa. Dra. Sônia Casari",
+      "requestedBy": "Amanda de Almeida",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Staphylinidae"
+        ],
+        "subfamilies": [
+          "Paederinae"
+        ],
+        "genera": [
+          "Ecitonides"
+        ],
+        "species": [],
+        "discrimination": "1 exemplar de Ecitonides sp."
+      },
+      "reviewStatus": "preliminary",
+      "note": "Guia e material conferidos. Datas literais 06/02/2024 e 06/07/2024 com dia e mês ambíguos; não estabelecer prazo nem presumir devolução.",
+      "sentDate": null,
+      "dueDate": null,
+      "dueSource": "ambiguous_document",
+      "destination": {
+        "institution": "Museu de Zoologia da Universidade de São Paulo (MZUSP)",
+        "city": "São Paulo, São Paulo",
+        "country": "Brasil",
+        "lat": -23.587919,
+        "lng": -46.610452,
+        "precision": "institution_approx",
+        "role": "recipient",
+        "note": "Instituição destinatária documentada; posição institucional aproximada, sem comprovação de entrega ou devolução."
+      }
+    },
+    {
+      "id": "guide-037-dev",
+      "number": "037",
+      "type": "DEV",
+      "specimenCount": 1,
+      "components": [
+        {
+          "type": "DEV",
+          "specimenCount": 1
+        }
+      ],
+      "family": "Lymexylidae",
+      "recipient": "Dr. Maxwell V. L. Barclay",
+      "requestedBy": "Marcio L. Oliveira",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Lymexylidae"
+        ],
+        "subfamilies": [],
+        "genera": [],
+        "species": [],
+        "discrimination": "1 espécime informado; Lymexylidae identificado no campo Família, sem discriminação adicional recuperada."
+      },
+      "reviewStatus": "preliminary",
+      "note": "Movimentação de devolução registrada. Retorno de material não conciliado com empréstimo original. Data escrita como 05/24/2024.",
+      "sentDate": "2024-05-24",
+      "dueDate": null,
+      "dueSource": "not_applicable",
+      "destination": {
+        "institution": "Natural History Museum",
+        "city": "Londres",
+        "country": "Reino Unido",
+        "lat": 51.5074,
+        "lng": -0.1278,
+        "precision": "city_approx",
+        "role": "linked_institution",
+        "note": "Centro de Londres aproximado; instituição vinculada à devolução, não destino físico comprovado."
+      }
+    },
+    {
+      "id": "guide-041-dev",
+      "number": "041",
+      "type": "DEV",
+      "specimenCount": 10,
+      "components": [
+        {
+          "type": "DEV",
+          "specimenCount": 10
+        }
+      ],
+      "family": "Coleoptera (família não declarada)",
+      "recipient": "Dra. Sônia Casari",
+      "requestedBy": "Marcio L. Oliveira",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [],
+        "subfamilies": [],
+        "genera": [
+          "Xenofrea",
+          "Hemisous",
+          "Beralita",
+          "Bersus"
+        ],
+        "species": [],
+        "discrimination": "10 Coleoptera: Xenofrea diagonalis (1), Xenofrea fulgida (2), Hemisous irinus (1), H. bacchussi (1), H. apicalis (2), Beralita iguazu (2), Bersus tartagalensis (1). Dois Hemiptera excluídos da contagem."
+      },
+      "reviewStatus": "preliminary",
+      "note": "A guia inclui 12 espécimes: 10 Coleoptera e 2 Hemiptera. Devolução de tipos vinculados ao MZUSP; data literal 03/06/2024 ambígua e conciliação pendente.",
+      "sentDate": null,
+      "dueDate": null,
+      "dueSource": "not_applicable",
+      "destination": {
+        "institution": "Museu de Zoologia da Universidade de São Paulo (MZUSP)",
+        "city": "São Paulo, São Paulo",
+        "country": "Brasil",
+        "lat": -23.587919,
+        "lng": -46.610452,
+        "precision": "institution_approx",
+        "role": "linked_institution",
+        "note": "Instituição vinculada à guia; a georreferência não comprova recebimento nem quitação."
+      }
+    },
+    {
+      "id": "guide-048a-emp",
+      "number": "048a",
+      "type": "EMP",
+      "specimenCount": 96,
+      "components": [
+        {
+          "type": "EMP",
+          "specimenCount": 96
+        }
+      ],
+      "family": "Staphylinidae",
+      "recipient": "Dr. Louri Klemann Jr.",
+      "requestedBy": "Louri Klemann Jr.",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Staphylinidae"
+        ],
+        "subfamilies": [
+          "Staphylininae"
+        ],
+        "genera": [
+          "Photinopygus",
+          "Stenus",
+          "Renda",
+          "Scaponopselaphus",
+          "Peripus"
+        ],
+        "species": [],
+        "discrimination": "Photinopygus 37; Stenus 34; Renda 6; Scaponopselaphus 1; Peripus 1; Staphylininae não identificado 17. Total 96 espécimes."
+      },
+      "reviewStatus": "preliminary",
+      "note": "Empréstimo documental de 96 espécimes; envio e prazo expressos em 24/06/2024 e 24/06/2025. Não há conciliação de devolução nesta guia.",
+      "sentDate": "2024-06-24",
+      "dueDate": "2025-06-24",
+      "dueSource": "document",
+      "destination": {
+        "institution": "Universidade Federal do Amazonas (UFAM)",
+        "city": "Itacoatiara, Amazonas",
+        "country": "Brasil",
+        "lat": -3.1478,
+        "lng": -58.4461,
+        "precision": "city_approx",
+        "role": "recipient",
+        "note": "Instituição UFAM em Itacoatiara na guia; ponto de referência urbano aproximado e sem confirmação de entrega física."
+      }
+    },
+    {
+      "id": "guide-073-tran",
+      "number": "073",
+      "type": "TRAN",
+      "specimenCount": 28,
+      "components": [
+        {
+          "type": "TRAN",
+          "specimenCount": 28
+        }
+      ],
+      "family": "Coleoptera (material didático misto)",
+      "recipient": "Museu da República",
+      "requestedBy": "Jorge Lobato/Alexandre Somavilla",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [],
+        "subfamilies": [],
+        "genera": [],
+        "species": [],
+        "discrimination": "Uma gaveta de Coleoptera com 28 espécimes; além de 28 Lepidoptera e 60 insetos de outras ordens, excluídos da contagem de Coleoptera."
+      },
+      "reviewStatus": "preliminary",
+      "note": "Trânsito para exposição em Brasília. Documento registra 116 espécimes no total, dos quais apenas 28 Coleoptera. Retorno previsto 23/11/2024, sem prova de conclusão.",
+      "sentDate": "2024-10-23",
+      "dueDate": null,
+      "dueSource": "not_applicable",
+      "destination": {
+        "institution": "Museu da República",
+        "city": "Brasília, Distrito Federal",
+        "country": "Brasil",
+        "lat": -15.7939,
+        "lng": -47.8828,
+        "precision": "city_approx",
+        "role": "recipient",
+        "note": "Localidade aproximada de Brasília, instituição da exposição; não representa comprovante de recebimento."
+      }
+    }
+  ]
+}
