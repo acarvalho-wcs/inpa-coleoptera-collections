@@ -1,0 +1,263 @@
+{
+  "kind": "inpa.coleoptera.public-year.v1",
+  "year": "2022",
+  "records": [
+    {
+      "id": "guide-014-emp",
+      "number": "014",
+      "type": "EMP",
+      "specimenCount": 3,
+      "components": [
+        {
+          "type": "EMP",
+          "specimenCount": 3
+        }
+      ],
+      "family": "Cerambycidae",
+      "recipient": "Profa. Dra. Marcela Monnè",
+      "requestedBy": "Marcela Monnè",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Cerambycidae"
+        ],
+        "subfamilies": [],
+        "genera": [
+          "Cuicirama"
+        ],
+        "species": [],
+        "discrimination": "Cuicirama sp. (1); C. smithii (1); C. fasciata (1). Três exemplares listados individualmente."
+      },
+      "reviewStatus": "preliminary",
+      "note": "Empréstimo de três Cerambycidae; prazo documental de 22/02/2023, devolução efetiva não conciliada.",
+      "sentDate": "2022-02-22",
+      "dueDate": "2023-02-22",
+      "dueSource": "document",
+      "destination": {
+        "institution": "Museu Nacional / Universidade Federal do Rio de Janeiro (UFRJ)",
+        "city": "Rio de Janeiro, RJ",
+        "country": "Brasil",
+        "lat": -22.9068,
+        "lng": -43.1729,
+        "precision": "city_approx",
+        "role": "recipient",
+        "note": "Instituição no Rio de Janeiro, posição urbana aproximada; a guia não confirma entrega física."
+      }
+    },
+    {
+      "id": "guide-024-emp",
+      "number": "024",
+      "type": "EMP",
+      "specimenCount": 200,
+      "components": [
+        {
+          "type": "EMP",
+          "specimenCount": 200
+        }
+      ],
+      "family": "Curculionidae",
+      "recipient": "Dr. Jose Ricardo M. Mermudes",
+      "requestedBy": "Ederson Oliveira",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Curculionidae"
+        ],
+        "subfamilies": [
+          "Conodelinae"
+        ],
+        "genera": [],
+        "species": [],
+        "discrimination": "200 exemplares declarados no campo Número de Espécimes, Curculionidae (campo Outro: Conodelinae), sem discriminação individualizada."
+      },
+      "reviewStatus": "preliminary",
+      "note": "A guia traz prazo 31/09/2023, data impossível; prazo mantido nulo. Identificação subfamiliar transcrita literalmente; o material deve ser conciliado com possível retorno.",
+      "sentDate": "2022-03-31",
+      "dueDate": null,
+      "dueSource": "ambiguous_document",
+      "destination": {
+        "institution": "Universidade Federal do Rio de Janeiro (UFRJ)",
+        "city": "Rio de Janeiro, RJ",
+        "country": "Brasil",
+        "lat": -22.9068,
+        "lng": -43.1729,
+        "precision": "city_approx",
+        "role": "recipient",
+        "note": "Instituição vinculada à guia e cidade explicitamente escrita; georreferência aproximada."
+      }
+    },
+    {
+      "id": "guide-032-mix",
+      "number": "032",
+      "type": "MIX",
+      "specimenCount": 14,
+      "components": [
+        {
+          "type": "EMP",
+          "specimenCount": 3
+        },
+        {
+          "type": "DOA",
+          "specimenCount": 11
+        }
+      ],
+      "family": "Cerambycidae e Buprestidae",
+      "recipient": "Dra Marcela Monné",
+      "requestedBy": "J.A.Rafael",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Cerambycidae",
+          "Buprestidae"
+        ],
+        "subfamilies": [],
+        "genera": [
+          "Malodon",
+          "Oxymerus",
+          "Aegomorphus",
+          "Agrilus",
+          "Chrysobotris",
+          "Micrasta"
+        ],
+        "species": [],
+        "discrimination": "Movimentação mista: empréstimo de Cerambycidae (2 Malodon spinibarbis e 1 Cerambycidae não identificado); doação de 11: 4 Oxymerus aculeatus, 1 Aegomorphus jaspideus, 1 A. ridleyi, 1 Agrilus oceanicus, 2 Chrysobotris sp. e 2 Micrasta alvarengai."
+      },
+      "reviewStatus": "preliminary",
+      "note": "Total de 14 Coleoptera, sendo 3 emprestados e 11 doados. A discriminação do original repete Malodon spinibarbis sem número na sequência; não contar a menção duplicada. A data de devolução 05/06/2023 pertence ao componente de empréstimo, não à doação.",
+      "sentDate": "2022-05-05",
+      "dueDate": "2023-06-05",
+      "dueSource": "document",
+      "destination": {
+        "institution": "Museu Nacional / Universidade Federal do Rio de Janeiro (UFRJ)",
+        "city": "Rio de Janeiro, RJ",
+        "country": "Brasil",
+        "lat": -22.9068,
+        "lng": -43.1729,
+        "precision": "city_approx",
+        "role": "recipient",
+        "note": "Instituição no Rio de Janeiro, posição urbana aproximada; a guia não confirma entrega física."
+      }
+    },
+    {
+      "id": "guide-044-emp",
+      "number": "044",
+      "type": "EMP",
+      "specimenCount": 27,
+      "components": [
+        {
+          "type": "EMP",
+          "specimenCount": 27
+        }
+      ],
+      "family": "Cerambycidae",
+      "recipient": "Prof. Renato José Pires Machado",
+      "requestedBy": "José O. Silva Junior",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Cerambycidae"
+        ],
+        "subfamilies": [],
+        "genera": [],
+        "species": [],
+        "discrimination": "27 exemplares declarados no campo Número de Espécimes, sem discriminação de gêneros ou espécies recuperada no documento."
+      },
+      "reviewStatus": "preliminary",
+      "note": "Empréstimo de Cerambycidae com prazo em 28/06/2023; devolução não comprovada nesta guia.",
+      "sentDate": "2022-06-28",
+      "dueDate": "2023-06-28",
+      "dueSource": "document",
+      "destination": {
+        "institution": "Universidade Federal do Paraná (UFPR)",
+        "city": "Curitiba, PR",
+        "country": "Brasil",
+        "lat": -25.4284,
+        "lng": -49.2733,
+        "precision": "city_approx",
+        "role": "recipient",
+        "note": "Cidade institucional indicada na guia, com coordenadas urbanas aproximadas; não comprova entrega ou devolução."
+      }
+    },
+    {
+      "id": "guide-069-emp",
+      "number": "069",
+      "type": "EMP",
+      "specimenCount": 65,
+      "components": [
+        {
+          "type": "EMP",
+          "specimenCount": 65
+        }
+      ],
+      "family": "Cerambycidae",
+      "recipient": "Dr. José Ricardo Mermudes",
+      "requestedBy": "José Ricardo Mermudes",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Cerambycidae"
+        ],
+        "subfamilies": [],
+        "genera": [
+          "Hemilissa",
+          "Haruspex"
+        ],
+        "species": [],
+        "discrimination": "65 exemplares: Hemilissa sucicollis? 5; H. opaca 42; H. cornuta 3; H. catapotia 3; Haruspex modestus 7; Harupex lineolatus 5 (grafia original preservada)."
+      },
+      "reviewStatus": "preliminary",
+      "note": "A localidade na guia é Manaus-AM, mas a instituição destinatária é UFRJ, situada no Rio de Janeiro. Coordenada institucional aproximada; destino requer auditoria. Devolução não conciliada.",
+      "sentDate": "2022-10-31",
+      "dueDate": "2023-10-31",
+      "dueSource": "document",
+      "destination": {
+        "institution": "Universidade Federal do Rio de Janeiro (UFRJ)",
+        "city": "Rio de Janeiro, RJ",
+        "country": "Brasil",
+        "lat": -22.9068,
+        "lng": -43.1729,
+        "precision": "city_approx",
+        "role": "recipient",
+        "note": "A guia registra Manaus-AM, mas a instituição é identificada como UFRJ; ponto urbano de referência da instituição no Rio de Janeiro, com município documental divergente e revisão geográfica pendente."
+      }
+    },
+    {
+      "id": "guide-078-emp",
+      "number": "078",
+      "type": "EMP",
+      "specimenCount": 29,
+      "components": [
+        {
+          "type": "EMP",
+          "specimenCount": 29
+        }
+      ],
+      "family": "Coleoptera (família não informada)",
+      "recipient": "Fernando Vaz de Mello",
+      "requestedBy": "Fernando Vaz de Mello",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [],
+        "subfamilies": [],
+        "genera": [],
+        "species": [],
+        "discrimination": "29 espécimes de Coleoptera alfinetados, declarados no campo Número de Espécimes; família e discriminação taxonômica não preenchidas na guia."
+      },
+      "reviewStatus": "preliminary",
+      "note": "Solicitante consta no original como Próprio, atribuído ao destinatário; campus da UFMT não indicado na guia. Prazo documental 29/11/2023; devolução ainda não conciliada.",
+      "sentDate": "2022-11-29",
+      "dueDate": "2023-11-29",
+      "dueSource": "document",
+      "destination": {
+        "institution": "Universidade Federal de Mato Grosso (UFMT)",
+        "city": "Cuiabá, MT",
+        "country": "Brasil",
+        "lat": -15.601,
+        "lng": -56.0974,
+        "precision": "city_approx",
+        "role": "recipient",
+        "note": "Município de referência da sede da UFMT; guia de 2022 menciona UFMT/Brasil sem especificar campus. Posição urbana aproximada; rever destino exato."
+      }
+    }
+  ]
+}
