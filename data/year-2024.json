@@ -214,6 +214,95 @@
         "role": "recipient",
         "note": "Localidade aproximada de Brasília, instituição da exposição; não representa comprovante de recebimento."
       }
+    },
+    {
+      "id": "guide-015-emp",
+      "number": "015",
+      "type": "EMP",
+      "specimenCount": 404,
+      "components": [
+        {
+          "type": "EMP",
+          "specimenCount": 404
+        }
+      ],
+      "family": "Hydrophilidae (grafia original Hydrophillidae)",
+      "recipient": "Dr. Adrian Antonio Garda",
+      "requestedBy": "Gilson de Paiva Amorim Junior",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Hydrophilidae"
+        ],
+        "subfamilies": [],
+        "genera": [],
+        "species": [],
+        "discrimination": "404 especimes declarados na guia. Familia com grafia original Hydrophillidae. Ver tabela detalhada no original."
+      },
+      "reviewStatus": "preliminary",
+      "note": "Coleoptera explicitamente documentado; detalhes taxonomicos dependem da tabela original. Emprestimo ainda sem conciliacao de devolucao.",
+      "sentDate": "2024-02-26",
+      "dueDate": "2026-02-26",
+      "dueSource": "document",
+      "destination": {
+        "institution": "Universidade Federal do Rio Grande do Norte (UFRN)",
+        "city": "Natal, Rio Grande do Norte",
+        "country": "Brasil",
+        "lat": -5.7945,
+        "lng": -35.211,
+        "precision": "city_approx",
+        "role": "recipient",
+        "note": "Localidade aproximada da instituicao descrita na guia; nao comprova entrega fisica."
+      }
+    },
+    {
+      "id": "guide-019-doa",
+      "number": "019",
+      "type": "DOA",
+      "specimenCount": 17,
+      "components": [
+        {
+          "type": "DOA",
+          "specimenCount": 17
+        }
+      ],
+      "family": "Scarabaeidae / Cerambycidae",
+      "recipient": "Dr. Diego Matheus de M. Mendes",
+      "requestedBy": "Diego Matheus",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Scarabaeidae",
+          "Cerambycidae"
+        ],
+        "subfamilies": [],
+        "genera": [
+          "Dynastes",
+          "Golofa",
+          "Titanus"
+        ],
+        "species": [
+          "Dynastes hercules",
+          "Dynastes neptunus",
+          "Titanus giganteus"
+        ],
+        "discrimination": "17 Coleoptera: Dynastes hercules 3; Dynastes neptunus 4; Golofa sp. 2; Cerambycidae 4; Titanus giganteus 2; Scarabaeidae 2. Outros 19 Lepidoptera na guia nao incluidos."
+      },
+      "reviewStatus": "preliminary",
+      "note": "Documento misto com 36 insetos no total. Data literal 22/March/2026 diverge do ano documental 2024; nenhuma data validada.",
+      "sentDate": null,
+      "dueDate": null,
+      "dueSource": "not_applicable",
+      "destination": {
+        "institution": "Instituto de Desenvolvimento Sustentavel Mamiraua",
+        "city": "Tefe, Amazonas",
+        "country": "Brasil",
+        "lat": -3.354,
+        "lng": -64.711,
+        "precision": "city_approx",
+        "role": "recipient",
+        "note": "Localidade aproximada da instituicao descrita na guia; nao comprova entrega fisica."
+      }
     }
   ]
 }
