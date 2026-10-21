@@ -1,0 +1,50 @@
+{
+  "kind": "inpa.coleoptera.public-year.v1",
+  "year": "2024",
+  "records": [
+    {
+      "id": "example-movement-001",
+      "number": "001",
+      "type": "MIX",
+      "specimenCount": 5,
+      "components": [
+        {
+          "type": "EMP",
+          "specimenCount": 3
+        },
+        {
+          "type": "TRAN",
+          "specimenCount": 2
+        }
+      ],
+      "family": "Chrysomelidae",
+      "recipient": "Exemplo Pesquisador",
+      "requestedBy": "Exemplo Solicitante",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Chrysomelidae"
+        ],
+        "subfamilies": [],
+        "genera": [],
+        "species": [],
+        "discrimination": "5 exemplares na guia, incluindo 3 emprestados e 2 em trânsito."
+      },
+      "reviewStatus": "preliminary",
+      "note": "EXEMPLO FICTÍCIO. Substituir integralmente por dados documentados e conferidos.",
+      "sentDate": null,
+      "dueDate": null,
+      "dueSource": "missing",
+      "destination": {
+        "institution": "Instituição de exemplo",
+        "city": "Manaus",
+        "country": "Brasil",
+        "lat": -3.1,
+        "lng": -60,
+        "precision": "city_approx",
+        "role": "recipient",
+        "note": "Localização urbana aproximada; apenas demonstrativa."
+      }
+    }
+  ]
+}
