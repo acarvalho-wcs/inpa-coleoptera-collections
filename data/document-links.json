@@ -1,0 +1,218 @@
+{
+  "kind": "inpa.coleoptera.document-links.v1",
+  "records": [
+    {
+      "year": "2024",
+      "number": "007",
+      "type": "EMP",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/16sIIiX5RLYZE-_nXIey345anmmmi8KMO/view"
+        }
+      ]
+    },
+    {
+      "year": "2024",
+      "number": "015",
+      "type": "EMP",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1qnjcjgbnJsogsGZmSB0A11ie8mAUQP7o/view"
+        }
+      ]
+    },
+    {
+      "year": "2024",
+      "number": "019",
+      "type": "DOA",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1WpYn3X9ALE0EI8ojVOL53HLvhNlKACtg/view"
+        }
+      ]
+    },
+    {
+      "year": "2024",
+      "number": "037",
+      "type": "DEV",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1brxWvUBZ-lojFlM23cEhWInCMYr2gBKr/view"
+        }
+      ]
+    },
+    {
+      "year": "2024",
+      "number": "041",
+      "type": "DEV",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1IK1CO43UUH7W49IB1TfpizsClaw6Mad5/view"
+        }
+      ]
+    },
+    {
+      "year": "2024",
+      "number": "048a",
+      "type": "EMP",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1RT-TA2stB8IFFDiSPEvCjyPQLKU6agye/view"
+        }
+      ]
+    },
+    {
+      "year": "2024",
+      "number": "073",
+      "type": "TRAN",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1CsH-ZPna0jHPA_E0ptQtQHXSpGTZLuSY/view"
+        }
+      ]
+    },
+    {
+      "year": "2025",
+      "number": "007a",
+      "type": "DEV",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1m9-OT9r9G0zfSpMP8eDwPIsccHwE4E1m/view"
+        }
+      ]
+    },
+    {
+      "year": "2025",
+      "number": "012",
+      "type": "DEV",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1MgEdxRr1O6bPsLaK3E4M0_1ypYzoQ7o3/view"
+        }
+      ]
+    },
+    {
+      "year": "2025",
+      "number": "014",
+      "type": "EMP",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1NRimTI1dxbd5jfS4urZAwg2u7PS_H_Vg/view"
+        }
+      ]
+    },
+    {
+      "year": "2025",
+      "number": "027",
+      "type": "EMP",
+      "sources": [
+        {
+          "format": "PDF",
+          "url": "https://drive.google.com/file/d/1Tyh9eQpMR8Si2d3gbkot68HQESXKKf6m/view"
+        },
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1NYJWwmM2eLrNivvkCmWRJdAhgmabKJRA/view"
+        }
+      ]
+    },
+    {
+      "year": "2025",
+      "number": "033",
+      "type": "DEV",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1ggfXZypxrq8cEOd4VYejFS3OmblfDm2_/view"
+        }
+      ]
+    },
+    {
+      "year": "2025",
+      "number": "038",
+      "type": "EMP",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1y-TroCxwyXABson3e6yo-9vh_qLYH3mO/view"
+        }
+      ]
+    },
+    {
+      "year": "2025",
+      "number": "040",
+      "type": "DEV",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1p-sjxEMxilqgrFVdUSgX3ccBBS8uGIT5/view"
+        }
+      ]
+    },
+    {
+      "year": "2025",
+      "number": "041",
+      "type": "DEV",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1cvHi_Pmczv_TuSspVOIQstvTfcxMzd0T/view"
+        }
+      ]
+    },
+    {
+      "year": "2025",
+      "number": "052",
+      "type": "EMP",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1Cdcj6JImd69-AETtmi9bub1tPxQg0g7g/view"
+        }
+      ]
+    },
+    {
+      "year": "2025",
+      "number": "062",
+      "type": "EMP",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1QBw7UG0MDFYL-n75N461qCIyno1TqwOX/view"
+        }
+      ]
+    },
+    {
+      "year": "2025",
+      "number": "062",
+      "type": "DEV",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1GMs_F2CpQJzto0A_pztAu20LLsHKAsPP/view"
+        }
+      ]
+    },
+    {
+      "year": "2025",
+      "number": "076",
+      "type": "TRAN",
+      "sources": [
+        {
+          "format": "Word",
+          "url": "https://drive.google.com/file/d/1mlwp7ZLxKwT5S2427kQ_LSA1nll_lUQc/view"
+        }
+      ]
+    }
+  ]
+}
