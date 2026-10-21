@@ -50,3 +50,27 @@ test('pesquisa por familia, subfamilia, genero e especie',()=>{
  const r={id:'x',year:'2026',number:'063',type:'EMP',taxa:{order:'Coleoptera',families:['Buprestidae'],subfamilies:['Agrilinae'],genera:['Agrilus'],species:['Agrilus oceanicus'],discrimination:'Fernando de Noronha'}};
  for(const x of ['coleoptera','buprestidae','agrilinae','agrilus','oceanicus','Fernando de Noronha'])assert.equal(filterRecords([r],{query:x}).length,1,x);
 });
+
+test('preserva identificadores de guia com letras em 2025',()=>{
+ const r=parseFilename('Invoice INPA 006a de 2025_Pesquisadora A-EMP.docx','2025');
+ assert.deepEqual([r.year,r.number,r.type],['2025','006a','EMP']);
+ const v=parseFilename('Invoice INPA 007b de 2025_Pesquisador B-DEV.docx','2025');
+ assert.deepEqual([v.number,v.type],['007b','DEV']);
+});
+test('consolida a copia PDF sem codigo somente com par correspondente univoco',()=>{
+ const rows=consolidate([
+   doc('word','Invoice INPA 026 de 2025_Pesquisador T-EMP.docx'),
+   pdf('pdf','Invoice INPA 026 de 2025_Pesquisador T.pdf')
+ ],'2025');
+ assert.equal(rows.length,1);
+ assert.equal(rows[0].type,'EMP');
+ assert.equal(rows[0].id,'pdf');
+ assert.equal(rows[0].sources.length,2);
+});
+test('nao funde 027 de pesquisador com 027 de instituicao',()=>{
+ const rows=consolidate([
+   doc('a','Invoice INPA 027 de 2025_Pesquisadora S-EMP.docx'),
+   pdf('b','Invoice INPA 027 de 2025_SBPC-UFRPE.pdf')
+ ],'2025');
+ assert.equal(rows.length,2);
+});
