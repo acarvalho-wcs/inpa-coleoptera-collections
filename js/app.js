@@ -1,5 +1,5 @@
 import {DriveClient} from './drive.js';
-import {projectPreliminary2025} from './preliminary-2025.js?v=20261021-nomes-1';
+import {validateBuiltCatalog} from './public-catalog.js';
 import {consolidate,filterRecords,TYPE_LABELS} from './records.js?v=public-names-20261020';
 import {centerForCountry} from './countries.js';
 import {canonicalKey,extractFacts,applyReview,createSnapshot,readSnapshot} from './canonical.js';
@@ -101,7 +101,7 @@ function render(){
   $('mTracked').textContent=statuses.filter((s,i)=>rows[i].type==='EMP'&&s.dueDate).length.toLocaleString('pt-BR');
   $('mUnknown').textContent=statuses.filter((s,i)=>rows[i].type==='EMP'&&['unknown','date_check'].includes(s.code)).length.toLocaleString('pt-BR');
   $('personColumn').textContent='Nome (destinatário)';
-  $('countLabel').textContent=state.previewMode?`${rows.length} registros documentais na prévia (${state.currentYear==='all'?'2025–2026':state.currentYear})`:`${rows.length} registros na seleção · ${state.rows.length} carregados`;
+  $('countLabel').textContent=state.previewMode?`${rows.length} registros documentais na prévia (${state.currentYear==='all'?'todos os anos':state.currentYear})`:`${rows.length} registros na seleção · ${state.rows.length} carregados`;
   $('recordsBody').innerHTML=rows.length?rows.map(r=>{
     const status=loanStatus(r);
     const names=guideNames(r);
@@ -360,35 +360,16 @@ async function saveCanonical(){
 }
 async function loadPublicPreview(){
   try{
-    const response=await fetch('./data/public-preview.json',{cache:'no-store'});
-    if(!response.ok)throw Error('Arquivo de prévia não encontrado');
+    const response=await fetch('./data/public-catalog.json',{cache:'no-store'});
+    if(!response.ok)throw Error('Catálogo público indisponível (HTTP '+response.status+')');
     const data=await response.json();
-    if(data.kind!=='public-anonymized-preview'||!Array.isArray(data.records))throw Error('Prévia incompatível');
-    const rows=data.records.map((r,i)=>({id:`preview-${i}`,year:r.year,number:r.number,
-      researcher:null,name:`${r.family} · guia ${r.year}/${r.number}`,type:r.type,mimeType:'application/pdf',
-      sources:[],family:r.family,taxonomicOrder:'Coleoptera',specimens:r.specimenCount,country:r.country,
-      sentDate:r.sentDate||null,dueDate:r.dueDate||null,previewStatus:r.status,preview:true,
-      recipient:r.recipient,requestedBy:r.requestedBy,taxa:r.taxa,sources:r.sources,originalUrl:r.originalUrl,destination:r.destination,
-      canonical:{movement:{type:r.type},taxonomy:{classification:'coleoptera',order:'Coleoptera',evidence:[]},
-        loan:{sentDate:r.sentDate||null,dueDate:r.dueDate||null,
-          sentDateRaw:r.sentDateRaw||null,dueDateRaw:r.dueDateRaw||null,dueSource:r.dueSource||null,datesNeedReview:Boolean(r.sentDateRaw||r.dueDateRaw),returnStatus:'not_reconciled'}}}));
-    let preliminaryError=null;
-    try{
-      const extra=await fetch('./data/preliminary-2025.json',{cache:'no-store'});
-      if(!extra.ok)throw Error('Arquivo 2025 indisponível (HTTP '+extra.status+')');
-      const candidates=projectPreliminary2025(await extra.json());
-      if(candidates.length!==12)throw Error('Quantidade inesperada de guias em 2025');
-      rows.push(...candidates);
-    }catch(err){
-      preliminaryError=err.message||'Falha desconhecida';
-      console.error('Falha de carregamento da prévia 2025:',err);
-    }
+    const rows=validateBuiltCatalog(data);
     if(client.token)return;
     state.previewCache=rows;state.rows=rows.slice();state.previewMode=true;
-    $('yearSelect').innerHTML='<option value="all">Todos os anos</option><option value="2026">2026 · prévia</option>'+(rows.some(r=>r.year==='2025')?'<option value="2025">2025 · triagem preliminar</option>':'');
+    $('yearSelect').innerHTML='<option value="all">Todos os anos</option>'+[...new Set(rows.map(r=>r.year))].sort().reverse().map(year=>'<option value="'+year+'">'+year+'</option>').join('');
     state.currentYear='all';$('yearSelect').value='all';setBusy(false);render();
     $('connectBtn').disabled=false;$('connectBtn').textContent='Conectar Google Drive';setConnected(false);
-    message(`PRÉVIA DOCUMENTAL · ${rows.filter(r=>r.year==='2026').length} registros de 2026 e ${rows.filter(r=>r.preliminary).length} registros preliminares de 2025. Os nomes profissionais e localidades institucionais de 2025 foram transcritos das guias; datas e devoluções ainda exigem conciliação. ${preliminaryError?'ERRO AO CARREGAR 2025: '+preliminaryError+'. ':''}Os originais exigem acesso autorizado ao Drive.`,preliminaryError?'error':'');
+    message(`CATÁLOGO DOCUMENTAL · ${rows.length} registros em ${new Set(rows.map(r=>r.year)).size} anos; ${rows.filter(r=>r.preliminary).length} preliminares. Prazos e devoluções exigem conciliação documental.`);
   }catch(e){message(`Prévia indisponível: ${e.message}`,'error');}
 }
 $('connectBtn').addEventListener('click',()=>{
