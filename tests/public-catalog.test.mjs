@@ -64,9 +64,14 @@ test('build generates catalogue and never copies private annual source documents
   const files=await readdir(join(path,'data'));
   assert.deepEqual(files.sort(),['public-catalog.json','public-preview.json','triage-2026-audit.json']);
   const compiled=JSON.parse(await readFile(join(path,'data','public-catalog.json'),'utf8'));
-  assert.equal(compiled.records.length,26);
+  const annual=JSON.parse(await readFile(join(root,'data','year-2024.json'),'utf8'));
+  assert.equal(compiled.records.length,26+annual.records.length);
+  assert.equal(compiled.records.filter(r=>r.year==='2024').length,annual.records.length);
   assert.equal(compiled.records.filter(r=>r.year==='2025').length,12);
+  assert.equal(compiled.records.filter(r=>r.year==='2026').length,14);
+  assert.deepEqual(compiled.summary.map(y=>y.year),['2024','2025','2026']);
   const html=await readFile(join(path,'index.html'),'utf8');
+  assert.match(html,/2024\/048a/);
   assert.match(html,/2025\/038/);
   assert.match(html,/Dr. Edilson Caron/);
   assert.match(html,/2026\/035/);
