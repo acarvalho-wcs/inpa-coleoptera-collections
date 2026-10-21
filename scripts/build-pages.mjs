@@ -38,7 +38,7 @@ for (const filename of scripts) await cp(join(source, 'js', filename), join(dest
 const cfg = {
   googleClientId: clientId,
   driveRootFolderId: '1RdZAIbK9_Hn6o2E_x-vv0HQMpUEeMSxP',
-  startingYear: '2026',
+  startingYear: '2025',
   institutionName: 'Coleção Entomológica do INPA',
   mapTiles: true
 };
