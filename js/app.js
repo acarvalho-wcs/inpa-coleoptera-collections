@@ -135,7 +135,9 @@ function showDetails(r){
       pair('Alcance dos dados','Nomes e resumo documental públicos; contatos e guia integral exigem Google Drive autorizado');
     $('guideCompleteness').hidden=true;document.querySelector('#details .edit-panel').hidden=true;
     document.querySelector('#details .dialog-foot').hidden=false;
-    $('originalLink').hidden=!r.originalUrl;$('originalLink').href=r.originalUrl||'#';$('downloadFileBtn').hidden=true;return;
+    $('sourceLinks').innerHTML=guideLinks(r);
+    $('originalLink').hidden=!r.originalUrl;$('originalLink').href=r.originalUrl||'#';
+    $('downloadFileBtn').hidden=true;return;
   }
   const list=[...common,
     pair('Nome (destinatário)',f.recipient||r.researcher),pair('Instituição',c.destination?.institution||f.institution||r.institution),
