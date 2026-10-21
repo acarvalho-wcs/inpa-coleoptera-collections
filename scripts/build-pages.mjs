@@ -37,7 +37,7 @@ const publicCatalog=buildPublicCatalog({legacy2026,legacy2025,years});
 await writeFile(join(destination,'data','public-catalog.json'),JSON.stringify(publicCatalog,null,2)+'\n','utf8');
 const snapshot=legacy2026;
 const sourceHtml=await readFile(join(source,'index.html'),'utf8');
-await writeFile(join(destination,'index.html'),renderPublicPreview(sourceHtml,snapshot,process.env.GITHUB_SHA||'local'),'utf8');
+await writeFile(join(destination,'index.html'),renderPublicPreview(sourceHtml,snapshot,process.env.GITHUB_SHA||'local',publicCatalog),'utf8');
 const scripts = (await readdir(join(source, 'js'))).filter(name => /^[a-z0-9-]+\.js$/i.test(name));
 for (const filename of scripts) await cp(join(source, 'js', filename), join(destination, 'js', filename));
 
