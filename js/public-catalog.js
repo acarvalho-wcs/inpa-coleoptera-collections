@@ -15,7 +15,7 @@ const onlyKeys=(o,keys)=>o!==null&&typeof o==='object'&&!Array.isArray(o)&&
 const count=n=>Number.isInteger(n)&&n>=0&&n<=1000000;
 const textList=v=>Array.isArray(v)&&v.length<=50&&v.every(x=>safeText(x,140));
 const validDate=v=>v===null||(typeof v==='string'&&iso.test(v)&&
-  new Date(v+'T00:00:00Z').toISOString().slice(0,10)===v);
+  (Number.isFinite(Date.parse(v+'T00:00:00Z'))&&new Date(v+'T00:00:00Z').toISOString().slice(0,10)===v));
 function fail(message){throw Error('Public catalogue: '+message);}
 function validTaxa(t){
   return onlyKeys(t,['order','families','subfamilies','genera','species','discrimination'])&&
