@@ -1,4 +1,5 @@
 import {DriveClient} from './drive.js';
+import {projectPreliminary2025} from './preliminary-2025.js';
 import {consolidate,filterRecords,TYPE_LABELS} from './records.js?v=public-names-20261020';
 import {centerForCountry} from './countries.js';
 import {canonicalKey,extractFacts,applyReview,createSnapshot,readSnapshot} from './canonical.js';
@@ -91,7 +92,7 @@ function pairFormatted(label,html){return `<div class="detail-pair"><span>${esca
 function guideLinks(r){return (r.sources||[]).map(s=>'<a class="guide-open-btn" href="'+escapeHtml(s.url)+'" target="_blank" rel="noopener noreferrer" title="Abrir original no Google Drive">Ver Guia '+escapeHtml(s.format||'')+' ↗</a>').join(' ');}
 function render(){
   const selectedTaxon=$('taxonSelect').value,statusFilter=$('statusSelect').value;
-  const rows=filterRecords(state.rows,filters()).filter(r=>(selectedTaxon==='all'||(r.canonical?.taxonomy?.classification||'pending')===selectedTaxon)&&
+  const rows=filterRecords(state.rows,{...filters(),year:state.previewMode?state.currentYear:'all'}).filter(r=>(selectedTaxon==='all'||(r.canonical?.taxonomy?.classification||'pending')===selectedTaxon)&&
     (statusFilter==='all'||loanStatus(r).code===statusFilter)).sort((a,b)=>priority(a)-priority(b));
   state.filtered=rows;
   const statuses=rows.map(r=>loanStatus(r));
@@ -100,7 +101,7 @@ function render(){
   $('mTracked').textContent=statuses.filter((s,i)=>rows[i].type==='EMP'&&s.dueDate).length.toLocaleString('pt-BR');
   $('mUnknown').textContent=statuses.filter((s,i)=>rows[i].type==='EMP'&&['unknown','date_check'].includes(s.code)).length.toLocaleString('pt-BR');
   $('personColumn').textContent='Nome (destinatário)';
-  $('countLabel').textContent=state.previewMode?`${rows.length} guias na prévia parcial de ${state.currentYear==='all'?'2026':state.currentYear}`:`${rows.length} registros na seleção · ${state.rows.length} carregados`;
+  $('countLabel').textContent=state.previewMode?`${rows.length} registros documentais na prévia (${state.currentYear==='all'?'2025–2026':state.currentYear})`:`${rows.length} registros na seleção · ${state.rows.length} carregados`;
   $('recordsBody').innerHTML=rows.length?rows.map(r=>{
     const status=loanStatus(r);
     const names=guideNames(r);
@@ -116,7 +117,7 @@ function render(){
 function pair(label,value){return `<div class="detail-pair"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value===null||value===undefined||value===''?'Não identificado':value)}</strong></div>`;}
 function showDetails(r){
   const status=loanStatus(r),c=r.canonical||{},f=c.guide?.fields||{},loan=c.loan||{};
-  $('detailTitle').textContent=`Guia ${r.year}/${r.number||'s/n'}${r.preview?' · prévia pública':''}`;
+  $('detailTitle').textContent=`Guia ${r.year}/${r.number||'s/n'}${r.preliminary?' · triagem preliminar':r.preview?' · prévia pública':''}`;
   $('detailDeadline').innerHTML=`<div><small>DEVOLUÇÃO PREVISTA</small><strong>${escapeHtml(dueLabel(r))}</strong><p>${escapeHtml(status.basisLabel||'')} ${status.needsOriginal?'· CONFERIR GUIA ORIGINAL':''}</p></div>`+
     `<div>${statusTag(r)}<p>${escapeHtml(r.preview?'Prévia documental. Verifique o original após autenticação.':
     'Prazo calculado para acompanhamento; confirmar datas, prorrogações e devolução na Guia Original.')}</p></div>`;
@@ -134,7 +135,7 @@ function showDetails(r){
       pair('Alcance dos dados','Nomes e resumo documental públicos; contatos e guia integral exigem Google Drive autorizado');
     $('guideCompleteness').hidden=true;document.querySelector('#details .edit-panel').hidden=true;
     document.querySelector('#details .dialog-foot').hidden=false;
-    $('originalLink').href=r.originalUrl||'#';$('downloadFileBtn').hidden=true;return;
+    $('originalLink').hidden=!r.originalUrl;$('originalLink').href=r.originalUrl||'#';$('downloadFileBtn').hidden=true;return;
   }
   const list=[...common,
     pair('Nome (destinatário)',f.recipient||r.researcher),pair('Instituição',c.destination?.institution||f.institution||r.institution),
@@ -371,10 +372,17 @@ async function loadPublicPreview(){
       canonical:{movement:{type:r.type},taxonomy:{classification:'coleoptera',order:'Coleoptera',evidence:[]},
         loan:{sentDate:r.sentDate||null,dueDate:r.dueDate||null,
           sentDateRaw:r.sentDateRaw||null,dueDateRaw:r.dueDateRaw||null,dueSource:r.dueSource||null,datesNeedReview:Boolean(r.sentDateRaw||r.dueDateRaw),returnStatus:'not_reconciled'}}}));
+    try{
+      const extra=await fetch('./data/preliminary-2025.json',{cache:'no-store'});
+      if(extra.ok){
+        const candidates=projectPreliminary2025(await extra.json());
+        rows.push(...candidates);
+      }
+    }catch(err){console.warn('Prévia preliminar 2025 não carregada:',err.message);}
     if(client.token)return;
     state.previewCache=rows;state.rows=rows.slice();state.previewMode=true;
-    $('yearSelect').innerHTML='<option value="2026">2026 · prévia</option>';
-    $('yearSelect').value='2026';setBusy(false);render();
+    $('yearSelect').innerHTML='<option value="all">Todos os anos</option><option value="2026">2026 · prévia</option>'+(rows.some(r=>r.year==='2025')?'<option value="2025">2025 · triagem preliminar</option>':'');
+    state.currentYear='all';$('yearSelect').value='all';setBusy(false);render();
     $('connectBtn').disabled=false;$('connectBtn').textContent='Conectar Google Drive';setConnected(false);
     message(`TRIAGEM 2026 · ${rows.length} guias de Coleoptera com evidência documental. Datas ambíguas exigem conferência na Guia Original; sem conciliação de devoluções. Nome e Solicitante transcritos das guias; informações complementares exigem acesso ao Drive.`);
   }catch(e){message(`Prévia indisponível: ${e.message}`,'error');}
