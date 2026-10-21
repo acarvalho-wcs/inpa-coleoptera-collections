@@ -1,0 +1,444 @@
+{
+  "kind": "inpa.coleoptera.public-year.v1",
+  "year": "2023",
+  "records": [
+    {
+      "id": "guide-005-emp",
+      "number": "005",
+      "type": "EMP",
+      "specimenCount": 1553,
+      "components": [
+        {
+          "type": "EMP",
+          "specimenCount": 1553
+        }
+      ],
+      "family": "Scarabaeoidea (Hybosoridae, Orphinidae, Geotrupidae, Trogidae, Aphodiinae)",
+      "recipient": "Dr. Fernando Vaz de Mello",
+      "requestedBy": "Não informado na guia",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Hybosoridae",
+          "Orphinidae",
+          "Geotrupidae",
+          "Trogidae"
+        ],
+        "subfamilies": [
+          "Aphodiinae"
+        ],
+        "genera": [],
+        "species": [],
+        "discrimination": "1535 espécimes do acervo: Hybosoridae 59, Orphinidae 12, Geotrupidae 34, Trogidae 68, Aphodiinae 1362. Outros 18 espécimes discriminados por localidades de coleta; total documental 1535 + 18."
+      },
+      "reviewStatus": "preliminary",
+      "note": "Empréstimo documentado; datas 01/03/2023 e 01/03/2024 ambíguas quanto ao formato. Localidades citadas na discriminação representam procedência dos espécimes, não destinos. A grafia Orphinidae é mantida como consta na guia.",
+      "sentDate": null,
+      "dueDate": null,
+      "dueSource": "ambiguous_document",
+      "destination": {
+        "institution": "Universidade Federal de Mato Grosso (UFMT)",
+        "city": "Cuiabá, Mato Grosso",
+        "country": "Brasil",
+        "lat": -15.601,
+        "lng": -56.097,
+        "precision": "city_approx",
+        "role": "recipient",
+        "note": "Cidade da instituição documentada na guia, com coordenada urbana aproximada; não comprova entrega nem devolução."
+      }
+    },
+    {
+      "id": "guide-012-tran",
+      "number": "012",
+      "type": "TRAN",
+      "specimenCount": 13,
+      "components": [
+        {
+          "type": "TRAN",
+          "specimenCount": 13
+        }
+      ],
+      "family": "Chrysomelidae",
+      "recipient": "Aline Amanda S. da Silva",
+      "requestedBy": "Aline Amanda",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Chrysomelidae"
+        ],
+        "subfamilies": [],
+        "genera": [],
+        "species": [],
+        "discrimination": "13 espécimes registrados na guia, conduzidos em mãos para identificação, com retorno previsto pela própria interessada."
+      },
+      "reviewStatus": "preliminary",
+      "note": "Movimentação classificada no documento como trânsito, não empréstimo regular. Guia vinculada ao INPA; sem confirmação independente do retorno.",
+      "sentDate": "2023-04-13",
+      "dueDate": null,
+      "dueSource": "not_applicable",
+      "destination": {
+        "institution": "Instituto Nacional de Pesquisas da Amazônia (INPA)",
+        "city": "Manaus, Amazonas",
+        "country": "Brasil",
+        "lat": -3.119,
+        "lng": -60.021,
+        "precision": "city_approx",
+        "role": "linked_institution",
+        "note": "Instituição vinculada a movimentação interna ou trânsito; posição urbana aproximada, não corresponde a rota física comprovada."
+      }
+    },
+    {
+      "id": "guide-020-emp",
+      "number": "020",
+      "type": "EMP",
+      "specimenCount": 49,
+      "components": [
+        {
+          "type": "EMP",
+          "specimenCount": 49
+        }
+      ],
+      "family": "Cerylonidae, Bostrichidae e Curculionidae",
+      "recipient": "Dr. Hugo Rainho",
+      "requestedBy": "J. A. Rafael",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Cerylonidae",
+          "Bostrichidae",
+          "Curculionidae"
+        ],
+        "subfamilies": [],
+        "genera": [
+          "Euplatypus",
+          "Pycnarthrum",
+          "Hypothenemus",
+          "Ambrosiodmus",
+          "Xyleborinus",
+          "Xyleborus",
+          "Cryptocarenus"
+        ],
+        "species": [
+          "Euplatypus parallelus",
+          "Hypothenemus plumeriae",
+          "Xyleborus volvulus"
+        ],
+        "discrimination": "49 espécimes secos individualmente discriminados: Cerylonidae 1; Euplatypus 6; Pycnarthrum 2; Hypothenemus 4; Ambrosiodmus 5; Xyleborinus 7 e 8; Xyleborus 7; Cryptocarenus 8; Bostrichidae 1. Mais 64 frascos em meio úmido sem indivíduos quantificados."
+      },
+      "reviewStatus": "preliminary",
+      "note": "Contagem pública parcial: somente 49 indivíduos secos, acrescidos de 64 frascos úmidos cuja quantidade de espécimes não é comprovada. Fernando de Noronha é localidade de procedência, não destino.",
+      "sentDate": "2023-04-20",
+      "dueDate": "2024-04-20",
+      "dueSource": "document",
+      "destination": {
+        "institution": "Universidade Estadual Paulista (UNESP), campus Botucatu",
+        "city": "Botucatu, São Paulo",
+        "country": "Brasil",
+        "lat": -22.885,
+        "lng": -48.444,
+        "precision": "city_approx",
+        "role": "recipient",
+        "note": "Cidade da instituição documentada na guia, com coordenada urbana aproximada; não comprova entrega nem devolução."
+      }
+    },
+    {
+      "id": "guide-030-emp",
+      "number": "030",
+      "type": "EMP",
+      "specimenCount": 306,
+      "components": [
+        {
+          "type": "EMP",
+          "specimenCount": 306
+        }
+      ],
+      "family": "Scarabaeidae (grafia original: Scararabaeidae)",
+      "recipient": "Profa. Dra. Ruth Keppler",
+      "requestedBy": "Edrielly Carvalho",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Scarabaeidae"
+        ],
+        "subfamilies": [],
+        "genera": [
+          "Canthidium",
+          "Scybalocanthon"
+        ],
+        "species": [],
+        "discrimination": "249 Canthidium spp. e 57 Scybalocanthon spp.; 306 exemplares no total. Dez exemplares danificados já estão incluídos na soma."
+      },
+      "reviewStatus": "preliminary",
+      "note": "Guia PDF e Word para a mesma movimentação; 306 indivíduos contabilizados sem duplicar os formatos. Data de devolução é prazo previsto, sem comprovação de quitação.",
+      "sentDate": "2023-05-30",
+      "dueDate": "2023-11-30",
+      "dueSource": "document",
+      "destination": {
+        "institution": "Instituto Nacional de Pesquisas da Amazônia (INPA)",
+        "city": "Manaus, Amazonas",
+        "country": "Brasil",
+        "lat": -3.119,
+        "lng": -60.021,
+        "precision": "city_approx",
+        "role": "linked_institution",
+        "note": "Instituição vinculada a movimentação interna ou trânsito; posição urbana aproximada, não corresponde a rota física comprovada."
+      }
+    },
+    {
+      "id": "guide-033-emp",
+      "number": "033",
+      "type": "EMP",
+      "specimenCount": 13,
+      "components": [
+        {
+          "type": "EMP",
+          "specimenCount": 13
+        }
+      ],
+      "family": "Chrysomelidae (Bruchinae)",
+      "recipient": "Dr. Paulo Henrique Gorgatti Zarbin",
+      "requestedBy": "Zarbin, PHG",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Chrysomelidae"
+        ],
+        "subfamilies": [
+          "Bruchinae"
+        ],
+        "genera": [],
+        "species": [],
+        "discrimination": "13 espécimes declarados no campo de quantidade; discriminação detalhada ausente do documento principal."
+      },
+      "reviewStatus": "preliminary",
+      "note": "Empréstimo de 13 exemplares declarado na guia; não inferir as espécies nem a confirmação de devolução.",
+      "sentDate": "2023-07-07",
+      "dueDate": "2024-07-07",
+      "dueSource": "document",
+      "destination": {
+        "institution": "Universidade Federal do Paraná (UFPR)",
+        "city": "Curitiba, Paraná",
+        "country": "Brasil",
+        "lat": -25.428,
+        "lng": -49.273,
+        "precision": "city_approx",
+        "role": "recipient",
+        "note": "Cidade da instituição documentada na guia, com coordenada urbana aproximada; não comprova entrega nem devolução."
+      }
+    },
+    {
+      "id": "guide-034-emp",
+      "number": "034",
+      "type": "EMP",
+      "specimenCount": 91,
+      "components": [
+        {
+          "type": "EMP",
+          "specimenCount": 91
+        }
+      ],
+      "family": "Scarabaeidae, Melolonthidae e Trogidae",
+      "recipient": "Dr. Fernando Vaz de Mello",
+      "requestedBy": "F. Vaz de Mello",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Scarabaeidae",
+          "Melolonthidae",
+          "Trogidae"
+        ],
+        "subfamilies": [],
+        "genera": [
+          "Ataenius",
+          "Platytomus",
+          "Labarrus",
+          "Ligyrus",
+          "Phileurus",
+          "Omorgus"
+        ],
+        "species": [],
+        "discrimination": "91 espécimes pela lista discriminada: Ataenius 53; Platytomus 22; Labarrus 1; Ligyrus 11; Phileurus 3; Omorgus 1."
+      },
+      "reviewStatus": "preliminary",
+      "note": "A guia 034 possui outro documento com mesmo número e data diferente, mas dados conflitantes; esta movimentação corresponde especificamente ao arquivo Fernando Vaz de Mello. Datas 03/08/2023 e 03/08/2024 ambíguas.",
+      "sentDate": null,
+      "dueDate": null,
+      "dueSource": "ambiguous_document",
+      "destination": {
+        "institution": "Universidade Federal de Mato Grosso (UFMT)",
+        "city": "Cuiabá, Mato Grosso",
+        "country": "Brasil",
+        "lat": -15.601,
+        "lng": -56.097,
+        "precision": "city_approx",
+        "role": "recipient",
+        "note": "Cidade da instituição documentada na guia, com coordenada urbana aproximada; não comprova entrega nem devolução."
+      }
+    },
+    {
+      "id": "guide-035-emp",
+      "number": "035",
+      "type": "EMP",
+      "specimenCount": 19,
+      "components": [
+        {
+          "type": "EMP",
+          "specimenCount": 19
+        }
+      ],
+      "family": "Chrysomelidae (Bruchinae e Cryptocephalinae)",
+      "recipient": "Dr. Paulo Henrique Gorgatti Zarbin",
+      "requestedBy": "Zarbin, PHG / Aline Sampaio",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Chrysomelidae"
+        ],
+        "subfamilies": [
+          "Bruchinae",
+          "Cryptocephalinae"
+        ],
+        "genera": [],
+        "species": [],
+        "discrimination": "19 espécimes secos documentados. Material adicional: 52 amostras de Bruchinae e 15 amostras de Cryptocephalinae, conservadas em tubos Eppendorf."
+      },
+      "reviewStatus": "preliminary",
+      "note": "Contagem parcial: 19 espécimes secos, além de 67 amostras em tubos; o número de indivíduos nas amostras não foi comprovado. Outra guia 035 pertence a outra pessoa e apresenta conflito entre ordem e família.",
+      "sentDate": "2023-08-08",
+      "dueDate": null,
+      "dueSource": "ambiguous_document",
+      "destination": {
+        "institution": "Universidade Federal do Paraná (UFPR)",
+        "city": "Curitiba, Paraná",
+        "country": "Brasil",
+        "lat": -25.428,
+        "lng": -49.273,
+        "precision": "city_approx",
+        "role": "recipient",
+        "note": "Cidade da instituição documentada na guia, com coordenada urbana aproximada; não comprova entrega nem devolução."
+      }
+    },
+    {
+      "id": "guide-037-emp",
+      "number": "037",
+      "type": "EMP",
+      "specimenCount": 10,
+      "components": [
+        {
+          "type": "EMP",
+          "specimenCount": 10
+        }
+      ],
+      "family": "Chrysomelidae (Galerucinae: Alticini)",
+      "recipient": "Dra. Adelita M. Linzmeir",
+      "requestedBy": "J. A. Rafael",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Chrysomelidae"
+        ],
+        "subfamilies": [
+          "Galerucinae"
+        ],
+        "genera": [],
+        "species": [],
+        "discrimination": "10 espécimes secos individualizados, além de 42 microtubos de Alticini com número de indivíduos não discriminado."
+      },
+      "reviewStatus": "preliminary",
+      "note": "Contagem parcial: 10 indivíduos secos; 42 microtubos não foram convertidos em espécimes. O prazo previsto não prova devolução.",
+      "sentDate": "2023-08-08",
+      "dueDate": "2024-08-08",
+      "dueSource": "document",
+      "destination": {
+        "institution": "Universidade Federal da Fronteira Sul (UFFS)",
+        "city": "Realeza, Paraná",
+        "country": "Brasil",
+        "lat": -25.768,
+        "lng": -53.533,
+        "precision": "city_approx",
+        "role": "recipient",
+        "note": "Cidade da instituição documentada na guia, com coordenada urbana aproximada; não comprova entrega nem devolução."
+      }
+    },
+    {
+      "id": "guide-043-emp",
+      "number": "043",
+      "type": "EMP",
+      "specimenCount": 11,
+      "components": [
+        {
+          "type": "EMP",
+          "specimenCount": 11
+        }
+      ],
+      "family": "Scarabaeidae",
+      "recipient": "Prof. Dr. Mario Cupello",
+      "requestedBy": "Mario Cupello",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Scarabaeidae"
+        ],
+        "subfamilies": [],
+        "genera": [],
+        "species": [],
+        "discrimination": "11 exemplares de Scarabaeidae registrados na guia 043/2023; a discriminação específica não foi recuperada."
+      },
+      "reviewStatus": "preliminary",
+      "note": "Cópia PDF e Word do mesmo movimento, sem duplicação. Datas 01/09/2023 e 01/09/2024 não normalizadas por ambiguidade de dia e mês.",
+      "sentDate": null,
+      "dueDate": null,
+      "dueSource": "ambiguous_document",
+      "destination": {
+        "institution": "Texas A&M University",
+        "city": "College Station, Texas",
+        "country": "Estados Unidos",
+        "lat": 30.628,
+        "lng": -96.334,
+        "precision": "city_approx",
+        "role": "recipient",
+        "note": "Cidade da instituição documentada na guia, com coordenada urbana aproximada; não comprova entrega nem devolução."
+      }
+    },
+    {
+      "id": "guide-058-emp",
+      "number": "058",
+      "type": "EMP",
+      "specimenCount": 608,
+      "components": [
+        {
+          "type": "EMP",
+          "specimenCount": 608
+        }
+      ],
+      "family": "Carabidae",
+      "recipient": "Profa. Dra. Letícia Maria Vieira",
+      "requestedBy": "Letícia Maria Vieira",
+      "taxa": {
+        "order": "Coleoptera",
+        "families": [
+          "Carabidae"
+        ],
+        "subfamilies": [],
+        "genera": [],
+        "species": [],
+        "discrimination": "Campo de quantidade registra 484 + 124: 484 indivíduos alfinetados e 124 em tubos Eppendorf, somando 608 unidades declaradas como espécimes."
+      },
+      "reviewStatus": "preliminary",
+      "note": "A guia registra 484 + 124 no campo Número de Espécimes, mas a segunda parcela está acondicionada em Eppendorfs; confirmar o conteúdo individual dos tubos antes de usar como total biológico definitivo. Datas 08/12/2023 e 08/12/2024 ambíguas.",
+      "sentDate": null,
+      "dueDate": null,
+      "dueSource": "ambiguous_document",
+      "destination": {
+        "institution": "Universidade Federal de Lavras (UFLA)",
+        "city": "Lavras, Minas Gerais",
+        "country": "Brasil",
+        "lat": -21.245,
+        "lng": -44.999,
+        "precision": "city_approx",
+        "role": "recipient",
+        "note": "Cidade da instituição documentada na guia, com coordenada urbana aproximada; não comprova entrega nem devolução."
+      }
+    }
+  ]
+}
