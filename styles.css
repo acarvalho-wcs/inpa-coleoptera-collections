@@ -167,3 +167,6 @@ main{max-width:none;width:100%;margin:0;padding:0 clamp(16px,2.5vw,52px)}
 .map-stage:fullscreen .map-overlay-controls{top:14px;left:60px;right:16px}
 .map-stage:fullscreen .map-filter-panel{max-height:min(65vh,360px);overflow:auto}
 @media(max-width:650px){.map-stage .map-overlay-controls{top:20px;left:18px;right:18px}.map-stage:fullscreen .map-overlay-controls{top:15px;left:12px;right:12px}.map-filter-panel{padding:10px!important}.map-exit-fullscreen span{display:none}}
+
+/* Public dashboard: internal data-ingestion and Drive connection controls are not displayed. */
+.top-actions[hidden],.canonical-panel[hidden],.workspace-head .actions[hidden]{display:none!important}
