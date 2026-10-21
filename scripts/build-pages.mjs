@@ -1,6 +1,6 @@
 import { cp, mkdir, readdir, writeFile, readFile } from 'node:fs/promises';
 import {renderPublicPreview} from './render-public-preview.mjs';
-import {projectPreliminary2025} from '../js/preliminary-2025.js';
+import {buildPublicCatalog} from '../js/public-catalog.js';
 import { resolve, join } from 'node:path';
 
 // GitHub Pages is a static site. Never copy the repository wholesale: it may
@@ -28,15 +28,14 @@ await mkdir(join(destination, 'assets'), { recursive: true });
 for(const file of ['inpa.png','invertebrados.png','wcs-brasil.png','dynastes-hercules-macho.png']) await cp(join(source,'assets',file),join(destination,'assets',file));
 await cp(join(source,'data','public-preview.json'),join(destination,'data','public-preview.json'));
 await cp(join(source,'data','triage-2026-audit.json'),join(destination,'data','triage-2026-audit.json'));
-let preliminaryAvailable=false;
-try {
-  const path=join(source,'data','preliminary-2025.json');
-  const parsed=JSON.parse(await readFile(path,'utf8'));
-  if(projectPreliminary2025(parsed).length!==12)throw Error('Preliminary 2025 inventory inconsistent');
-  await cp(path,join(destination,'data','preliminary-2025.json'));
-  preliminaryAvailable=true;
-} catch(error){if(error?.code!=='ENOENT')throw error;}
-const snapshot=JSON.parse(await readFile(join(source,'data','public-preview.json'),'utf8'));
+const legacy2026=JSON.parse(await readFile(join(source,'data','public-preview.json'),'utf8'));
+const legacy2025=JSON.parse(await readFile(join(source,'data','preliminary-2025.json'),'utf8'));
+const years=[];
+const annualFiles=(await readdir(join(source,'data'))).filter(name=>/^year-(?:19|20)\d{2}\.json$/.test(name)).sort();
+for(const filename of annualFiles)years.push(JSON.parse(await readFile(join(source,'data',filename),'utf8')));
+const publicCatalog=buildPublicCatalog({legacy2026,legacy2025,years});
+await writeFile(join(destination,'data','public-catalog.json'),JSON.stringify(publicCatalog,null,2)+'\n','utf8');
+const snapshot=legacy2026;
 const sourceHtml=await readFile(join(source,'index.html'),'utf8');
 await writeFile(join(destination,'index.html'),renderPublicPreview(sourceHtml,snapshot,process.env.GITHUB_SHA||'local'),'utf8');
 const scripts = (await readdir(join(source, 'js'))).filter(name => /^[a-z0-9-]+\.js$/i.test(name));
@@ -52,5 +51,6 @@ const cfg = {
   mapTiles: true
 };
 await writeFile(join(destination, 'config.js'), `window.INPA_CONFIG = ${JSON.stringify(cfg, null, 2)};\n`, { mode: 0o644 });
-const output = ['index.html', 'styles.css', '.nojekyll', 'config.js', ...scripts.map(x => `js/${x}`), 'data/public-preview.json', 'data/triage-2026-audit.json', ...(preliminaryAvailable?['data/preliminary-2025.json']:[]), 'assets/inpa.png','assets/invertebrados.png','assets/wcs-brasil.png','assets/dynastes-hercules-macho.png'];
+const output = ['index.html', 'styles.css', '.nojekyll', 'config.js', ...scripts.map(x => `js/${x}`), 'data/public-preview.json', 'data/triage-2026-audit.json', 'data/public-catalog.json', 'assets/inpa.png','assets/invertebrados.png','assets/wcs-brasil.png','assets/dynastes-hercules-macho.png'];
+console.log(`Multi-year catalogue: ${publicCatalog.records.length} records, ${publicCatalog.summary.length} years, ${annualFiles.length} additional annual files.`);
 console.log(`Pages build: ${output.length} allowlisted files only. Google OAuth: ${clientId ? 'configured' : 'pending'}. No PDF, DOCX, CSV or tokens copied.`);
