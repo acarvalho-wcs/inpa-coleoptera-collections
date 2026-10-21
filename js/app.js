@@ -384,7 +384,7 @@ async function loadPublicPreview(){
     $('yearSelect').innerHTML='<option value="all">Todos os anos</option><option value="2026">2026 · prévia</option>'+(rows.some(r=>r.year==='2025')?'<option value="2025">2025 · triagem preliminar</option>':'');
     state.currentYear='all';$('yearSelect').value='all';setBusy(false);render();
     $('connectBtn').disabled=false;$('connectBtn').textContent='Conectar Google Drive';setConnected(false);
-    message(`TRIAGEM 2026 · ${rows.length} guias de Coleoptera com evidência documental. Datas ambíguas exigem conferência na Guia Original; sem conciliação de devoluções. Nome e Solicitante transcritos das guias; informações complementares exigem acesso ao Drive.`);
+    message(`PRÉVIA DOCUMENTAL · ${rows.filter(r=>r.year==='2026').length} registros de 2026 e ${rows.filter(r=>r.preliminary).length} registros preliminares de 2025. 2025 não tem dados pessoais, prazos validados ou georreferências. Para consultar os originais, é necessário acesso autorizado ao Drive.`);
   }catch(e){message(`Prévia indisponível: ${e.message}`,'error');}
 }
 $('connectBtn').addEventListener('click',()=>{
