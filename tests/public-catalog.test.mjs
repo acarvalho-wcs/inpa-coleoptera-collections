@@ -66,7 +66,9 @@ test('build generates catalogue and never copies private annual source documents
   const compiled=JSON.parse(await readFile(join(path,'data','public-catalog.json'),'utf8'));
   const annual=JSON.parse(await readFile(join(root,'data','year-2024.json'),'utf8'));
   const prior=JSON.parse(await readFile(join(root,'data','year-2023.json'),'utf8'));
-  assert.equal(compiled.records.length,26+annual.records.length+prior.records.length);
+  const older=JSON.parse(await readFile(join(root,'data','year-2022.json'),'utf8'));
+  assert.equal(compiled.records.length,26+annual.records.length+prior.records.length+older.records.length);
+  assert.equal(compiled.records.filter(r=>r.year==='2022').length,older.records.length);
   assert.equal(compiled.records.filter(r=>r.year==='2023').length,prior.records.length);
   assert.equal(compiled.records.filter(r=>r.year==='2024').length,annual.records.length);
   assert.equal(compiled.records.filter(r=>r.year==='2025').length,12);
@@ -74,12 +76,15 @@ test('build generates catalogue and never copies private annual source documents
   assert.equal(forGuide('2024','048a','EMP').sources[0].format,'Word');
   assert.deepEqual(forGuide('2025','027','EMP').sources.map(s=>s.format),['PDF','Word']);
   assert.notEqual(forGuide('2025','062','EMP').sources[0].url,forGuide('2025','062','DEV').sources[0].url);
-  assert.equal(compiled.records.filter(r=>['2023','2024','2025'].includes(r.year)&&r.sources.length>0).length,29);
+  assert.equal(compiled.records.filter(r=>['2022','2023','2024','2025'].includes(r.year)&&r.sources.length>0).length,35);
+  assert.equal(forGuide('2022','032','MIX').components.reduce((n,x)=>n+x.specimenCount,0),14);
+  assert.equal(forGuide('2022','014','EMP').sources[0].format,'Word');
   assert.deepEqual(forGuide('2023','030','EMP').sources.map(x=>x.format),['PDF','Word']);
   assert.equal(compiled.records.filter(r=>r.year==='2026').length,14);
   assert.equal(compiled.records.filter(r=>r.year==='2026').length,14);
-  assert.deepEqual(compiled.summary.map(y=>y.year),['2023','2024','2025','2026']);
+  assert.deepEqual(compiled.summary.map(y=>y.year),['2022','2023','2024','2025','2026']);
   const html=await readFile(join(path,'index.html'),'utf8');
+  assert.match(html,/2022\/032/);
   assert.match(html,/2023\/030/);
   assert.match(html,/2024\/048a/);
   assert.match(html,/2025\/038/);
