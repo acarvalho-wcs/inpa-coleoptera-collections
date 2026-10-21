@@ -3,24 +3,18 @@ export const TYPE_ORDER=['EMP','DEV','DOA','TRAN','PER','MIX','OUTRO'];
 const stripExt=s=>String(s||'').replace(/\.(pdf|docx?|odt)$/i,'');
 export const normalize=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('pt-BR').replace(/[^a-z0-9]+/g,' ').trim();
 export function parseFilename(name,folderYear=''){
-  const base=stripExt(name); const m=base.match(/(?:invoice|guia)?\s*inpa\s*(\d{1,4})\s*(?:de|[-_/])\s*(20\d{2})\s*[_-]\s*(.+?)(?:\s*[-_]\s*(EMP|DEV|DEVO|DOA|DOAÇÃO|DOACAO|TRAN|PER))?\s*$/i);
+  const base=stripExt(name);
+  // Historical guides also use suffixes on the numeric identifier: 006a, 007b.
+  const m=base.match(/(?:invoice|guia)?\s*inpa\s*(\d{1,4}[a-z]?)\s*(?:de|[-_/])\s*(20\d{2})\s*[_-]\s*(.+)$/i);
   const year=m?.[2]||String(folderYear||'');
-  const number=m?String(Number(m[1])).padStart(3,'0'):null;
-  let researcher=m?.[3]?.trim()||'';
-  let type=(m?.[4]||'').toUpperCase();
-  if(!type){const match=base.match(/(?:^|[-_\s])(EMP|DEV|DEVO|DOA|DOAÇÃO|DOACAO|TRAN|PER)(?:$|[-_\s])/i);type=match?.[1]?.toUpperCase()||'OUTRO';}
-  if(!researcher&&base.includes('_'))researcher=base.split('_').slice(1).join('_').replace(/[-_](EMP|DEV|DEVO|DOA|DOAÇÃO|DOACAO|TRAN|PER)$/i,'').trim();
-  // Multi-code filenames (e.g. DOA-DEV) describe mixed movements: do not
-  // silently classify them as the last code (DEV). The guide content must be
-  // reviewed to split the quantities into the relevant movement components.
+  const number=m?m[1].replace(/^(\d+)/,v=>String(Number(v)).padStart(3,'0')).toLowerCase():null;
   const terminalCodes=base.match(/(?:[-_\s]+(?:EMP|DEV|DEVO|DOA|DOAÇÃO|DOACAO|TRAN|PER))+$/i)?.[0]||'';
   const distinctTypes=[...new Set((terminalCodes.match(/EMP|DEV|DEVO|DOA|DOAÇÃO|DOACAO|TRAN|PER/gi)||[])
     .map(v=>v.toUpperCase()).map(v=>v==='DEVO'?'DEV':/^(DOAÇÃO|DOACAO)$/.test(v)?'DOA':v))];
-  if(distinctTypes.length>1){
-    type='MIX';
-    researcher=researcher.replace(/(?:[-_\s]+(?:EMP|DEV|DEVO|DOA|DOAÇÃO|DOACAO|TRAN|PER))+$/i,'').trim();
-  }
-  return {year,number,researcher,type:type==='DEVO'?'DEV':/^(DOAÇÃO|DOACAO)$/.test(type)?'DOA':type,rawType:type, title:name};
+  let researcher=(m?.[3]||'').replace(/(?:[-_\s]+(?:EMP|DEV|DEVO|DOA|DOAÇÃO|DOACAO|TRAN|PER))+$/i,'').trim();
+  if(!researcher && !m && base.includes('_'))researcher=base.split('_').slice(1).join('_').trim();
+  const type=distinctTypes.length>1?'MIX':distinctTypes[0]||'OUTRO';
+  return {year,number,researcher,type,rawType:terminalCodes||type,title:name};
 }
 export const isPreferred = f=>f.mimeType==='application/pdf'||/\.pdf$/i.test(f.name||'');
 export function docToRecord(file,folderYear){
@@ -36,11 +30,31 @@ export function consolidate(files,folderYear){
   const found=new Map();
   for(const file of files){
     if(file.mimeType!=='application/pdf'&&file.mimeType!=='application/vnd.openxmlformats-officedocument.wordprocessingml.document'&&!/\.(pdf|docx)$/i.test(file.name||''))continue;
-    const row=docToRecord(file,folderYear);const key=groupingKey(row);
+    const row=docToRecord(file,folderYear),key=groupingKey(row);
     if(!found.has(key)){found.set(key,row);continue;}
-    const prev=found.get(key);const all=[...prev.sources,file];
-    const chosen=isPreferred(file)&&!isPreferred(prev)?docToRecord(file,folderYear):prev;
+    const prev=found.get(key),all=[...prev.sources,file];
+    const chosen=isPreferred(file)&&!isPreferred(prev)?row:prev;
     found.set(key,{...chosen,sources:all});
+  }
+  // A copy without a movement suffix (e.g. 2025/026.pdf) is only
+  // reconciled with its PDF/Word counterpart if the base filename,
+  // researcher and guide match exactly and the movement is unambiguous.
+  const normalizedBase=row=>normalize(stripExt(row.name).replace(/(?:[-_\s]+(?:EMP|DEV|DEVO|DOA|DOAÇÃO|DOACAO|TRAN|PER))+$/i,''));
+  for(const [key,row] of [...found]){
+    if(row.type!=='OUTRO'||!row.number||!row.researcher||row.sources.length!==1)continue;
+    const alternatives=[...found.entries()].filter(([k,candidate])=>k!==key
+      &&candidate.year===row.year&&candidate.number===row.number
+      &&candidate.type!=='OUTRO'&&candidate.type!=='MIX'
+      &&normalize(candidate.researcher)===normalize(row.researcher)
+      &&normalizedBase(candidate)===normalizedBase(row)
+      &&candidate.sources.length===1
+      &&isPreferred(candidate)!==isPreferred(row));
+    if(alternatives.length!==1)continue;
+    const [typedKey,typed]=alternatives[0];
+    const chosen=isPreferred(row)?row:typed;
+    found.set(typedKey,{...chosen,year:typed.year,number:typed.number,researcher:typed.researcher,
+      type:typed.type,rawType:typed.rawType,sources:[...typed.sources,...row.sources]});
+    found.delete(key);
   }
   return [...found.values()].sort((a,b)=>(b.year||'').localeCompare(a.year||'')||(b.number||'').localeCompare(a.number||'')||a.name.localeCompare(b.name,'pt-BR'));
 }
