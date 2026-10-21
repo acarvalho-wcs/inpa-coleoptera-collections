@@ -54,6 +54,17 @@ export function detectTaxonomy(text) {
       }
     }
   }
+  // Familias e grupos infra-familiares inequívocos podem atestar Coleoptera
+  // quando a ordem está em uma caixa de texto não recuperada. A evidência é
+  // taxonômica (não homologação documental, que continua pendente).
+  const beetleTaxa=/\b(?:Staphylinidae|Curculionidae|Chrysomelidae|Cerambycidae|Lymexylidae|Elateridae|Scarabaeidae|Carabidae|Buprestidae|Lampyridae|Lycidae|Scirtidae|Scirtiidae|Passalidae|Tenebrionidae|Coccinellidae|Paederinae|Lamiinae|Lamprosomatinae|Lamprossomatinae|Cassidinae|Hispini|Onciderini|Paederus|Eumolpus|Bacuris|Aderobium|Biocrypta|Homaeotarsus|Ochthephilum|Scopaeodes|Synecitonides)\b/gi;
+  if(!matches.length && taxonomy){
+    const evidence=[...taxonomy.matchAll(beetleTaxa)].slice(0,4);
+    if(evidence.length){
+      const names=unique(evidence.map(m=>m[0]));
+      matches.push({order:'Coleoptera',context:'Táxon diagnóstico no campo taxonômico: '+names.join(', ')});
+    }
+  }
   const orders=unique(matches.map(x=>x.order));
   let classification='pending';
   if(orders.length===1)classification=orders[0]==='Coleoptera'?'coleoptera':'other';
