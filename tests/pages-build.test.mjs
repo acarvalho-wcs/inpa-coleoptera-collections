@@ -43,9 +43,12 @@ test('publishes only app allowlist and public OAuth client ID', async () => {
     assert.deepEqual(top, ['.nojekyll', 'assets', 'config.js', 'data', 'index.html', 'js', 'styles.css']);
     assert.deepEqual((await readdir(join(out, 'js'))).sort(), ['app.js', 'canonical.js', 'countries.js', 'document-extract.js', 'drive.js', 'guide-fields.js', 'loan-status.js', 'preliminary-2025.js', 'private-index.js', 'public-catalog.js', 'records.js', 'taxon-format.js']);
     assert.deepEqual((await readdir(join(out, 'data'))).sort(),['public-catalog.json', 'public-preview.json', 'triage-2026-audit.json']);
-    assert.deepEqual((await readdir(join(out,'assets'))).sort(),['dynastes-hercules-macho.png','inpa.png','invertebrados.png','wcs-brasil.png']);
+    assert.deepEqual((await readdir(join(out,'assets'))).sort(),['coleoptera-nacional.png','dynastes-hercules-macho.png','inpa.png','invertebrados.png','wcs-brasil.png']);
     const html=await readFile(join(out,'index.html'),'utf8');
     assert.match(html,/Curadoria e Gestão/);
+    assert.match(html, /assets\/coleoptera-nacional\.png/);
+    const coleopteraLogo = await readFile(join(out,'assets','coleoptera-nacional.png'));
+    assert.equal(coleopteraLogo.subarray(1,4).toString('ascii'),'PNG');
     assert.match(html,/Apoio/);
     const cfg = await readFile(join(out, 'config.js'), 'utf8');
     assert.match(cfg, /123456789-sample\.apps\.googleusercontent\.com/);
