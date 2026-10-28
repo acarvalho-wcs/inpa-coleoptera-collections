@@ -52,8 +52,9 @@ main{max-width:none;width:100%;margin:0;padding:0 clamp(16px,2.5vw,52px)}
 .masthead-partner span{font-size:10px;color:#4f7468;font-weight:800;white-space:nowrap}
 .masthead-partner.wcs-partner img{height:59px;max-width:55px}
 .masthead-partner.collection-partner img{height:61px;max-width:105px}
-@media(max-width:1000px){.masthead{flex-wrap:wrap}.masthead-partners{flex-wrap:wrap;justify-content:flex-start;margin-left:0}.masthead-partner img{height:45px}.masthead-partner.collection-partner img{height:49px}.masthead-partner.wcs-partner img{height:48px}}
-@media(max-width:580px){.brand-icon{width:40px;height:40px}.brand strong{font-size:13px}.masthead-partners{width:100%;gap:15px}.masthead-partner{gap:5px}.masthead-partner span{font-size:9px}.masthead-partner img{height:38px;max-width:76px}.masthead-partner.collection-partner img{height:42px;max-width:74px}.masthead-partner.wcs-partner img{height:40px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.intro h1{font-size:clamp(25px,5vw,36px)}}
+.masthead-partner.coleoptera-partner img{height:60px;max-width:94px}
+@media(max-width:1000px){.masthead{flex-wrap:wrap}.masthead-partners{flex-wrap:wrap;justify-content:flex-start;margin-left:0}.masthead-partner img{height:45px}.masthead-partner.collection-partner img{height:49px}.masthead-partner.wcs-partner img{height:48px}.masthead-partner.coleoptera-partner img{height:49px}}
+@media(max-width:580px){.brand-icon{width:40px;height:40px}.brand strong{font-size:13px}.masthead-partners{width:100%;gap:15px}.masthead-partner{gap:5px}.masthead-partner span{font-size:9px}.masthead-partner img{height:38px;max-width:76px}.masthead-partner.collection-partner img{height:42px;max-width:74px}.masthead-partner.wcs-partner img{height:40px}.masthead-partner.coleoptera-partner img{height:42px;max-width:68px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.intro h1{font-size:clamp(25px,5vw,36px)}}
 
 /* Guia original: links diretos, botões verde-lima e taxonomia pesquisável */
 .guide-actions,.map-record-actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
